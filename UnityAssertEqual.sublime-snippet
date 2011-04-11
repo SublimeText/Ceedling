@@ -1,0 +1,6 @@
+<snippet>
+	<description>TEST_ASSERT_EQUAL</description>
+	<content><![CDATA[TEST_ASSERT_EQUAL(${1:expected}, ${2:actual});]]></content>
+	<tabTrigger>ae</tabTrigger>
+	<scope>source.c, source.c++</scope>
+</snippet>

@@ -1,0 +1,6 @@
+<snippet>
+	<description>TEST_ASSERT_EQUAL_MEMORY</description>
+	<content><![CDATA[TEST_ASSERT_EQUAL_MEMORY(${1:expected}, ${2:actual}, ${3:length});]]></content>
+	<tabTrigger>am</tabTrigger>
+	<scope>source.c, source.c++</scope>
+</snippet>

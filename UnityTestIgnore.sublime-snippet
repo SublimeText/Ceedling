@@ -1,0 +1,11 @@
+<!-- See http://www.sublimetext.com/docs/snippets for more information -->
+<snippet>
+	<description>New Unit Test Method (ignore)</description>
+	<content><![CDATA[void test_${1:function}_should_${2:behavior}(void) //reqs: 
+{
+    TEST_IGNORE_MESSAGE("${3:Implement me!}");
+}
+]]></content>
+	<tabTrigger>testi</tabTrigger>
+	<scope>source.c, source.c++</scope>
+</snippet>

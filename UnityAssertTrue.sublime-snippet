@@ -1,0 +1,6 @@
+<snippet>
+	<description>TEST_ASSERT_TRUE</description>
+	<content><![CDATA[TEST_ASSERT_TRUE(${1:expression});]]></content>
+	<tabTrigger>at</tabTrigger>
+	<scope>source.c, source.c++</scope>
+</snippet>

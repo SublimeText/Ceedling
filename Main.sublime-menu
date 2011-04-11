@@ -1,0 +1,181 @@
+[
+    {
+        "caption": "Ceedling",
+        "mnemonic": "C",
+        "id": "ceedling",
+        "children":
+        [
+            
+            { "caption": "Full Test and Build",
+                "command": "exec",
+                "args": {
+                    "cmd": "rake clean test:all build",
+                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
+            { "caption": "Clean Project",
+                "command": "exec",
+                "args": {
+                    "cmd": "rake clobber",
+                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
+            { "caption": "Test Current Module",
+                "command": "exec",
+                "args": {
+                    "cmd": "rake test:$fileName",
+                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
+            { "caption": "Test Changed Modules",
+                "command": "exec",
+                "args": {
+                    "cmd": "rake test:delta",
+                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
+            { "caption": "Test All Modules",
+                "command": "exec",
+                "args": {
+                    "cmd": "rake test:all",
+                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
+            { "caption": "Clean Tests",
+                "command": "exec",
+                "args": {
+                    "cmd": "rake app_clean",
+                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
+            
+            { "caption": "-" },
+
+            { "caption": "IDE",
+                "children":
+                [
+                    { "caption": "Open", "command": "rake", "args": { "tasks": "ide:open" } },
+                    { "caption": "Make",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake ide:make",
+                            "file_regex": "(\\\\w+\\\\.[chp])", "line_regex": "^...*?:([0-9]*)"} },
+                    { "caption": "Build",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake ide:build",
+                             "file_regex": "(\\\\w+\\\\.[chp])", "line_regex": "^...*?:([0-9]*)"} }
+                ]
+            },
+
+            { "caption": "Bullseye",
+                "children":
+                [
+                    { "caption": "Test Current Module",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake bullseye:$file",
+                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
+                    { "caption": "Test Changed Modules",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake bullseye:delta",
+                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
+                    { "caption": "Test All Modules",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake bullseye:all",
+                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
+                    { "caption": "Open Coverage Browser",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake bullseye:open",
+                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} }
+                ]
+            },
+            
+            { "caption": "Chronos",
+                "children":
+                [
+                    { "caption": "Run Current Suite",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake chronos:$file",
+                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} }
+                ]
+            },
+
+            { "caption": "Navigation",
+                "children":
+                [
+                    { "caption": "Open Test and Source",
+                        "command": "openCeedlingFile",
+                        "args": { "option": "test_and_source" } },
+                    { "caption": "Open Next Module File",
+                        "command": "openCeedlingFile",
+                        "args": { "option": "next" } },
+                    { "caption": "Open Module Header",
+                        "command": "openCeedlingFile",
+                        "args": { "option": "header" } },
+                    { "caption": "Open Module Source",
+                        "command": "openCeedlingFile",
+                        "args": { "option": "source" } },
+                    { "caption": "Open Module Test",
+                        "command": "openCeedlingFile",
+                        "args": { "option": "test" } }
+                ]
+            },
+
+            { "caption": "Configuration",
+                "children":
+                [
+                    { "caption": "Edit Project",
+                        "command": "openCeedlingFile",
+                        "args": { } },
+                    { "caption": "Complete Active Module",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake module:create[$file]",
+                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
+                    { "caption": "Create New Module",
+                        "command": "createCeedlingModule",
+                        "args": {} }
+                ]
+            },
+
+        
+            { "caption": "PCLint",
+                "children":
+                [
+                    { "caption": "Scan (file)",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake lint:solo[$BaseName]",
+                            "file_regex": "^(...*?):", "line_regex": "^...*?  ([0-9]+)  "} },
+                    { "caption": "Scan (project)",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake lint:all",
+                            "file_regex": "^(...*?):", "line_regex": "^...*?  ([0-9]+)  "} },
+                    { "caption": "Diff (project)",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake lint:diff",
+                            "file_regex": "^(...*?):", "line_regex": "^...*?  ([0-9]+)  "} }
+                ]
+            },
+
+            { "caption": "Klocwork",
+                "children":
+                [
+                    { "caption": "Scan (file)",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake klocwork:fscan[$file]",
+                            "file_regex": "^.+ ([A-Z]:.+):", "line_regex": "^.+ [A-Z]:.+:([0-9]+)"} },
+                    { "caption": "List (file)",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake klocwork:flist[$file]",
+                            "file_regex": "^.+ ([A-Z]:.+):", "line_regex": "^.+ [A-Z]:.+:([0-9]+)"} },
+                    { "caption": "Scan (project)",
+                        "command": "exec",
+                        "args": {
+                            "cmd": "rake klocwork:all",
+                            "file_regex": "^.+ ([A-Z]:.+):", "line_regex": "^.+ [A-Z]:.+:([0-9]+)"} },
+                    { "caption": "Klocwork Desktop",
+                        "command": "exec",
+                        "args": { "cmd": "rake klocwork:view" } }
+                ]
+            }
+        ]
+    }    
+]

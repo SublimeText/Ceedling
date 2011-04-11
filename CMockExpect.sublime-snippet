@@ -1,0 +1,6 @@
+<snippet>
+	<description>CMock Expect</description>
+	<content><![CDATA[_Expect(${1:parameters});]]></content>
+	<tabTrigger>.e</tabTrigger>
+	<scope>source.c, source.c++</scope>
+</snippet>

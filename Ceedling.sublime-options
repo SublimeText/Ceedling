@@ -1,0 +1,6 @@
+# Settings in here override the defaults in:
+# Packages/Default/Options/Default File Type.sublime-options
+# See there for the available options and their description.
+
+wordWrap false
+extensions c++ cc cpp cxx h h++ hpp hxx inl ipp rb rake yml

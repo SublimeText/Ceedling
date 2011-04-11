@@ -1,0 +1,14 @@
+<!-- See http://www.sublimetext.com/docs/snippets for more information -->
+<snippet>
+	<description>New Function ala Rhapsody in C</description>
+	<content><![CDATA[${2:void} ${1:name}(${3:args}) {
+    {
+        /*#[ operation $1(${3}) */
+        $4
+        /*#]*/
+    }
+}
+]]></content>
+	<tabTrigger>rfunc</tabTrigger>
+	<scope>source.c, source.c++</scope>
+</snippet>
