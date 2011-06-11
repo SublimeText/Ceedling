@@ -1,7 +1,6 @@
 import sublime
 import sublime_plugin
-import re
-import inspect
+import re, inspect, os
 
 class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
 
@@ -10,6 +9,7 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
             return
 
         self.views = []
+        window = self.window
         current_file_path = self.window.active_view().file_name()
         
         if option == 'config':
@@ -48,15 +48,16 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
             window.focusView(v)
                 
     def open_project_file(self, file_matcher, window, auto_set_view=-1):
-        for m in inspect.getmembers(self):
-            print m
-
-
-        # proj_files = window.project().mountPoints()[0]['files']
-        # for f in proj_files:
-        #     if file_matcher.search(f):
-        #         file_view = window.openFile(f)
-        #         if auto_set_view >= 0: # don't set the view unless specified
-        #             window.setViewPosition(file_view, auto_set_view, 0)
-        #         self.views.append(file_view)
-        #         print("Opened " + f)
+        root = window.folders()[0]
+        print root
+        proj_files = os.listdir(root)
+        print proj_files
+        for f in proj_files:
+            if file_matcher.search(f):
+                file_view = window.openFile(f)
+                if auto_set_view >= 0: # don't set the view unless specified
+                    window.setViewPosition(file_view, auto_set_view, 0)
+                self.views.append(file_view)
+                print("Opened " + f)
+                return
+        print("No matching files!")
