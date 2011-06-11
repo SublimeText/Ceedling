@@ -63,13 +63,15 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
 		for root, dirs, files in os.walk(window.folders()[0]):
 			for f in files:
 				if file_matcher.search(f):
-					if auto_set_view >= 0: # don't set the view unless specified
+					# if auto_set_view >= 0: # don't set the view unless specified
 						# print "=============================="
 						# window.focus_group(auto_set_view)
 						# print "Set focus to: "
 						# print auto_set_view
 						# print "=============================="
 					file_view = window.open_file(os.path.join(root, f))
+					if auto_set_view >= 0: # don't set the view unless specified
+						window.run_command('move_to_group', {'group': auto_set_view})
 					self.views.append(file_view)
 					print("Opened: " + f)
 					return
