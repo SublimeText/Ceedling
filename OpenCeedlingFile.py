@@ -24,17 +24,21 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
 
 			print "Basename: " + base_name
 			
-			source_matcher = re.compile(base_name + "\.c$")
-			header_matcher = re.compile(base_name + "\.h$")
-			test_matcher   = re.compile("test_" + base_name + "\.c$")
+			source_matcher = re.compile("[/\\\\]" + base_name + "\.c$")
+			header_matcher = re.compile("[/\\\\]" + base_name + "\.h$")
+			test_matcher   = re.compile("[/\\\\]test_" + base_name + "\.c$")
 			
 			if option == 'next':
-				if re.match("test_", current_file):
+				print "Current file: " + current_file
+				if re.search("test_", current_file):
+					print "opening source file..."
 					self.open_project_file(source_matcher, window)
-				elif re.search(r"\.c", current_file):
+				elif re.search(r"\w+\.c$", current_file):
 					self.open_project_file(header_matcher, window)
-				elif re.search(r"\.h", current_file):
+				elif re.search(r"\w+\.h$", current_file):
 					self.open_project_file(test_matcher, window)
+				else:
+					print "Current file is not valid for Ceedling switch file!"
 			elif option == 'source':
 				self.open_project_file(source_matcher, window)
 			elif option == 'test':
@@ -62,13 +66,8 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
 	def open_project_file(self, file_matcher, window, auto_set_view=-1):
 		for root, dirs, files in os.walk(window.folders()[0]):
 			for f in files:
-				if file_matcher.search(f):
-					# if auto_set_view >= 0: # don't set the view unless specified
-						# print "=============================="
-						# window.focus_group(auto_set_view)
-						# print "Set focus to: "
-						# print auto_set_view
-						# print "=============================="
+				if file_matcher.search(os.path.join(root, f)):
+
 					file_view = window.open_file(os.path.join(root, f))
 					if auto_set_view >= 0: # don't set the view unless specified
 						window.run_command('move_to_group', {'group': auto_set_view})
