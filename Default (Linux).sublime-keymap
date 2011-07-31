@@ -8,7 +8,6 @@
     { "keys": ["ctrl+shift+b","o"],             "command": "exec", "args": {"cmd": ["rake", "bullseye:open"], "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
     
     { "keys": ["ctrl+shift+f7"],                "command": "exec", "args": {"cmd": ["rake", "app_clean", "build"], "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
-    { "keys": ["f8"],                           "command": "exec", "args": {"cmd": ["rake", "chronos:$file_name"], "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
     
     { "keys": ["ctrl+alt+period"],              "command": "open_ceedling_file", "args": {"option": "test_and_source"} },
     { "keys": ["ctrl+period"],                  "command": "open_ceedling_file", "args": {"option": "next"} },
@@ -24,15 +23,5 @@
     { "keys": ["f5"],                           "command": "exec", "args": {"cmd": ["rake", "ide:make"], "file_regex": "(\\\\w+\\\\.[chp])", "line_regex": "^...*?:([0-9]*)"} },
     { "keys": ["ctrl+f5"],                      "command": "exec", "args": {"cmd": ["rake", "ide:build"], "file_regex": "(\\\\w+\\\\.[chp])", "line_regex": "^...*?:([0-9]*)"} },
 
-    { "keys": ["ctrl+alt+x"],                   "command": "exec", "args": {"cmd": ["rake", "app_clean"], "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
-    { "keys": ["ctrl+alt+shift+x"],             "command": "exec", "args": {"cmd": ["rake", "clobber"], "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
-
-    { "keys": ["alt+l"],                        "command": "exec", "args": {"cmd": ["rake", "lint:solo[$file_base]"], "file_regex": "^(\\\\w+\\\\.c)", "line_regex": "^\\\\w+\\\\.c  ([0-9]+)"} },
-    { "keys": ["ctrl+alt+l"],                   "command": "exec", "args": {"cmd": ["rake", "lint:all"], "file_regex": "^(\\\\w+\\\\.c)", "line_regex": "^\\\\w+\\\\.c  ([0-9]+)"} },
-    { "keys": ["ctrl+shift+l"],                 "command": "exec", "args": {"cmd": ["rake", "lint:diff"], "file_regex": "^(\\\\w+\\\\.c)", "line_regex": "^\\\\w+\\\\.c  ([0-9]+)"} },
-    
-    { "keys": ["ctrl+alt+k","enter"],           "command": "exec", "args": {"cmd": ["rake", "klocwork:fscan[$file]"], "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
-    { "keys": ["ctrl+alt+k","forward_slash"],   "command": "exec", "args": {"cmd": ["rake", "klocwork:flist[$file]"], "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
-    { "keys": ["ctrl+alt+k","a"],               "command": "exec", "args": {"cmd": ["rake", "klocwork:all"], "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
-    { "keys": ["ctrl+alt+k","i"],               "command": "exec", "args": {"cmd": ["rake", "klocwork:view"], "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} }
+    { "keys": ["ctrl+alt+x"],                   "command": "exec", "args": {"cmd": ["rake", "app_clean"], "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} }
 ]

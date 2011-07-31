@@ -19,7 +19,7 @@
             { "caption": "Test Current Module",
                 "command": "exec",
                 "args": {
-                    "cmd": "rake test:$fileName",
+                    "cmd": "rake test:$file_name",
                     "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
             { "caption": "Test Changed Modules",
                 "command": "exec",
@@ -81,17 +81,6 @@
                             "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} }
                 ]
             },
-            
-            { "caption": "Chronos",
-                "children":
-                [
-                    { "caption": "Run Current Suite",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake chronos:$file",
-                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} }
-                ]
-            },
 
             { "caption": "Navigation",
                 "children":
@@ -128,52 +117,6 @@
                     { "caption": "Create New Module",
                         "command": "createCeedlingModule",
                         "args": {} }
-                ]
-            },
-
-        
-            { "caption": "PCLint",
-                "children":
-                [
-                    { "caption": "Scan (file)",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake lint:solo[$BaseName]",
-                            "file_regex": "^(...*?):", "line_regex": "^...*?  ([0-9]+)  "} },
-                    { "caption": "Scan (project)",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake lint:all",
-                            "file_regex": "^(...*?):", "line_regex": "^...*?  ([0-9]+)  "} },
-                    { "caption": "Diff (project)",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake lint:diff",
-                            "file_regex": "^(...*?):", "line_regex": "^...*?  ([0-9]+)  "} }
-                ]
-            },
-
-            { "caption": "Klocwork",
-                "children":
-                [
-                    { "caption": "Scan (file)",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake klocwork:fscan[$file]",
-                            "file_regex": "^.+ ([A-Z]:.+):", "line_regex": "^.+ [A-Z]:.+:([0-9]+)"} },
-                    { "caption": "List (file)",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake klocwork:flist[$file]",
-                            "file_regex": "^.+ ([A-Z]:.+):", "line_regex": "^.+ [A-Z]:.+:([0-9]+)"} },
-                    { "caption": "Scan (project)",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake klocwork:all",
-                            "file_regex": "^.+ ([A-Z]:.+):", "line_regex": "^.+ [A-Z]:.+:([0-9]+)"} },
-                    { "caption": "Klocwork Desktop",
-                        "command": "exec",
-                        "args": { "cmd": "rake klocwork:view" } }
                 ]
             }
         ]
