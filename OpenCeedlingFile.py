@@ -53,29 +53,19 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
                         })
 				self.open_project_file(test_matcher, window, 0)
 				self.open_project_file(source_matcher, window, 1)
-			
-		# for v in self.views:
-			# window.focusView(v)
-		
-		# for m in inspect.getmembers(window):
-		# 	print m
-		# print "-------------------------------------"
-		# print window.active_view().file_name()
-		# print window.active_group()
 				
 	def open_project_file(self, file_matcher, window, auto_set_view=-1):
 		for root, dirs, files in os.walk(window.folders()[0]):
 			for f in files:
-				if file_matcher.search(os.path.join(root, f)):
-
-					file_view = window.open_file(os.path.join(root, f))
+				current_file = os.path.join(root, f)
+				if file_matcher.search(current_file) and not re.search(r"build/", current_file) and not re.search(r"build\\", current_file):
+					file_view = window.open_file(current_file)
 					if auto_set_view >= 0: # don't set the view unless specified
 						window.run_command('move_to_group', {'group': auto_set_view})
 					self.views.append(file_view)
 					print("Opened: " + f)
 					return
-				# else:
-				# 	print("No match: " + f)
-			# for d in dirs:
-				# print("Dir: " + d)
 		print("No matching files!")
+	
+	def is_enabled(self):
+		return self.window.active_view() != None

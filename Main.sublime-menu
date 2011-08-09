@@ -5,80 +5,32 @@
         "id": "ceedling",
         "children":
         [
-            
-            { "caption": "Full Test and Build",
-                "command": "exec",
-                "args": {
-                    "cmd": "rake clean test:all build",
-                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
             { "caption": "Clean Project",
-                "command": "exec",
-                "args": {
-                    "cmd": "rake clobber",
-                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
+                "command": "rake", "args": { "tasks": ["clobber"] } },
             { "caption": "Test Current Module",
-                "command": "exec",
-                "args": {
-                    "cmd": "rake test:$file_name",
-                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
+                "command": "rake", "args": { "tasks": ["test:$file_name"] } },
             { "caption": "Test Changed Modules",
-                "command": "exec",
-                "args": {
-                    "cmd": "rake test:delta",
-                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
+                "command": "rake", "args": { "tasks": ["test:delta"] } },
             { "caption": "Test All Modules",
-                "command": "exec",
-                "args": {
-                    "cmd": "rake test:all",
-                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
-            { "caption": "Clean Tests",
-                "command": "exec",
-                "args": {
-                    "cmd": "rake app_clean",
-                    "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
+                "command": "rake", "args": { "tasks": ["test:all"] } },
             
             { "caption": "-" },
 
             { "caption": "IDE",
                 "children":
                 [
-                    { "caption": "Open", "command": "rake", "args": { "tasks": "ide:open" } },
+                    { "caption": "Open",
+                    	"command": "rake", "args": { "tasks": "ide:open" } },
                     { "caption": "Make",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake ide:make",
-                            "file_regex": "(\\\\w+\\\\.[chp])", "line_regex": "^...*?:([0-9]*)"} },
+                    	"command": "rake",
+                        "args": { "tasks": ["ide:make"],
+                        "file_regex": "(\\\\w+\\\\.[chp])",
+                        "line_regex": "^...*?:([0-9]*)" } },
                     { "caption": "Build",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake ide:build",
-                             "file_regex": "(\\\\w+\\\\.[chp])", "line_regex": "^...*?:([0-9]*)"} }
-                ]
-            },
-
-            { "caption": "Bullseye",
-                "children":
-                [
-                    { "caption": "Test Current Module",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake bullseye:$file",
-                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
-                    { "caption": "Test Changed Modules",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake bullseye:delta",
-                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
-                    { "caption": "Test All Modules",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake bullseye:all",
-                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} },
-                    { "caption": "Open Coverage Browser",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake bullseye:open",
-                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*)"} }
+                        "command": "rake",
+                        "args": { "tasks": ["ide:build"],
+                        "file_regex": "(\\\\w+\\\\.[chp])",
+                        "line_regex": "^...*?:([0-9]*)" } }
                 ]
             },
 
@@ -86,19 +38,19 @@
                 "children":
                 [
                     { "caption": "Open Test and Source",
-                        "command": "openCeedlingFile",
+                        "command": "open_ceedling_file",
                         "args": { "option": "test_and_source" } },
                     { "caption": "Open Next Module File",
-                        "command": "openCeedlingFile",
+                        "command": "open_ceedling_file",
                         "args": { "option": "next" } },
                     { "caption": "Open Module Header",
-                        "command": "openCeedlingFile",
+                        "command": "open_ceedling_file",
                         "args": { "option": "header" } },
                     { "caption": "Open Module Source",
-                        "command": "openCeedlingFile",
+                        "command": "open_ceedling_file",
                         "args": { "option": "source" } },
                     { "caption": "Open Module Test",
-                        "command": "openCeedlingFile",
+                        "command": "open_ceedling_file",
                         "args": { "option": "test" } }
                 ]
             },
@@ -107,16 +59,13 @@
                 "children":
                 [
                     { "caption": "Edit Project",
-                        "command": "openCeedlingFile",
-                        "args": { } },
+                        "command": "open_ceedling_file",
+                        "args": "config" },
                     { "caption": "Complete Active Module",
-                        "command": "exec",
-                        "args": {
-                            "cmd": "rake module:create[$file]",
-                            "file_regex": "^(...*?):", "line_regex": "^...*?:([0-9]*):"} },
-                    { "caption": "Create New Module",
-                        "command": "createCeedlingModule",
-                        "args": {} }
+                        "command": "rake",
+                        "args": { "tasks": ["module:create[$file]"] } },
+                    { "caption": "Create New Module", 
+                    	"command": "create_ceedling_module" }
                 ]
             }
         ]
