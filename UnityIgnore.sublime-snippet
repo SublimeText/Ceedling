@@ -1,6 +1,0 @@
-<snippet>
-	<description>TEST_IGNORE</description>
-	<content><![CDATA[TEST_IGNORE();]]></content>
-	<tabTrigger>ig</tabTrigger>
-	<scope>source.c, source.c++</scope>
-</snippet>

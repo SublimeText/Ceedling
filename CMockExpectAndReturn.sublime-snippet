@@ -1,6 +1,0 @@
-<snippet>
-	<description>CMock ExpectAndReturn</description>
-	<content><![CDATA[_ExpectAndReturn(${1:parameters});]]></content>
-	<tabTrigger>.er</tabTrigger>
-	<scope>source.c, source.c++</scope>
-</snippet>
