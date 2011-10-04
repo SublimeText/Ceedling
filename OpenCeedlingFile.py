@@ -58,7 +58,7 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
 		for root, dirs, files in os.walk(window.folders()[0]):
 			for f in files:
 				current_file = os.path.join(root, f)
-				if file_matcher.search(current_file) and not re.search(r"build/", current_file) and not re.search(r"build\\", current_file):
+				if file_matcher.search(current_file) and not re.search(r"[Bb]uild[/\\]", current_file):
 					file_view = window.open_file(current_file)
 					if auto_set_view >= 0: # don't set the view unless specified
 						window.run_command('move_to_group', {'group': auto_set_view})

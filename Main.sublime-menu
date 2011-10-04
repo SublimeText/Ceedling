@@ -13,6 +13,8 @@
                 "command": "rake", "args": { "tasks": ["test:delta"] } },
             { "caption": "Test All Modules",
                 "command": "rake", "args": { "tasks": ["test:all"] } },
+            // { "caption": "Monitor Project",
+            //     "command": "rake", "args": { "tasks": ["ceed"] } },
             
             { "caption": "-" },
 
@@ -60,7 +62,7 @@
                 [
                     { "caption": "Edit Project",
                         "command": "open_ceedling_file",
-                        "args": "config" },
+                        "args": { "option": "config" } },
                     { "caption": "Complete Active Module",
                         "command": "rake",
                         "args": { "tasks": ["module:create[$file]"] } },
