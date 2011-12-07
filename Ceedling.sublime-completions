@@ -21,8 +21,8 @@
         { "trigger": "amm",     "contents": "TEST_ASSERT_EQUAL_MEMORY_MESSAGE(${1:expected}, ${2:actual}, ${3:length}, ${4:message});" },
         { "trigger": "ig",      "contents": "TEST_IGNORE();" },
         { "trigger": "igm",     "contents": "TEST_IGNORE_MESSAGE(\"${1:message}\");" },
-        { "trigger": "test",    "contents": "void test_${1:function}_should_${2:behavior}(void) //reqs: \n{\n\t${1}(${3});\n}\n" },
-        { "trigger": "testf",   "contents": "void test_${1:function}_should_${2:behavior}(void) //reqs: \n{\n\tTEST_FAIL_MESSAGE(\"${3:Implement me!}\");\n}\n" },
-        { "trigger": "testi",   "contents": "void test_${1:function}_should_${2:behavior}(void) //reqs: \n{\n\tTEST_IGNORE_MESSAGE(\"${3:Implement me!}\");\n}\n" }
+        { "trigger": "test",    "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\t${1}(${3});\n}\n" },
+        { "trigger": "testf",   "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_FAIL_MESSAGE(\"${3:Implement me!}\");\n}\n" },
+        { "trigger": "testi",   "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_IGNORE_MESSAGE(\"${3:Implement me!}\");\n}\n" }
     ]
 }
