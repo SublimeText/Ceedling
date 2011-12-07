@@ -13,6 +13,10 @@
                 "command": "rake", "args": { "tasks": ["test:delta"] } },
             { "caption": "Test All Modules",
                 "command": "rake", "args": { "tasks": ["test:all"] } },
+            { "caption": "Build Release",
+                "command": "rake", "args": { "tasks": ["release"] } },
+            { "caption": "Default Build",
+                "command": "rake", "args": { "tasks": ["default"] } },
             // { "caption": "Monitor Project",
             //     "command": "rake", "args": { "tasks": ["ceed"] } },
             
