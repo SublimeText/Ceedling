@@ -1,5 +1,7 @@
 {
 	"target": "rake",
-	"tasks": ["test:$file_name"],
+	"tasks": ["release"],
+	"file_regex": "^\"(.*?)\", line\\s+([0-9]+)",
+	"working_dir": "${project_path:${folder:${file_path}}}",
 	"selector": "source.c"
 }
