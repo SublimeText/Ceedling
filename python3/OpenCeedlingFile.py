@@ -22,23 +22,23 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
 			base_name = re.search(r"(\w+)\.(\w+)$", current_file).group(1)
 			base_name = re.sub('^test_', '', base_name)
 
-			print "Basename: " + base_name
+			print("Basename: " + base_name)
 			
 			source_matcher = re.compile("[/\\\\]" + base_name + "\.c$")
 			header_matcher = re.compile("[/\\\\]" + base_name + "\.h$")
 			test_matcher   = re.compile("[/\\\\]test_" + base_name + "\.c$")
 			
 			if option == 'next':
-				print "Current file: " + current_file
+				print("Current file: " + current_file)
 				if re.search("test_", current_file):
-					print "opening source file..."
+					print("opening source file...")
 					self.open_project_file(source_matcher, window)
 				elif re.search(r"\w+\.c$", current_file):
 					self.open_project_file(header_matcher, window)
 				elif re.search(r"\w+\.h$", current_file):
 					self.open_project_file(test_matcher, window)
 				else:
-					print "Current file is not valid for Ceedling switch file!"
+					print("Current file is not valid for Ceedling switch file!")
 			elif option == 'source':
 				self.open_project_file(source_matcher, window)
 			elif option == 'test':
