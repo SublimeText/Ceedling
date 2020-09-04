@@ -11,11 +11,12 @@ If you already have the Ruby scripting language installed with RubyGems support,
 Package Installation
 ====================
 Bring up a command line in the Packages/ folder of your Sublime user folder, and execute the following:
-> mkdir Ceedling
-> cd Ceedling
-> git init
-> git pull git://github.com/SublimeText/Ceedling.git
-
+```sh
+mkdir Ceedling
+cd Ceedling
+git init
+git pull git://github.com/SublimeText/Ceedling.git
+```
 When you launch Sublime Text 2, it will pick up the contents of this package so that you can consume the goodness that it provides.
 
 Features
