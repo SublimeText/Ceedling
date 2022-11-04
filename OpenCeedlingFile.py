@@ -82,4 +82,4 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
         print("No matching files!")
 
     def is_enabled(self):
-        return self.window.active_view() != None
+        return self.window.active_view() is not None
