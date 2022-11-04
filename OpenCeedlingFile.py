@@ -27,9 +27,9 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
 
             print("Basename: " + base_name)
 
-            source_matcher = re.compile("[/\\\\]" + base_name + "\.c$")
-            header_matcher = re.compile("[/\\\\]" + base_name + "\.h$")
-            test_matcher = re.compile("[/\\\\]test_" + base_name + "\.c$")
+            source_matcher = re.compile(r"[/\\\\]" + base_name + r"\.c$")
+            header_matcher = re.compile(r"[/\\\\]" + base_name + r"\.h$")
+            test_matcher = re.compile(r"[/\\\\]test_" + base_name + r"\.c$")
 
             if option == 'next':
                 print("Current file: " + current_file)
