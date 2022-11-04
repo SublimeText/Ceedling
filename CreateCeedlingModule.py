@@ -1,8 +1,6 @@
+import functools
 import sublime
 import sublime_plugin
-import functools
-import subprocess
-import re
 
 class CreateCeedlingModuleCommand(sublime_plugin.WindowCommand):
 
