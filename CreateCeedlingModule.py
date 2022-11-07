@@ -18,6 +18,6 @@ class CreateCeedlingModuleCommand(sublime_plugin.WindowCommand):
 
     def onDone(self, view, text):
         window = view.window()
-        sublime.status_message("Creating module: " + text)
-        window.run_command("rake", {"tasks": ["module:create[" + text + "]"]})
-        sublime.status_message("Created module: " + text)
+        window.status_message("Creating module: %s" % text)
+        window.run_command("ceedling", {"tasks": ["module:create[%s]" % text]})
+        window.status_message("Created module: %s" % text)
