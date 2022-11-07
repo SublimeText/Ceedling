@@ -1,12 +1,13 @@
-from __future__ import print_function
 import os
 import re
 
+import sublime
 import sublime_plugin
 
 
 class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
     def run(self, option):
+
         if not self.window.active_view():
             return
 
