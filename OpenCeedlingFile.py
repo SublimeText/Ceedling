@@ -184,9 +184,9 @@ class OpenCeedlingFileCommand(WindowCommand):
 
     def path_build(self, option, base):
         # todo: Check this assumption holds when env is set
-        print(self.settings.source, base)
         ppath = os.path.dirname(self.settings.project_yml)
         ext = "c"
+
         if option == "test":
             gpath = self.settings.test
             base = "".join((self.settings.test_file_prefix, base))
@@ -198,6 +198,7 @@ class OpenCeedlingFileCommand(WindowCommand):
 
         res = []
 
+        # use os.path.realpath to clean relative paths
         for glob_pat in gpath:
             p = os.path.realpath(
                 os.path.join(ppath, glob_pat, ".".join((base, ext)))
@@ -206,7 +207,7 @@ class OpenCeedlingFileCommand(WindowCommand):
 
         if len(res) == 0:
             raise IOError("No matching file")
-        print(res)
+
         return res[0]
 
     def open_file(self, file_path, auto_set_view=-1):
