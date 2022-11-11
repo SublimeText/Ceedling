@@ -7,7 +7,7 @@ import threading
 import time
 import codecs
 import signal
-import re
+
 
 import sublime
 import sublime_plugin
@@ -201,12 +201,11 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         tasks = " ".join(task for task in tasks)
 
-        for ph, subs in zip(
+        for placeholder, subs in zip(
             ["$file_name", "$file"], [current_file_name, current_file]
         ):
-            tasks = tasks.replace(ph, subs)
+            tasks = tasks.replace(placeholder, subs)
 
-        print(tasks)
         # Build up the command line
         if sys.platform == "win32":
             cmd = ["ceedling.bat"]
@@ -218,6 +217,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         # Call create_output_panel a second time after assigning the above
         # settings, so that it'll be picked up as a result buffer
+
         self.window.create_output_panel("exec")
 
         self.encoding = encoding
@@ -255,8 +255,10 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
                 self.text_queue_proc = self.proc
 
         except Exception as e:
+
             self.append_string(None, str(e) + "\n")
             self.append_string(None, self.debug_text + "\n")
+
             if not self.quiet:
                 self.append_string(None, "[Finished]")
 
