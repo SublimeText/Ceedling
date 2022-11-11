@@ -2,7 +2,8 @@ import os
 import re
 import glob
 
-from . import yaml
+import sublime
+import sublime_plugin
 
 from . import CeedlingSettings
 
@@ -16,20 +17,22 @@ class OpenCeedlingFileCommand(WindowCommand):
         if not self.window.active_view():
             return
 
+        self.conf = CeedlingSettings.CeedlingProjectSettings(self.window)
+
+        if option == 'config':
+            return self.open_file(self.conf.project_yml)
+
+        # Handle files within the project structure
         current_file_path = self.window.active_view().file_name()
 
         if current_file_path is None:
             return
 
-        self.settings = CeedlingProjectSettings(self.window)
-
-        if option == 'config':
-            return self.open_file(self.settings.project_yml)
-
         filename = re.search(
             r"(?:.+\/|\\)"
-            + fr"(?P<prefix>{self.settings.test_file_prefix})?"
-            + fr"(?P<base>.+?)\.(?P<ext>c|h)$",
+            + fr"(?P<prefix>{self.conf.test_file_prefix})?"
+            + r"(?P<base>.+?)\."
+            + fr"(?P<ext>{self.conf.source_ext}|{self.conf.header_ext})$",
             current_file_path,
         )
 
@@ -50,7 +53,7 @@ class OpenCeedlingFileCommand(WindowCommand):
                 else:
                     option = "test"
 
-            elif option == 'test_and_source':
+            if option == 'test_and_source':
                 window.run_command(
                     'set_layout',
                     {
@@ -62,25 +65,25 @@ class OpenCeedlingFileCommand(WindowCommand):
 
                 self.open_file(self.path_build("test", base_name), 0)
                 self.open_file(self.path_build("source", base_name), 1)
+            else:
+                self.open_file(self.path_build(option, base_name))
 
-            self.open_file(self.path_build(option, base_name))
-
-        except IOError:
-            self.window.status_message("Ceedling: no matching file found")
+        except IOError as e:
+            self.window.status_message(f"Ceedling: {e}")
             return
 
-    def path_build(self, option, base):
+    def path_build(self, option: str, base: str) -> str:
         # todo: Check this assumption holds when env is set
-        ppath = os.path.dirname(self.settings.project_yml)
+        ppath = os.path.dirname(self.conf.project_yml)
         ext = "c"
 
         if option == "test":
-            gpath = self.settings.test
-            base = "".join((self.settings.test_file_prefix, base))
+            gpath = self.conf.test
+            base = "".join((self.conf.test_file_prefix, base))
         elif option == "source":
-            gpath = self.settings.source
+            gpath = self.conf.source
         else:
-            gpath = self.settings.source
+            gpath = self.conf.source
             ext = "h"
 
         res = []
