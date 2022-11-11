@@ -8,7 +8,7 @@ import sublime_plugin
 from . import CeedlingSettings
 
 
-class OpenCeedlingFileCommand(WindowCommand):
+class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
     def run(self, option):
 
         self.views = []
