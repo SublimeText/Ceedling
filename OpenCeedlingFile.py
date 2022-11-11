@@ -98,11 +98,14 @@ class OpenCeedlingFileCommand(WindowCommand):
 
         if len(res) == 0:
             raise IOError("No matching file")
+
         elif len(res) > 1:
             self.window.status_message(
-                "Ceedling: More than one matching file. Check the console to see all matches"
+                "Ceedling: More than one matching file."
             )
+
             print("Duplicate matches found:")
+
             for m in res:
                 print(m)
 
