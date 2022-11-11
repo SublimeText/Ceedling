@@ -74,8 +74,9 @@ class OpenCeedlingFileCommand(WindowCommand):
 
     def path_build(self, option: str, base: str) -> str:
         # todo: Check this assumption holds when env is set
+
         ppath = os.path.dirname(self.conf.project_yml)
-        ext = "c"
+        ext = self.conf.source_ext
 
         if option == "test":
             gpath = self.conf.test
@@ -84,7 +85,7 @@ class OpenCeedlingFileCommand(WindowCommand):
             gpath = self.conf.source
         else:
             gpath = self.conf.source
-            ext = "h"
+            ext = self.conf.header_ext
 
         res = []
 
