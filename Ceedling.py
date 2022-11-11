@@ -191,29 +191,30 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         self.output_view.settings().set("scroll_past_end", False)
 
         # Ceedling Specific
+
         current_file = self.window.active_view().file_name()
-        current_file_name = os.path.basename(current_file)
-        current_dir = project_dir
 
-        flattened_tasks = ""
-
-        for task in tasks:
-            task = task.replace("$file_name", current_file_name)
-            task = task.replace("$file", current_file)
-            flattened_tasks += task + " "
-
-        flattened_tasks = re.sub(r" $", "", flattened_tasks)
-
-        # Build up the command line
-        cmd = []
-        cmd += prefix
-
-        if sys.platform == "win32":
-            cmd += ["ceedling.bat"]
+        if current_file is None:
+            current_file = current_file_name = ""
         else:
-            cmd += ["ceedling"]
+            current_file_name = os.path.basename(current_file)
 
-        cmd += [flattened_tasks] + options
+        tasks = " ".join(task for task in tasks)
+
+        for ph, subs in zip(
+            ["$file_name", "$file"], [current_file_name, current_file]
+        ):
+            tasks = tasks.replace(ph, subs)
+
+        print(tasks)
+        # Build up the command line
+        if sys.platform == "win32":
+            cmd = ["ceedling.bat"]
+        else:
+            cmd = ["ceedling"]
+
+        cmd += prefix
+        cmd += [tasks] + options
 
         # Call create_output_panel a second time after assigning the above
         # settings, so that it'll be picked up as a result buffer
@@ -234,8 +235,8 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         # Change to the working dir, rather than spawning the process with it,
         # so that emitted working dir relative path names make sense
-        if current_dir != "":
-            os.chdir(current_dir)
+        if project_dir != "":
+            os.chdir(project_dir)
 
         self.debug_text = ""
         self.debug_text += "[cmd: " + str(cmd) + "]\n"
