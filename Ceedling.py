@@ -174,16 +174,9 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         # Ceedling must run from same directory as project file.
 
         if os.getenv('CEEDLING_MAIN_PROJECT_FILE') is None:
-            file_list = [
-                (folder, file)
-                for folder in self.window.folders()
-                for file in ["project.yml", "test.yml"]
-            ]
 
-            for folder, file in file_list:
-                project_file = os.path.join(folder, file)
-                if os.path.isfile(project_file):
-                    project_dir = folder
+            for project_dir in self.window.folders():
+                if os.path.isfile(os.path.join(project_dir, "project.yml")):
                     break
             else:
                 raise ValueError(
