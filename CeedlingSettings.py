@@ -48,8 +48,8 @@ class CeedlingProjectSettings:
     def _cache_set(self, data: dict):
         self.settings.update(data)
 
-    def _cache_get(self, key: str):
-        return self.settings.get(key)
+    def _cache_get(self, key: str, default=None):
+        return self.settings.setdefault(key, default)
 
     def update_cache(self, window):
         # To use a project file name other than the default project.yml
@@ -57,8 +57,8 @@ class CeedlingProjectSettings:
         # in which you'll run [ceedling], create an environment variable
         # CEEDLING_MAIN_PROJECT_FILE with your desired project file path.
 
-        if self._cache_get("project_file") is not None:
-            project_file = self._cache_get("project_file")
+        if os.path.exists(self._cache_get("project_yml", default="")):
+            project_file = self.project_yml
 
         elif os.getenv('CEEDLING_MAIN_PROJECT_FILE') is not None:
             project_file = os.getenv('CEEDLING_MAIN_PROJECT_FILE')
