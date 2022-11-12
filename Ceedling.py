@@ -12,6 +12,8 @@ import signal
 import sublime
 import sublime_plugin
 
+from . import CeedlingSettings
+
 
 class ProcessListener(object):
     def on_data(self, proc, data):
@@ -170,18 +172,14 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
             # Try not to call get_output_panel until the regexes are assigned
             self.output_view = self.window.create_output_panel("exec")
 
-        # Search up project structure to locate Ceedling project.yml
-        # Ceedling must run from same directory as project file.
+        try:
+            self.conf = CeedlingSettings.CeedlingProjectSettings(self.window)
 
-        if os.getenv('CEEDLING_MAIN_PROJECT_FILE') is None:
+        except OSError as e:
+            self.window.status_message("Ceedling: %s" % e)
+            return
 
-            for project_dir in self.window.folders():
-                if os.path.isfile(os.path.join(project_dir, "project.yml")):
-                    break
-            else:
-                raise ValueError(
-                    "project.yml not found in project root folder."
-                )
+        project_dir = self.conf.project_dir
 
         self.output_view.settings().set("result_file_regex", file_regex)
         self.output_view.settings().set("result_line_regex", line_regex)
