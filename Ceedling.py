@@ -156,6 +156,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         # Catches "path" and "shell"
         **kwargs
     ):
+
         # clear the text_queue
         with self.text_queue_lock:
             self.text_queue.clear()
@@ -169,7 +170,6 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
             return
 
         if not hasattr(self, 'output_view'):
-            # Try not to call get_output_panel until the regexes are assigned
             self.output_view = self.window.create_output_panel("exec")
 
         try:
@@ -187,8 +187,6 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         self.output_view.settings().set("line_numbers", False)
         self.output_view.settings().set("gutter", False)
         self.output_view.settings().set("scroll_past_end", False)
-
-        # Ceedling Specific
 
         current_file = self.window.active_view().file_name()
 
