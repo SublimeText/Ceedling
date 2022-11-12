@@ -1,0 +1,121 @@
+[
+    {
+        "keys": [
+            "f1"
+        ],
+        "command": "open_ceedling_file",
+        "args": {
+            "option": "config"
+        }
+    },
+    {
+        "keys": [
+            "f7"
+        ],
+        "command": "ceedling",
+        "args": {
+            "tasks": [
+                "test:$file_name"
+            ]
+        }
+    },
+    {
+        "keys": [
+            "ctrl+f7"
+        ],
+        "command": "ceedling",
+        "args": {
+            "tasks": [
+                "test:delta"
+            ]
+        }
+    },
+    {
+        "keys": [
+            "ctrl+alt+f7"
+        ],
+        "command": "ceedling",
+        "args": {
+            "tasks": [
+                "test:all"
+            ]
+        }
+    },
+    {
+        "keys": [
+            "ctrl+alt+period"
+        ],
+        "command": "open_ceedling_file",
+        "args": {
+            "option": "test_and_source"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+period"
+        ],
+        "command": "open_ceedling_file",
+        "args": {
+            "option": "next"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+alt+h"
+        ],
+        "command": "open_ceedling_file",
+        "args": {
+            "option": "header"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+alt+s"
+        ],
+        "command": "open_ceedling_file",
+        "args": {
+            "option": "source"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+alt+t"
+        ],
+        "command": "open_ceedling_file",
+        "args": {
+            "option": "test"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+alt+m"
+        ],
+        "command": "create_ceedling_module",
+    },
+    {
+        "keys": [
+            "ctrl+alt+x"
+        ],
+        "command": "ceedling",
+        "args": {
+            "tasks": [
+                "clean"
+            ],
+            "file_regex": "^(...*?):",
+            "line_regex": "^...*?:([0-9]*)"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+alt+shift+x"
+        ],
+        "command": "ceedling",
+        "args": {
+            "tasks": [
+                "clobber"
+            ],
+            "file_regex": "^(...*?):",
+            "line_regex": "^...*?:([0-9]*)"
+        }
+    }
+]
