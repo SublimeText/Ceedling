@@ -71,13 +71,18 @@ class CeedlingProjectSettings:
             else:
                 raise IOError("Configuration file 'project.yml' not found.")
 
+        # Update if cache is out of date or doesn't exist
         last_mod = os.stat(project_file).st_mtime
         cached_mod = self._cache_get("last_modified")
 
         if (cached_mod is None) or (last_mod > cached_mod):
             self._cache_set(self.project_file_parse(project_file))
             self._cache_set(
-                {"last_modified": last_mod, "project_file": project_file}
+                {
+                    "last_modified": last_mod,
+                    "project_file": project_file,
+                    "project_dir": os.path.dirname(project_file),
+                }
             )
             print("Project cache updated")
 
