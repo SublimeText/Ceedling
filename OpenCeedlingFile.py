@@ -17,7 +17,12 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
         if not self.window.active_view():
             return
 
-        self.conf = CeedlingSettings.CeedlingProjectSettings(self.window)
+        try:
+            self.conf = CeedlingSettings.CeedlingProjectSettings(self.window)
+
+        except OSError as e:
+            self.window.status_message("Ceedling: %s" % e)
+            return
 
         if option == 'config':
             return self.open_file(self.conf.project_yml)
