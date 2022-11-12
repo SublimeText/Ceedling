@@ -1,6 +1,7 @@
 import os
 import re
 import glob
+from functools import lru_cache
 
 import sublime
 import sublime_plugin
@@ -77,6 +78,7 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
             self.window.status_message(f"Ceedling: {e}")
             return
 
+    @lru_cache
     def path_build(self, option: str, base: str) -> str:
         # todo: Check this assumption holds when env is set
 
