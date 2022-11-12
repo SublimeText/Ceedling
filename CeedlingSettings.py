@@ -14,6 +14,10 @@ class CeedlingProjectSettings:
         return self._cache_get("project_file")
 
     @property
+    def project_dir(self):
+        return self._cache_get("project_dir")
+
+    @property
     def build_root(self):
         return self._cache_get("build_root")
 
