@@ -31,7 +31,11 @@ class CeedlingProjectSettings:
 
     @property
     def test_excl(self) -> list:
-        return self._cache_get("test_excl")
+        return self._cache_get("test_excl", [])
+
+    @property
+    def source_excl(self) -> list:
+        return self._cache_get("source_excl", [])
 
     @property
     def source(self) -> list:
@@ -49,7 +53,8 @@ class CeedlingProjectSettings:
         self.settings.update(data)
 
     def _cache_get(self, key: str, default=None):
-        return self.settings.setdefault(key, default)
+        c = self.settings.get(key, default)
+        return c if c is not None else default
 
     def update_cache(self, window):
         # To use a project file name other than the default project.yml
