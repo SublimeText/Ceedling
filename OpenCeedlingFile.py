@@ -82,19 +82,23 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
     def path_build(self, option: str, base: str) -> str:
         # todo: Check this assumption holds when env is set
 
-        ppath = os.path.dirname(self.conf.project_yml)
+        ppath = self.conf.project_dir
         ext = self.conf.source_ext
 
         if option == "test":
             gpath = self.conf.test
+            xpath = self.conf.test_excl
+
             base = "".join((self.conf.test_file_prefix, base))
         elif option == "source":
             gpath = self.conf.source
+            xpath = self.conf.source_excl
         else:
             gpath = self.conf.source
+            xpath = self.conf.test_excl
             ext = self.conf.header_ext
 
-        res = []
+        res, exc = [], []
 
         # use os.path.realpath to clean relative paths
         for glob_pat in gpath:
@@ -102,6 +106,16 @@ class OpenCeedlingFileCommand(sublime_plugin.WindowCommand):
                 os.path.join(ppath, glob_pat, ".".join((base, ext)))
             )
             res.extend(glob.glob(p, recursive=True))
+
+        # find matching files in excluded directories
+        for glob_pat in xpath:
+            p = os.path.realpath(
+                os.path.join(ppath, glob_pat, ".".join((base, ext)))
+            )
+            exc.extend(glob.glob(p, recursive=True))
+
+        # remove files from excluded directories from results
+        res = list(set(res) - set(exc))
 
         if len(res) == 0:
             raise IOError("No matching file")
