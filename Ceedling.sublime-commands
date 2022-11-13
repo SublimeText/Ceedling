@@ -106,14 +106,42 @@
     },
     {
         "caption": "Ceedling: Create New Module",
-        "command": "create_ceedling_module"
+        "command": "create_ceedling_module",
+        "args": {
+            "module": "create"
+        }
     },
     {
-        "caption": "Ceedling: Complete Active Module",
+        "caption": "Ceedling: Create Stub",
+        "command": "create_ceedling_module",
+        "args": {
+            "module": "stub"
+        }
+    },
+    {
+        "caption": "Ceedling: Test Summary",
         "command": "ceedling",
         "args": {
             "tasks": [
-                "module:create[$file]"
+                "summary"
+            ]
+        }
+    },
+    {
+        "caption": "Ceedling: Version",
+        "command": "ceedling",
+        "args": {
+            "tasks": [
+                "version"
+            ]
+        }
+    },
+    {
+        "caption": "Ceedling: Environment",
+        "command": "ceedling",
+        "args": {
+            "tasks": [
+                "environment"
             ]
         }
     }
