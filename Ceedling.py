@@ -69,8 +69,9 @@ class AsyncProcess(object):
         # Old style build system, just do what it asks
         self.proc = subprocess.Popen(
             cmd,
+            bufsize=0,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
             startupinfo=startupinfo,
             env=proc_env,
             preexec_fn=preexec_fn,
@@ -80,16 +81,12 @@ class AsyncProcess(object):
         if path:
             os.environ["PATH"] = old_path
 
-        if self.proc.stdout:
-            threading.Thread(
-                target=self.read_fileno, args=(self.proc.stdout.fileno(), True)
-            ).start()
+        self.stdout_thread = threading.Thread(
+            target=self.read_fileno, args=(self.proc.stdout, True)
+        )
 
-        if self.proc.stderr:
-            threading.Thread(
-                target=self.read_fileno,
-                args=(self.proc.stderr.fileno(), False),
-            ).start()
+    def start(self):
+        self.stdout_thread.start()
 
     def kill(self):
         if not self.killed:
@@ -114,32 +111,35 @@ class AsyncProcess(object):
     def exit_code(self):
         return self.proc.poll()
 
-    def read_fileno(self, fileno, execute_finished):
-        decoder_cls = codecs.getincrementaldecoder(self.listener.encoding)
-        decoder = decoder_cls('replace')
-        while True:
-            data = decoder.decode(os.read(fileno, 2**16))
+    def read_fileno(self, file, execute_finished):
+        decoder = codecs.getincrementaldecoder(self.listener.encoding)(
+            'replace'
+        )
 
-            if len(data) > 0:
-                if self.listener:
-                    self.listener.on_data(self, data)
+        while True:
+            data = decoder.decode(file.read(2**16))
+            data = data.replace('\r\n', '\n').replace('\r', '\n')
+
+            if len(data) > 0 and not self.killed:
+                self.listener.on_data(self, data)
             else:
-                try:
-                    os.close(fileno)
-                except OSError:
-                    pass
-                if execute_finished and self.listener:
+                if execute_finished:
                     self.listener.on_finished(self)
                 break
 
 
 class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
-    BLOCK_SIZE = 2**14
-    text_queue = collections.deque()
-    text_queue_proc = None
-    text_queue_lock = threading.Lock()
+    OUTPUT_LIMIT = 2**27
 
-    proc = None
+    def __init__(self, window):
+        super().__init__(window)
+
+        self.proc = None
+
+        self.errs_by_file = {}
+        self.annotation_sets_by_buffer = {}
+        self.show_errors_inline = True
+        self.output_view = None
 
     def run(
         self,
@@ -153,23 +153,22 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         env={},
         quiet=False,
         kill=False,
+        kill_previous=False,
+        syntax="Packages/Text/Plain text.tmLanguage",
         # Catches "path" and "shell"
         **kwargs
     ):
 
-        # clear the text_queue
-        with self.text_queue_lock:
-            self.text_queue.clear()
-            self.text_queue_proc = None
-
         if kill:
             if self.proc:
                 self.proc.kill()
-                self.proc = None
-                self.append_string(None, "[Cancelled]")
             return
 
-        if not hasattr(self, 'output_view'):
+        if kill_previous and self.proc and self.proc.poll():
+            self.proc.kill()
+
+        if self.output_view is None:
+            # Try not to call get_output_panel until the regexes are assigned
             self.output_view = self.window.create_output_panel("exec")
 
         try:
@@ -187,6 +186,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         self.output_view.settings().set("line_numbers", False)
         self.output_view.settings().set("gutter", False)
         self.output_view.settings().set("scroll_past_end", False)
+        self.output_view.assign_syntax(syntax)
 
         current_file = self.window.active_view().file_name()
 
@@ -197,9 +197,9 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         tasks = " ".join(task for task in tasks)
 
-        for placeholder, subs in zip(
-            ["$file_name", "$file"], [current_file_name, current_file]
-        ):
+            for placeholder, subs in zip(
+                ["$file_name", "$file"], [current_file_name, current_file]
+            ):
             tasks = tasks.replace(placeholder, subs)
 
         # Build up the command line
@@ -220,7 +220,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         self.quiet = quiet
         self.proc = None
 
-        self.append_string(None, "> " + " ".join(cmd) + "\n")
+        self.write("> " + " ".join(cmd) + "\n")
         self.window.run_command("show_panel", {"panel": "output.exec"})
 
         merged_env = env.copy()
@@ -243,20 +243,19 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         else:
             self.debug_text += "[path: " + str(os.environ["PATH"]) + "]"
 
+        self.output_size = 0
+        self.should_update_annotations = False
         try:
             # Forward kwargs to AsyncProcess
             self.proc = AsyncProcess(cmd, merged_env, self, **kwargs)
 
-            with self.text_queue_lock:
-                self.text_queue_proc = self.proc
+            self.proc.start()
 
         except Exception as e:
-
-            self.append_string(None, str(e) + "\n")
-            self.append_string(None, self.debug_text + "\n")
-
+            self.write(str(e) + "\n")
+            self.write(self.debug_text + "\n")
             if not self.quiet:
-                self.append_string(None, "[Finished]")
+                self.write("[Finished]")
 
     def is_enabled(self, kill=False, **kwargs):
         if kill:
@@ -264,78 +263,56 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         else:
             return True
 
-    def append_string(self, proc, str):
-        was_empty = False
-        with self.text_queue_lock:
-            if proc != self.text_queue_proc and proc:
-                # a second call to exec has been made before the first one
-                # finished, ignore it instead of intermingling the output.
-                proc.kill()
-                return
-
-            if len(self.text_queue) == 0:
-                was_empty = True
-                self.text_queue.append("")
-
-            available = self.BLOCK_SIZE - len(self.text_queue[-1])
-
-            if len(str) < available:
-                cur = self.text_queue.pop()
-                self.text_queue.append(cur + str)
-            else:
-                self.text_queue.append(str)
-
-        if was_empty:
-            sublime.set_timeout(self.service_text_queue, 0)
-
-    def service_text_queue(self):
-        is_empty = False
-        with self.text_queue_lock:
-            if len(self.text_queue) == 0:
-                # this can happen if a new build was started, which will clear
-                # the text_queue
-                return
-
-            characters = self.text_queue.popleft()
-            is_empty = len(self.text_queue) == 0
-
+    def write(self, characters):
         self.output_view.run_command(
             'append',
             {'characters': characters, 'force': True, 'scroll_to_end': True},
         )
 
-        if not is_empty:
-            sublime.set_timeout_async(self.service_text_queue, 1)
-
-    def finish(self, proc):
-        if not self.quiet:
-            elapsed = time.time() - proc.start_time
-            exit_code = proc.exit_code()
-            if exit_code == 0 or exit_code is None:
-                self.append_string(proc, "[Finished in %.1fs]" % elapsed)
-            else:
-                self.append_string(
-                    proc,
-                    "[Finished in %.1fs with exit code %d]\n"
-                    % (elapsed, exit_code),
-                )
-                self.append_string(proc, self.debug_text)
-
+    def on_finished(self, proc):
         if proc != self.proc:
             return
 
-        errs = self.output_view.find_all_results()
-        if len(errs) == 0:
-            sublime.status_message("Build finished")
+        if proc.killed:
+            self.write("\n[Cancelled]")
+        elif not self.quiet:
+            elapsed = time.time() - proc.start_time
+            if elapsed < 1:
+                elapsed_str = "%.0fms" % (elapsed * 1000)
+            else:
+                elapsed_str = "%.1fs" % (elapsed)
+
+            exit_code = proc.exit_code()
+            if exit_code == 0 or exit_code is None:
+                self.write("[Finished in %s]" % elapsed_str)
+            else:
+                self.write(
+                    "[Finished in %s with exit code %d]\n"
+                    % (elapsed_str, exit_code)
+                )
+                self.write(self.debug_text)
+
+        if proc.killed:
+            sublime.status_message("Build cancelled")
         else:
-            sublime.status_message("Build finished with %d errors" % len(errs))
+            errs = self.output_view.find_all_results()
+            if len(errs) == 0:
+                sublime.status_message("Build finished")
+            else:
+                sublime.status_message(
+                    "Build finished with %d errors" % len(errs)
+                )
 
     def on_data(self, proc, data):
-        # Normalize newlines, Sublime Text always uses a single \n separator
-        # in memory.
-        data = data.replace('\r\n', '\n').replace('\r', '\n')
+        if proc != self.proc:
+            return
 
-        self.append_string(proc, data)
+        # Truncate past the limit
+        if self.output_size >= self.OUTPUT_LIMIT:
+            return
 
-    def on_finished(self, proc):
-        sublime.set_timeout(functools.partial(self.finish, proc), 0)
+        self.write(data)
+        self.output_size += len(data)
+
+        if self.output_size >= self.OUTPUT_LIMIT:
+            self.write('\n[Output Truncated]\n')
