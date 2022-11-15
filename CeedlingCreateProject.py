@@ -7,7 +7,7 @@ import subprocess
 from time import sleep
 
 
-class CreateCeedlingProjectCommand(sublime_plugin.WindowCommand):
+class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
     def run(self, options=[]):
 
         window = self.window
@@ -28,10 +28,10 @@ class CreateCeedlingProjectCommand(sublime_plugin.WindowCommand):
 
     def onDone(self, view, path):
         pfolder = os.path.abspath(os.path.expanduser(path))
-        dir = os.path.dirname(pfolder)
+        project_dir, project_name = os.path.split(pfolder)
 
         # Catch mistyped path
-        if not os.path.isdir(dir):
+        if not os.path.isdir(project_dir):
             sublime.error_message("Parent folder does not exist.\n")
             return
 
@@ -41,17 +41,25 @@ class CreateCeedlingProjectCommand(sublime_plugin.WindowCommand):
             return
 
         # Check project directory exists and is writeable
-        if not os.access(dir, os.W_OK):
-            sublime.error_message(f"Project location not writeable: {dir}\n")
+        if not os.access(project_dir, os.W_OK):
+            sublime.error_message(
+                f"Project location not writeable: {project_dir}\n"
+            )
             return
 
         window = view.window()
-        window.status_message(f"Creating project: {pfolder}")
-        cmd = {"tasks": ["new", f"{pfolder}"], "options": self.options}
+        window.status_message(f"Creating project: {project_name}")
+        window.run_command(
+            "ceedling",
+            {
+                "tasks": ["new", f"{project_name}"],
+                "options": self.options,
+                "project_dir": project_dir,
+            },
+        )
 
-        window.run_command("ceedling", cmd)
-        window.status_message(f"Created project: {pfolder}")
-        sublime.set_timeout_async(self.open_new_dir(pfolder), 1000)
+        window.status_message(f"Created project: {project_name}")
+        sublime.set_timeout_async(self.open_new_dir(project_name), 1000)
 
     def get_cli_path(self):
         # Logic taken from:
