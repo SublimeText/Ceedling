@@ -35,17 +35,19 @@ To create a new Ceedling project:
 1. Open a new window in Sublime Text
 1. Open the command palette (Tools > Command Palette) and type `cn`
 1. Select `Minimal` or `Portable`
-1. Enter a path to where project folder location in the panel.\
+1. Enter project folder location in the panel.\
 For example `~/projects/drsurly` will create a project folder `drsurly` within the `projects` folder.\
 `~` expands to the current users home directory.
 1. Hit return/enter.
 
 The project folder should open in the current window a few seconds later.
 
-#### Default settings
-To set a default parent folder for new projects open the Ceedling settings `Preferences >> Package Settings >> Ceedling >> Settings`.
+#### Default folder setting
+The default parent folder for new projects is set to `~/` by default.
+To change this open the Ceedling settings `Preferences >> Package Settings >> Ceedling >> Settings`.
 
-Add the following entry to the file on the right, and update the path, then save.
+Add the following entry to the file on the right, update the path as desired, then save.
+
 ```JSON
 {
     "default_project_folder": "~/path/to/parent/folder/",
@@ -73,16 +75,14 @@ Additional naming schemes are supported using an abbreviated format identifiers:
 
 The first four schemes generate header, source and test files for each of the named variants.
 
-
-
 ## Features
 * Ceedling.sublime-build for executing unit tests for the active module via <F7>
     * You must assign the builder for your project to 'Ceedling'
 * Snippets for Unity unit testing framework macros
 * Snippets for Unity unit test methods
-	* test ⇥ => unit test method template
-	* testi<TAB> => unit test method template with TEST_IGNORE(message)
-	* testf<TAB> => unit test method template with TEST_FAIL(message)
+	* test + [TAB] => unit test method template
+	* testi + [TAB] => unit test method template with TEST_IGNORE(message)
+	* testf + [TAB] => unit test method template with TEST_FAIL(message)
 * Snippets for CMock mocks
-    * FuncBeingMocked.e<TAB> => FuncBeingMocked_Expect(<parameters>)
-    * FuncBeingMocked.er<TAB> => FuncBeingMocked_ExpectAndReturn(<parameters>)
+    * FuncBeingMocked.e + [TAB] => FuncBeingMocked_Expect(<parameters>)
+    * FuncBeingMocked.er + [TAB] => FuncBeingMocked_ExpectAndReturn(<parameters>)
