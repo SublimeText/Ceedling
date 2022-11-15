@@ -1,4 +1,22 @@
-[
+[  {
+        "caption": "Ceedling: New Project [Minimal]",
+        "command": "create_ceedling_project",
+        "args": {
+            "options": [
+                "--gitignore"
+            ]
+        }
+    },
+    {
+        "caption": "Ceedling: New Project [Portable]",
+        "command": "create_ceedling_project",
+        "args": {
+            "options": [
+                "--gitignore",
+                "--local"
+            ]
+        }
+    },
     {
         "caption": "Ceedling: Clean Project",
         "command": "ceedling",
