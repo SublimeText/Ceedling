@@ -148,7 +148,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         prefix=[],
         file_regex="^(...*?):([0-9]*):?([0-9]*)",
         line_regex="",
-        working_dir="",
+        project_dir="",
         encoding="utf-8",
         env={},
         quiet=False,
@@ -156,9 +156,10 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         kill_previous=False,
         syntax="Packages/Text/Plain text.tmLanguage",
         # Catches "path" and "shell"
-        **kwargs
+        **kwargs,
     ):
 
+        print
         if kill:
             if self.proc:
                 self.proc.kill()
@@ -171,14 +172,20 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
             # Try not to call get_output_panel until the regexes are assigned
             self.output_view = self.window.create_output_panel("exec")
 
-        try:
-            self.conf = CeedlingSettings.CeedlingProjectSettings(self.window)
+        # "project_dir" is set by "new project" command.
+        #  project.xml does not exist unit project is created.
+        if not project_dir:
 
-        except OSError as e:
-            self.window.status_message("Ceedling: %s" % e)
-            return
+            try:
+                self.conf = CeedlingSettings.CeedlingProjectSettings(
+                    self.window
+                )
 
-        project_dir = self.conf.project_dir
+            except OSError as e:
+                self.window.status_message("Ceedling: %s" % e)
+                return
+
+            project_dir = self.conf.project_dir
 
         self.output_view.settings().set("result_file_regex", file_regex)
         self.output_view.settings().set("result_line_regex", line_regex)
@@ -192,15 +199,18 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         if current_file is None:
             current_file = current_file_name = ""
+
         else:
             current_file_name = os.path.basename(current_file)
 
-        tasks = " ".join(task for task in tasks)
+        task_sub = []
 
-            for placeholder, subs in zip(
+        for t in tasks:
+            for p, v in zip(
                 ["$file_name", "$file"], [current_file_name, current_file]
             ):
-            tasks = tasks.replace(placeholder, subs)
+                t = t.replace(p, v)
+            task_sub.append(t)
 
         # Build up the command line
         if sys.platform == "win32":
@@ -208,8 +218,8 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         else:
             cmd = ["ceedling"]
 
-        cmd += prefix
-        cmd += [tasks] + options
+        for i in (prefix, task_sub, options):
+            cmd.extend(i)
 
         # Call create_output_panel a second time after assigning the above
         # settings, so that it'll be picked up as a result buffer
@@ -245,6 +255,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         self.output_size = 0
         self.should_update_annotations = False
+        print(cmd)
         try:
             # Forward kwargs to AsyncProcess
             self.proc = AsyncProcess(cmd, merged_env, self, **kwargs)
@@ -275,6 +286,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         if proc.killed:
             self.write("\n[Cancelled]")
+
         elif not self.quiet:
             elapsed = time.time() - proc.start_time
             if elapsed < 1:
