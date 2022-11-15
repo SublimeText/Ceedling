@@ -1,6 +1,6 @@
 [  {
         "caption": "Ceedling: New Project [Minimal]",
-        "command": "create_ceedling_project",
+        "command": "ceedling_create_project",
         "args": {
             "options": [
                 "--gitignore"
@@ -9,7 +9,7 @@
     },
     {
         "caption": "Ceedling: New Project [Portable]",
-        "command": "create_ceedling_project",
+        "command": "ceedling_create_project",
         "args": {
             "options": [
                 "--gitignore",
@@ -82,56 +82,56 @@
     },
     {
         "caption": "Ceedling: Open Test and Source",
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "test_and_source"
         }
     },
     {
         "caption": "Ceedling: Open Next Module File",
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "next"
         }
     },
     {
         "caption": "Ceedling: Open Module Header",
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "header"
         }
     },
     {
         "caption": "Ceedling: Open Module Source",
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "source"
         }
     },
     {
         "caption": "Ceedling: Open Module Test",
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "test"
         }
     },
     {
         "caption": "Ceedling: Edit Project Configuration",
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "config"
         }
     },
     {
         "caption": "Ceedling: Create New Module",
-        "command": "create_ceedling_module",
+        "command": "ceedling_create_module",
         "args": {
             "module": "create"
         }
     },
     {
         "caption": "Ceedling: Create Stub",
-        "command": "create_ceedling_module",
+        "command": "ceedling_create_module",
         "args": {
             "module": "stub"
         }

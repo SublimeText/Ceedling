@@ -3,7 +3,7 @@
         "keys": [
             "f1"
         ],
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "config"
         }
@@ -43,9 +43,21 @@
     },
     {
         "keys": [
+            "shift+ctrl+alt+f7"
+        ],
+        "command": "ceedling",
+        "args": {
+            "tasks": [
+                "clean",
+                "test:$file_name"
+            ]
+        }
+    },
+    {
+        "keys": [
             "ctrl+alt+period"
         ],
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "test_and_source"
         }
@@ -54,7 +66,7 @@
         "keys": [
             "ctrl+period"
         ],
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "next"
         }
@@ -63,7 +75,7 @@
         "keys": [
             "ctrl+alt+h"
         ],
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "header"
         }
@@ -72,7 +84,7 @@
         "keys": [
             "ctrl+alt+s"
         ],
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "source"
         }
@@ -81,7 +93,7 @@
         "keys": [
             "ctrl+alt+t"
         ],
-        "command": "open_ceedling_file",
+        "command": "ceedling_open_file",
         "args": {
             "option": "test"
         }
@@ -90,7 +102,7 @@
         "keys": [
             "ctrl+alt+m"
         ],
-        "command": "create_ceedling_module",
+        "command": "ceedling_create_module",
     },
     {
         "keys": [
