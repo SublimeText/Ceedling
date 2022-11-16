@@ -65,9 +65,13 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         # https://github.com/al63/SublimeFiles/blob/master/sublime_files.py
 
         platform = sublime.platform()
+        version = sublime.version()
 
         if platform == "osx":
-            return '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+            if version == 3:
+                return '/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl'
+            else:
+                return '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
         elif platform == "linux":
             return (
                 open('/proc/' + str(os.getppid()) + '/cmdline')
