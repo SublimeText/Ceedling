@@ -1,12 +1,12 @@
 import os
 import re
-import glob
+
 
 import sublime
 import sublime_plugin
 
 from . import CeedlingSettings
-
+from . import glob2 as glob
 
 class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
     def run(self, option):
