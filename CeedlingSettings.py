@@ -1,7 +1,7 @@
 import os
 import re
 
-from . import yaml
+import yaml
 
 
 class CeedlingProjectSettings:
