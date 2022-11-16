@@ -11,7 +11,7 @@ class CeedlingCreateModuleCommand(sublime_plugin.WindowCommand):
         view = self.window.active_view()
 
         window.show_input_panel(
-            f"Enter new {module} name",
+            "Enter new {} name".format(module),
             "",
             functools.partial(self.onDone, view, module),
             None,
@@ -20,6 +20,6 @@ class CeedlingCreateModuleCommand(sublime_plugin.WindowCommand):
 
     def onDone(self, view, module, text):
         window = view.window()
-        window.status_message(f"Creating {module}: {text}")
-        window.run_command("ceedling", {"tasks": [f"module:{module}[{text}]"]})
-        window.status_message(f"Created {module}: {text}")
+        window.status_message("Creating {}: {}".format(module, text ))
+        window.run_command("ceedling", {"tasks": ["module:{}[{}]".format(module, text)]})
+        window.status_message("Created {}: {}".format(module, text))

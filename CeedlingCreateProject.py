@@ -29,7 +29,6 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
     def onDone(self, view, path):
         pfolder = os.path.abspath(os.path.expanduser(path))
         project_dir, project_name = os.path.split(pfolder)
-
         # Catch mistyped path
         if not os.path.isdir(project_dir):
             sublime.error_message("Parent folder does not exist.\n")
@@ -37,28 +36,28 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
         # User hit enter without entering a path
         if path in (self.default_parent, self.default_parent + "/"):
-            sublime.error_message(f"Project name not supplied: {pfolder}\n")
+            sublime.error_message("Project name not supplied: {}\n".format(pfolder))
             return
 
         # Check project directory exists and is writeable
         if not os.access(project_dir, os.W_OK):
             sublime.error_message(
-                f"Project location not writeable: {project_dir}\n"
+                "Project location not writeable: {}\n".format(project_dir)
             )
             return
 
         window = view.window()
-        window.status_message(f"Creating project: {project_name}")
+        window.status_message("Creating project: {}".format(project_name))
         window.run_command(
             "ceedling",
             {
-                "tasks": ["new", f"{project_name}"],
+                "tasks": ["new", "{}".format(project_name)],
                 "options": self.options,
                 "project_dir": project_dir,
             },
         )
 
-        window.status_message(f"Created project: {project_name}")
+        window.status_message("Created project: {}".format(project_name))
         sublime.set_timeout_async(self.open_new_dir(project_name), 1000)
 
     def get_cli_path(self):

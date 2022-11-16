@@ -156,7 +156,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         kill_previous=False,
         syntax="Packages/Text/Plain text.tmLanguage",
         # Catches "path" and "shell"
-        **kwargs,
+        **kwargs
     ):
 
         print
@@ -182,7 +182,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
                 )
 
             except OSError as e:
-                self.window.status_message("Ceedling: %s" % e)
+                self.window.status_message("Ceedling: {}".format(e))
                 return
 
             project_dir = self.conf.project_dir

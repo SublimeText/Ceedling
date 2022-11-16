@@ -35,9 +35,9 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
 
         filename = re.search(
             r"(?:.+\/|\\)"
-            + fr"(?P<prefix>{self.conf.test_file_prefix})?"
+            + r"(?P<prefix>{})?".format(self.conf.test_file_prefix)
             + r"(?P<base>.+?)\."
-            + fr"(?P<ext>{self.conf.source_ext}|{self.conf.header_ext})$",
+            + r"(?P<ext>{}|{})$".format(self.conf.source_ext, self.conf.header_ext),
             current_file_path,
         )
 
@@ -74,7 +74,7 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
                 self.open_file(self.path_build(option, base_name))
 
         except IOError as e:
-            self.window.status_message(f"Ceedling: {e}")
+            self.window.status_message("Ceedling: {}".format(e))
             return
 
     def path_build(self, option: str, base: str) -> str:
