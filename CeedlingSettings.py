@@ -50,7 +50,8 @@ class CeedlingProjectSettings:
         return self._cache_get("header_ext")
 
     def _cache_set(self, data: dict):
-        self.settings.update(data)
+        for k, v in data.items():
+            self.settings.set(k, v)
 
     def _cache_get(self, key: str, default=None):
         c = self.settings.get(key, default)
