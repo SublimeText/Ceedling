@@ -193,19 +193,30 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         self.output_view.assign_syntax(syntax)
 
         current_file = self.window.active_view().file_name()
+        _, current_ext = os.path.splitext(current_file)
 
         if current_file is None:
             current_file = current_file_name = ""
+
+        elif current_ext in ("", ".yml", ".rb"):
+            return
 
         else:
             current_file_name = os.path.basename(current_file)
 
         task_sub = []
 
+        # todo: check that tasks requiring a file have a file!!
+
         for t in tasks:
             for p, v in zip(
-                ["$file_name", "$file"], [current_file_name, current_file]
+                ["$file_name", "$file"],
+                [current_file_name, current_file]
             ):
+
+                if t.rfind(p) >= 0 and v == "":
+                    return
+
                 t = t.replace(p, v)
             task_sub.append(t)
 
