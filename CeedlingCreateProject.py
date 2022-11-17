@@ -17,7 +17,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         self.options = options
         # print((self.window.settings().to_dict()))
         plugin_settings = sublime.load_settings("Ceedling.sublime-settings")
-        self.default_parent = plugin_settings.get("default_project_folder")
+        self.default_parent = os.path.normpath(plugin_settings.get("default_project_folder"))
         window.show_input_panel(
             "Enter new project path: ",
             self.default_parent,
@@ -27,6 +27,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         )
 
     def onDone(self, view, path):
+        path = os.path.normpath(path)
         pfolder = os.path.abspath(os.path.expanduser(path))
         project_dir, project_name = os.path.split(pfolder)
         # Catch mistyped path
@@ -45,7 +46,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
                 "Project location not writeable: {}\n".format(project_dir)
             )
             return
-
+        
         window = view.window()
         window.status_message("Creating project: {}".format(project_name))
         window.run_command(
@@ -56,7 +57,6 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
                 "project_dir": project_dir,
             },
         )
-
         window.status_message("Created project: {}".format(project_name))
         sublime.set_timeout_async(self.open_new_dir(project_name), 1000)
 
@@ -66,12 +66,13 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
         platform = sublime.platform()
         version = sublime.version()
-
+        
         if platform == "osx":
-            if version == 3:
-                return '/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl'
+            if version > 4000:
+                return r'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
             else:
-                return '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+                return r'/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl'
+        
         elif platform == "linux":
             return (
                 open('/proc/' + str(os.getppid()) + '/cmdline')
@@ -79,16 +80,19 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
                 .split(chr(0))[0]
             )
         else:
-            return os.path.join(sys.path[0], 'sublime_text.exe')
+            if os.path.exists(r"C:\Program Files\Sublime Text"):
+               p = r"C:\Program Files\Sublime Text"
+            else:
+               p = r"C:\Program Files (x86)\Sublime Text" 
+            return os.path.join(p, 'subl.exe')
 
     def open_new_dir(self, folder):
         # give ceedling time to build directory structure
         while not (os.path.exists(folder)):
             sleep(0.005)
-
+        
         # Change cwd to the new directory
-        _, f = os.path.split(folder)
-        os.chdir(f)
+        os.chdir(folder)
 
         # open folder in current window
         subprocess.Popen([self.get_cli_path(), "-a", os.getcwd()])
