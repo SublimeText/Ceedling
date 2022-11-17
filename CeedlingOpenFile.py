@@ -6,7 +6,7 @@ import sublime
 import sublime_plugin
 
 from . import CeedlingSettings
-from . import glob2 as glob
+from . import glob2
 
 class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
     def run(self, option):
@@ -98,40 +98,42 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
             gpath = self.conf.source
             xpath = self.conf.test_excl
             ext = self.conf.header_ext
-        print(gpath, ext)
-        res, exc = [], []
 
-        # use os.path.realpath to clean relative paths
-        for glob_pat in gpath:
-            p = os.path.realpath(
-                os.path.join(ppath, glob_pat, ".".join((base, ext)))
-            )
-            res.extend(glob.glob(p, recursive=True))
 
-        # find matching files in excluded directories
-        for glob_pat in xpath:
-            p = os.path.realpath(
-                os.path.join(ppath, glob_pat, ".".join((base, ext)))
-            )
-            exc.extend(glob.glob(p, recursive=True))
+        # build list of files based on project.yml glob paths
+        incl = self.glob_search(gpath, ppath, base, ext)
+        excl = self.glob_search(xpath, ppath, base, ext)
 
         # remove files from excluded directories from results
-        res = list(set(res) - set(exc))
+        incl = list(set(incl) - set(excl))
 
-        if len(res) == 0:
+        if len(incl) == 0:
             raise IOError("No matching file")
 
-        elif len(res) > 1:
+        elif len(incl) > 1:
             self.window.status_message(
                 "Ceedling: More than one matching file."
             )
 
             print("Duplicate matches found:")
 
-            for m in res:
+            for m in incl:
                 print(m)
 
-        return res[0]
+        return incl[0]
+
+    def glob_search(self, pattern, path, base, ext) -> list:
+        res = []
+        for glob_pat in pattern:
+
+            glob_pat = os.path.normpath(glob_pat)
+
+            p = os.path.abspath(
+                os.path.join(path, glob_pat, ".".join((base, ext)))
+            )
+            res.extend(glob2.glob(p, recursive=True))
+
+        return res
 
     def open_file(self, file_path, auto_set_view=-1):
 
