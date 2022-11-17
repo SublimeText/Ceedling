@@ -33,12 +33,13 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
         if current_file_path is None:
             return
 
+        _, filename = os.path.split(current_file_path)
+
         filename = re.search(
-            r"(?:.+\/|\\)"
-            + r"(?P<prefix>{})?".format(self.conf.test_file_prefix)
+            r"(?P<prefix>{})?".format(self.conf.test_file_prefix)
             + r"(?P<base>.+?)\."
             + r"(?P<ext>{}|{})$".format(self.conf.source_ext, self.conf.header_ext),
-            current_file_path,
+            filename,
         )
 
         if filename is None:
