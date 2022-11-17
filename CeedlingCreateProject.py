@@ -66,13 +66,13 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
         platform = sublime.platform()
         version = sublime.version()
-        
+
         if platform == "osx":
-            if version > 4000:
+            if version.startswith("4"):
                 return r'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
             else:
                 return r'/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl'
-        
+
         elif platform == "linux":
             return (
                 open('/proc/' + str(os.getppid()) + '/cmdline')
@@ -86,13 +86,14 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
                p = r"C:\Program Files (x86)\Sublime Text" 
             return os.path.join(p, 'subl.exe')
 
+        raise IOError("Sublime Text cli binary not found.")
+
     def open_new_dir(self, folder):
         # give ceedling time to build directory structure
         while not (os.path.exists(folder)):
-            sleep(0.005)
-        
-        # Change cwd to the new directory
+            sleep(0.01)
+
         os.chdir(folder)
 
-        # open folder in current window
+        # Open folder in current Sublime Text window
         subprocess.Popen([self.get_cli_path(), "-a", os.getcwd()])
