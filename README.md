@@ -1,6 +1,6 @@
 ## Description
 
-[Ceedling](http://throwtheswitch.org/) is a set of tools and libraries for testing and building C applications. This package adds support to Sublime Text 4 for developing Ceedling applications.
+[Ceedling](http://throwtheswitch.org/) is a set of tools and libraries for testing and building C applications. This package adds support to Sublime Text for developing Ceedling applications.
 
 ## Ceedling Installation
 
@@ -22,9 +22,9 @@ git pull git://github.com/SublimeText/Ceedling.git
 
 ```
 
-When you launch Sublime Text 4, it will pick up the contents of this package so that you can consume the goodness that it provides.
+When you launch Sublime Text, it will pick up the contents of this package so that you can consume the goodness that it provides.
 
-## Functionality in Ceedling ST4
+## Functionality in Ceedling
 
 ### New Project
 `New Project` comes in two flavours.
