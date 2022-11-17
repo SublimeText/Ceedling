@@ -135,10 +135,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         super().__init__(window)
 
         self.proc = None
-
         self.errs_by_file = {}
-        self.annotation_sets_by_buffer = {}
-        self.show_errors_inline = True
         self.output_view = None
 
     def run(
