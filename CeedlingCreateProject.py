@@ -68,7 +68,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
         platform = sublime.platform()
         version = sublime.version()
-        print(platform)
+
         if platform == "osx":
             if version.startswith("4"):
                 return r"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
@@ -78,7 +78,6 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
                 )
 
         elif platform == "linux":
-            raise IOError("Linux, pfft")
             if os.exists(r"/usr/bin/subl"):
                 return r"/usr/bin/subl"
             elif os.exists(r"/usr/local/bin/subl"):
@@ -100,6 +99,5 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
             sleep(0.01)
 
         os.chdir(folder)
-
         # Open folder in current Sublime Text window
         subprocess.Popen([self.get_cli_path(), "-a", os.getcwd()])
