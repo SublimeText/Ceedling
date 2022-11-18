@@ -51,8 +51,10 @@ class AsyncProcess(object):
         # Set temporary PATH to locate executable in cmd
         if path:
             old_path = os.environ["PATH"]
-            # The user decides in the build system whether he wants to append $PATH
-            # or tuck it at the front: "$PATH;C:\\new\\path", "C:\\new\\path;$PATH"
+            # The user decides in the build system
+            # whether they want to append $PATH
+            # or tuck it at the front:
+            # "$PATH;C:\\new\\path", "C:\\new\\path;$PATH"
             os.environ["PATH"] = os.path.expandvars(path)
 
         proc_env = os.environ.copy()
