@@ -10,7 +10,7 @@ import signal
 import sublime
 import sublime_plugin
 
-from .CeedlingSettings import CeedlingProjectSettings as Settings
+from .CeedlingSettings import CeedlingProjectSettings
 
 
 class ProcessListener(object):
@@ -170,9 +170,8 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         # "project_dir" is set by "new project" command.
         #  project.xml does not exist unit project is created.
         if not project_dir:
-
             try:
-                self.conf = Settings(self.window)
+                self.conf = CeedlingProjectSettings(self.window)
 
             except OSError as e:
                 self.window.status_message("Ceedling: {}".format(e))

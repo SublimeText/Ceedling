@@ -5,7 +5,7 @@ import re
 import sublime
 import sublime_plugin
 
-from . import CeedlingSettings
+from .CeedlingSettings import CeedlingProjectSettings
 from . import glob2
 
 
@@ -19,7 +19,7 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
             return
 
         try:
-            self.conf = CeedlingSettings.CeedlingProjectSettings(self.window)
+            self.conf = CeedlingProjectSettings(self.window)
 
         except OSError as e:
             self.window.status_message("Ceedling: %s" % e)
