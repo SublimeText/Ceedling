@@ -156,7 +156,6 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         **kwargs
     ):
 
-        print
         if kill:
             if self.proc:
                 self.proc.kill()
