@@ -68,7 +68,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
         platform = sublime.platform()
         version = sublime.version()
-
+        print(platform)
         if platform == "osx":
             if version.startswith("4"):
                 return r"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
