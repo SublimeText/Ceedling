@@ -54,8 +54,8 @@ For example `~/projects/drsurly` will create a project folder `drsurly` within t
 
 The project folder should open in the current window a few seconds later.
 
-#### Default folder setting
-The default parent folder for new projects is set to `~/` by default.
+#### New project settings
+The default parent folder for new projects is set to `~` by default.
 To change this open the Ceedling settings `Preferences >> Package Settings >> Ceedling >> Settings`.
 
 Add the following entry to the file on the right, update the path as desired, then save.
