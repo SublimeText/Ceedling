@@ -75,6 +75,24 @@ Additional naming schemes are supported using an abbreviated format identifiers:
 
 The first four schemes generate header, source and test files for each of the named variants.
 
+## Keymaps
+
+#### macOS
+| Keys | Function |
+|:--|:--|
+
+|`command-t`, `command-c` | Test Current |
+|`command-t, command-d` | Test Changed  |
+|`command-t, command-a` | Test All  |
+|`comnand-ctrl-h` | Open Header File |
+|`command-ctrl-s` | Open Source File |
+|`command-ctrl-t` | Open Test File |
+|`command-ctrl-t, command-ctrl-s` | Open Test And Source Files |
+|`command-ctrl-right` | Open Next Module File |
+|`command-p, command-,` | Open project.yml |
+|`command-c, command-m` | New Module |
+|`command-c, command-v` | Ceedling Verion Information |
+
 ## Features
 * Ceedling.sublime-build for executing unit tests for the active module via <F7>
     * You must assign the builder for your project to 'Ceedling'
