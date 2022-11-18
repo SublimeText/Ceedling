@@ -1,5 +1,4 @@
 import functools
-import sys
 import os
 import sublime
 import sublime_plugin
@@ -23,12 +22,13 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         window.show_input_panel(
             "Enter new project path: ",
             self.default_parent,
-            functools.partial(self.onDone, view),
+            functools.partial(self.on_done, view),
             None,
             None,
         )
 
-    def onDone(self, view, path):
+    def on_done(self, view, path):
+        """Handler for onDone event."""
         path = os.path.normpath(path)
         pfolder = os.path.abspath(os.path.expanduser(path))
         project_dir, project_name = os.path.split(pfolder)
@@ -63,9 +63,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         sublime.set_timeout_async(self.open_new_dir(project_name), 1000)
 
     def get_cli_path(self):
-        # Logic taken from:
-        # https://github.com/al63/SublimeFiles/blob/master/sublime_files.py
-
+        """Return path to subl executable."""
         platform = sublime.platform()
         version = sublime.version()
 
@@ -94,7 +92,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         raise IOError("Sublime Text cli binary not found.")
 
     def open_new_dir(self, folder):
-        # give ceedling time to build directory structure
+        """Open newly created project in current window."""
         while not (os.path.exists(folder)):
             sleep(0.01)
 

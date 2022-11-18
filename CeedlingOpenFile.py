@@ -8,6 +8,7 @@ import sublime_plugin
 from . import CeedlingSettings
 from . import glob2
 
+
 class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
     def run(self, option):
 
@@ -24,7 +25,7 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
             self.window.status_message("Ceedling: %s" % e)
             return
 
-        if option == 'config':
+        if option == "config":
             return self.open_file(self.conf.project_yml)
 
         # Handle files within the project structure
@@ -43,15 +44,13 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
         )
 
         if filename is None:
-            self.window.status_message(
-                "Ceedling switching: unsupported file type"
-            )
+            self.window.status_message("Ceedling switching: unsupported file")
             return
 
         base_name = filename.group("base")
 
         try:
-            if option == 'next':
+            if option == "next":
                 if filename.group("prefix"):
                     option = "source"
                 elif filename.group("ext") == "c":
@@ -59,9 +58,9 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
                 else:
                     option = "test"
 
-            if option == 'test_and_source':
+            if option == "test_and_source":
                 window.run_command(
-                    'set_layout',
+                    "set_layout",
                     {
                         "cols": [0.0, 0.5, 1.0],
                         "rows": [0.0, 1.0],
@@ -80,9 +79,9 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
 
     def path_build(self, option: str, base: str) -> str:
         # todo: Check this assumption holds when env is set
-
         ppath = self.conf.project_dir
         ext = self.conf.source_ext
+
         if ppath is None:
             raise IOError("missing path")
 
@@ -99,7 +98,6 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
             xpath = self.conf.test_excl
             ext = self.conf.header_ext
 
-
         # build list of files based on project.yml glob paths
         incl = self.glob_search(gpath, ppath, base, ext)
         excl = self.glob_search(xpath, ppath, base, ext)
@@ -111,9 +109,7 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
             raise IOError("No matching file")
 
         elif len(incl) > 1:
-            self.window.status_message(
-                "Ceedling: More than one matching file."
-            )
+            self.window.status_message("Ceedling: Multiple matching files.")
 
             print("Duplicate matches found:")
 
@@ -128,19 +124,16 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
 
             glob_pat = os.path.normpath(glob_pat)
 
-            p = os.path.abspath(
-                os.path.join(path, glob_pat, ".".join((base, ext)))
-            )
+            p = os.path.abspath(os.path.join(path, glob_pat, ".".join((base, ext))))
             res.extend(glob2.glob(p, recursive=True))
 
         return res
 
     def open_file(self, file_path, auto_set_view=-1):
-
         file_view = self.window.open_file(file_path)
 
         if auto_set_view >= 0:
-            self.window.run_command('move_to_group', {'group': auto_set_view})
+            self.window.run_command("move_to_group", {"group": auto_set_view})
 
         self.views.append(file_view)
 

@@ -11,26 +11,32 @@ class CeedlingProjectSettings:
 
     @property
     def project_yml(self):
+        """Return path to project.yml."""
         return self._cache_get("project_file")
 
     @property
     def project_dir(self):
+         """Return path to project directory."""
         return self._cache_get("project_dir")
 
     @property
     def build_root(self):
+         """Return build folder path."""
         return self._cache_get("build_root")
 
     @property
     def test_file_prefix(self):
+        """Return prefix for test files."""
         return self._cache_get("test_file_prefix")
 
     @property
     def test(self) -> list:
+        """Return glob path to test directories."""
         return self._cache_get("test")
 
     @property
     def test_excl(self) -> list:
+        """Return glob path to excluded test directories."""
         return self._cache_get("test_excl", [])
 
     @property
@@ -66,8 +72,8 @@ class CeedlingProjectSettings:
         if os.path.exists(self._cache_get("project_yml", default="")):
             project_file = self.project_yml
 
-        elif os.getenv('CEEDLING_MAIN_PROJECT_FILE') is not None:
-            project_file = os.getenv('CEEDLING_MAIN_PROJECT_FILE')
+        elif os.getenv("CEEDLING_MAIN_PROJECT_FILE") is not None:
+            project_file = os.getenv("CEEDLING_MAIN_PROJECT_FILE")
 
         else:
             for folder in window.folders():
@@ -93,7 +99,11 @@ class CeedlingProjectSettings:
             print("Project cache updated")
 
     def project_file_parse(self, project_file):
+        """Parse project.yml settings.
 
+        parameter: project_file - path to project.yml
+        extract paths, build_root, test prefix and file extensions.
+        """
         defines = {
             "paths": {
                 "source": "src/**",
@@ -143,8 +153,11 @@ class CeedlingProjectSettings:
         return cache_update
 
     def read_yaml(self, project_file):
-        # project.yml uses keys defined as ruby objects with leading colon.
-        with open(project_file, 'r') as f:
+        """Read project.yml configuration file.
+
+        parameters: project_file - path to project.yml
+        """
+        with open(project_file, "r") as f:
             pf = f.read()
 
         # strip leading colons
