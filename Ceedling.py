@@ -114,13 +114,11 @@ class AsyncProcess(object):
         return self.proc.poll()
 
     def read_fileno(self, file, execute_finished):
-        decoder = codecs.getincrementaldecoder(self.listener.encoding)(
-            'replace'
-        )
+        decoder = codecs.getincrementaldecoder(self.listener.encoding)("replace")
 
         while True:
             data = decoder.decode(file.read(2**16))
-            data = data.replace('\r\n', '\n').replace('\r', '\n')
+            data = data.replace("\r\n", "\n").replace("\r", "\n")
 
             if len(data) > 0 and not self.killed:
                 self.listener.on_data(self, data)
@@ -175,9 +173,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         if not project_dir:
 
             try:
-                self.conf = CeedlingSettings.CeedlingProjectSettings(
-                    self.window
-                )
+                self.conf = CeedlingSettings.CeedlingProjectSettings(self.window)
 
             except OSError as e:
                 self.window.status_message("Ceedling: {}".format(e))
@@ -195,16 +191,15 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         current_file = self.window.active_view().file_name()
 
-
         if current_file is None:
             current_file = current_file_name = ""
 
         else:
             _, current_ext = os.path.splitext(current_file)
-            if  current_ext in ("", ".yml", ".rb"):
+            if current_ext in ("", ".yml", ".rb"):
                 return
 
-             else:
+            else:
                 current_file_name = os.path.basename(current_file)
 
         task_sub = []
@@ -214,7 +209,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         for t in tasks:
             for p, v in zip(
                 ["$file_name", "$file"],
-                [current_file_name, current_file]
+                [current_file_name, current_file],
             ):
 
                 if t.rfind(p) >= 0 and v == "":
@@ -246,7 +241,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         merged_env = env.copy()
         if self.window.active_view():
-            user_env = self.window.active_view().settings().get('build_env')
+            user_env = self.window.active_view().settings().get("build_env")
             if user_env:
                 merged_env.update(user_env)
 
@@ -287,8 +282,8 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
     def write(self, characters):
         self.output_view.run_command(
-            'append',
-            {'characters': characters, 'force': True, 'scroll_to_end': True},
+            "append",
+            {"characters": characters, "force": True, "scroll_to_end": True},
         )
 
     def on_finished(self, proc):
@@ -310,8 +305,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
                 self.write("[Finished in %s]" % elapsed_str)
             else:
                 self.write(
-                    "[Finished in %s with exit code %d]\n"
-                    % (elapsed_str, exit_code)
+                    "[Finished in %s with exit code %d]\n" % (elapsed_str, exit_code)
                 )
                 self.write(self.debug_text)
 
@@ -322,9 +316,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
             if len(errs) == 0:
                 sublime.status_message("Build finished")
             else:
-                sublime.status_message(
-                    "Build finished with %d errors" % len(errs)
-                )
+                sublime.status_message("Build finished with %d errors" % len(errs))
 
     def on_data(self, proc, data):
         if proc != self.proc:
@@ -338,4 +330,4 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         self.output_size += len(data)
 
         if self.output_size >= self.OUTPUT_LIMIT:
-            self.write('\n[Output Truncated]\n')
+            self.write("\n[Output Truncated]\n")
