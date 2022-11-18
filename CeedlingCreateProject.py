@@ -74,11 +74,12 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
                 return r'/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl'
 
         elif platform == "linux":
-            return (
-                open('/proc/' + str(os.getppid()) + '/cmdline')
-                .read()
-                .split(chr(0))[0]
-            )
+            if os.exists(r'/usr/bin/subl'):
+                return r'/usr/bin/subl'
+            elif os.exists(r'/usr/local/bin/subl'):
+                return r'/usr/local/bin/subl'
+            else:
+                raise IOError("Sublime Text cli binary not found")
         else:
             if os.path.exists(r"C:\Program Files\Sublime Text"):
                p = r"C:\Program Files\Sublime Text"
