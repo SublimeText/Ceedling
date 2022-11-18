@@ -192,16 +192,18 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         self.output_view.assign_syntax(syntax)
 
         current_file = self.window.active_view().file_name()
-        _, current_ext = os.path.splitext(current_file)
+
 
         if current_file is None:
             current_file = current_file_name = ""
 
-        elif current_ext in ("", ".yml", ".rb"):
-            return
-
         else:
-            current_file_name = os.path.basename(current_file)
+            _, current_ext = os.path.splitext(current_file)
+            if  current_ext in ("", ".yml", ".rb"):
+                return
+
+             else:
+                current_file_name = os.path.basename(current_file)
 
         task_sub = []
 
