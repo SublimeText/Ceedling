@@ -103,6 +103,9 @@
             "ctrl+alt+m"
         ],
         "command": "ceedling_create_module",
+        "args": {
+            "module": "module"
+        }
     },
     {
         "keys": [

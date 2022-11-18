@@ -1,19 +1,25 @@
 import functools
 
-import sublime
 import sublime_plugin
 
 
 class CeedlingCreateModuleCommand(sublime_plugin.WindowCommand):
-    def run(self, module=""):
+    def run(self, action="create"):
 
         window = self.window
         view = self.window.active_view()
 
+        if action == "create":
+            desc = "Module"
+        elif action == "stub":
+            desc = "Stub"
+        else:
+            return
+
         window.show_input_panel(
-            "Enter new {} name".format(module),
+            "Enter new {} name".format(desc),
             "",
-            functools.partial(self.on_done, view, module),
+            functools.partial(self.on_done, view, action),
             None,
             None,
         )
