@@ -10,7 +10,7 @@ import signal
 import sublime
 import sublime_plugin
 
-from . import CeedlingSettings
+from .CeedlingSettings import CeedlingProjectSettings as Settings
 
 
 class ProcessListener(object):
@@ -23,12 +23,12 @@ class ProcessListener(object):
 
 class AsyncProcess(object):
     """
-    Encapsulates subprocess.Popen, forwarding stdout to a supplied
+    Encapsulates subprocess.Popen, forwarding stdout to a supplied.
     ProcessListener (on a separate thread)
     """
 
     def __init__(self, cmd, env, listener, path="", shell=False):
-        """ "path" and "shell" are options in build systems"""
+        """ "path" and "shell" are options in build systems."""
 
         if not cmd:
             raise ValueError("cmd is required")
@@ -131,7 +131,6 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
     def __init__(self, window):
         super().__init__(window)
-
         self.proc = None
         self.errs_by_file = {}
         self.output_view = None
@@ -171,7 +170,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         if not project_dir:
 
             try:
-                self.conf = CeedlingSettings.CeedlingProjectSettings(self.window)
+                self.conf = Settings(self.window)
 
             except OSError as e:
                 self.window.status_message("Ceedling: {}".format(e))
