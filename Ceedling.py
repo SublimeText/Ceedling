@@ -202,18 +202,17 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         task_sub = []
 
-        # todo: check that tasks requiring a file have a file!!
-
         for t in tasks:
             for p, v in zip(
                 ["$file_name", "$file"],
                 [current_file_name, current_file],
             ):
-
+                # verify tasks with a placeholder have a replacement value
                 if t.rfind(p) >= 0 and v == "":
                     return
 
                 t = t.replace(p, v)
+
             task_sub.append(t)
 
         # Build up the command line
