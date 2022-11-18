@@ -16,12 +16,12 @@ class CeedlingProjectSettings:
 
     @property
     def project_dir(self):
-         """Return path to project directory."""
+        """Return path to project directory."""
         return self._cache_get("project_dir")
 
     @property
     def build_root(self):
-         """Return build folder path."""
+        """Return build folder path."""
         return self._cache_get("build_root")
 
     @property
