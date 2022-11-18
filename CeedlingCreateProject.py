@@ -17,7 +17,9 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         self.options = options
         # print((self.window.settings().to_dict()))
         plugin_settings = sublime.load_settings("Ceedling.sublime-settings")
-        self.default_parent = os.path.normpath(plugin_settings.get("default_project_folder"))
+        self.default_parent = os.path.normpath(
+            plugin_settings.get("default_project_folder")
+        )
         window.show_input_panel(
             "Enter new project path: ",
             self.default_parent,
@@ -46,7 +48,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
                 "Project location not writeable: {}\n".format(project_dir)
             )
             return
-        
+
         window = view.window()
         window.status_message("Creating project: {}".format(project_name))
         window.run_command(
@@ -69,23 +71,26 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
         if platform == "osx":
             if version.startswith("4"):
-                return r'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+                return r"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
             else:
-                return r'/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl'
+                return (
+                    r"/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl"
+                )
 
         elif platform == "linux":
-            if os.exists(r'/usr/bin/subl'):
-                return r'/usr/bin/subl'
-            elif os.exists(r'/usr/local/bin/subl'):
-                return r'/usr/local/bin/subl'
+            raise IOError("Linux, pfft")
+            if os.exists(r"/usr/bin/subl"):
+                return r"/usr/bin/subl"
+            elif os.exists(r"/usr/local/bin/subl"):
+                return r"/usr/local/bin/subl"
             else:
                 raise IOError("Sublime Text cli binary not found")
         else:
             if os.path.exists(r"C:\Program Files\Sublime Text"):
-               p = r"C:\Program Files\Sublime Text"
+                p = r"C:\Program Files\Sublime Text"
             else:
-               p = r"C:\Program Files (x86)\Sublime Text" 
-            return os.path.join(p, 'subl.exe')
+                p = r"C:\Program Files (x86)\Sublime Text"
+            return os.path.join(p, "subl.exe")
 
         raise IOError("Sublime Text cli binary not found.")
 
