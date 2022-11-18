@@ -1,3 +1,15 @@
+## Reboot Note
+The Ceedling support package is currently being rewritten and supports:
+- Sublime Text 3 and 4
+- Ceedling 0.28.1
+
+The package has been tested for basic functionality on macOS, Windows 10 and Ubuntu 22.04 LTS.
+
+The default keymap was setup for Windows and several combinations conflict with OS functionality on Ubuntu.
+
+The macOS keymap is subject to change.
+
+
 ## Description
 
 [Ceedling](http://throwtheswitch.org/) is a set of tools and libraries for testing and building C applications. This package adds support to Sublime Text for developing Ceedling applications.
@@ -78,9 +90,8 @@ The first four schemes generate header, source and test files for each of the na
 ## Keymaps
 
 #### macOS
-| Keys | Function |
+| Key command | Function |
 |:--|:--|
-
 |`command-t`, `command-c` | Test Current |
 |`command-t, command-d` | Test Changed  |
 |`command-t, command-a` | Test All  |
