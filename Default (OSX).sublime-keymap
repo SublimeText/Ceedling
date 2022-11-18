@@ -1,0 +1,111 @@
+[
+    { "keys": ["command+p", "command+,"],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "config"
+        }},
+    { "keys": ["command+t", "command+c"],
+        "command": "ceedling",
+        "args": {
+            "tasks": [
+                "test:$file_name"
+            ]
+        }},
+    { "keys": ["command+t","command+d"],
+         "command": "ceedling",
+         "args": {
+            "tasks": [
+                "test:delta"
+            ]
+        }},
+    { "keys": ["command+t","command+a"],
+         "command": "ceedling",
+         "args": {
+            "tasks": [
+                "test:all"
+            ]
+        }},
+    {
+        "keys": [
+            "command+ctrl+h"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "header"
+        }
+    },
+    {
+        "keys": [
+            "command+ctrl+s"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "source"
+        }
+    },
+    {
+        "keys": [
+            "command+ctrl+t"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "test"
+        }
+    },
+    {
+        "keys": [
+            "command+ctrl+t", "command+ctrl+s"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "test_and_source"
+        }
+    },
+    {
+        "keys": [
+            "command+ctrl+right"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "next"
+        }
+    },
+    {
+        "keys": [
+            "command+c","command+m"
+        ],
+        "command": "ceedling_create_module",
+        "args": {
+            "action": "create"
+        },
+    },
+    {
+        "keys": [
+            "command+c","command+v"
+        ],
+        "command": "ceedling",
+        "args": {
+            "tasks": ["version"]
+        },
+    },
+    {
+        "keys": [
+            "command+c","command+e"
+        ],
+        "command": "ceedling",
+        "args": {
+            "tasks": ["environment"]
+        },
+    },
+    {
+        "keys": [
+            "command+c","command+s"
+        ],
+        "command": "ceedling",
+        "args": {
+            "tasks": ["summary"]
+        },
+    },
+]
+
+
