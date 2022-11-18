@@ -78,9 +78,9 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
                 )
 
         elif platform == "linux":
-            if os.exists(r"/usr/bin/subl"):
+            if os.path.exists(r"/usr/bin/subl"):
                 return r"/usr/bin/subl"
-            elif os.exists(r"/usr/local/bin/subl"):
+            elif os.path.exists(r"/usr/local/bin/subl"):
                 return r"/usr/local/bin/subl"
             else:
                 raise IOError("Sublime Text cli binary not found")
