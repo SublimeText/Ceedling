@@ -39,7 +39,9 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
         # User hit enter without entering a path
         if path in (self.default_parent, self.default_parent + "/"):
-            sublime.error_message("Project name not supplied: {}\n".format(pfolder))
+            sublime.error_message(
+                "Project name not supplied: {}\n".format(pfolder)
+            )
             return
 
         # Check project directory exists and is writeable
@@ -71,9 +73,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
             if version.startswith("4"):
                 return r"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
             else:
-                return (
-                    r"/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl"
-                )
+                return r"/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl"
 
         elif platform == "linux":
             if os.path.exists(r"/usr/bin/subl"):

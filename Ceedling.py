@@ -112,7 +112,9 @@ class AsyncProcess(object):
         return self.proc.poll()
 
     def read_fileno(self, file, execute_finished):
-        decoder = codecs.getincrementaldecoder(self.listener.encoding)("replace")
+        decoder = codecs.getincrementaldecoder(self.listener.encoding)(
+            "replace"
+        )
 
         while True:
             data = decoder.decode(file.read(2**16))
@@ -302,7 +304,8 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
                 self.write("[Finished in %s]" % elapsed_str)
             else:
                 self.write(
-                    "[Finished in %s with exit code %d]\n" % (elapsed_str, exit_code)
+                    "[Finished in %s with exit code %d]\n"
+                    % (elapsed_str, exit_code)
                 )
                 self.write(self.debug_text)
 
@@ -313,7 +316,9 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
             if len(errs) == 0:
                 sublime.status_message("Build finished")
             else:
-                sublime.status_message("Build finished with %d errors" % len(errs))
+                sublime.status_message(
+                    "Build finished with %d errors" % len(errs)
+                )
 
     def on_data(self, proc, data):
         if proc != self.proc:

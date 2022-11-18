@@ -39,7 +39,9 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
         filename = re.search(
             r"(?P<prefix>{})?".format(self.conf.test_file_prefix)
             + r"(?P<base>.+?)\."
-            + r"(?P<ext>{}|{})$".format(self.conf.source_ext, self.conf.header_ext),
+            + r"(?P<ext>{}|{})$".format(
+                self.conf.source_ext, self.conf.header_ext
+            ),
             filename,
         )
 
@@ -124,7 +126,9 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
 
             glob_pat = os.path.normpath(glob_pat)
 
-            p = os.path.abspath(os.path.join(path, glob_pat, ".".join((base, ext))))
+            p = os.path.abspath(
+                os.path.join(path, glob_pat, ".".join((base, ext)))
+            )
             res.extend(glob2.glob(p, recursive=True))
 
         return res
