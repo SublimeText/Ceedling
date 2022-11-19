@@ -80,14 +80,15 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
         if platform == "osx":
             vers = r"" if version.startswith("4") else r" 3"
-
-            return r"".join(
+            subl = r"".join(
                 [
                     r"/Applications/Sublime Text",
                     vers,
                     r".app/Contents/SharedSupport/bin/subl",
                 ]
             )
+            if os.path.exists(subl):
+                return subl
 
         elif platform == "linux":
             if os.path.exists(r"/usr/bin/subl"):
@@ -98,7 +99,10 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         else:
             if os.path.exists(r"C:\Program Files\Sublime Text"):
                 return r"C:\Program Files\Sublime Text\subl.exe"
-            else:
+
+            elif os.path.exists(
+                r"C:\Program Files (x86)\Sublime Text\subl.exe"
+            ):
                 return r"C:\Program Files (x86)\Sublime Text\subl.exe"
 
         raise IOError("subl binary not found.")
