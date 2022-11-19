@@ -7,7 +7,6 @@
         "children": [
           { "caption": "Ceedling",
             "children": [
-              { "caption": "-" },
               { "caption": "Settings",
                 "command": "edit_settings",
                 "args": {
