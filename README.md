@@ -91,20 +91,22 @@ The first four schemes generate header, source and test files for each of the na
 Sublime Text build system is used to run tests.
 From `Tools >> Build System` menu select `Ceedling` as the build system for the project.
 
-#### macOS
+
+
+## Key commands
+
 | Key command | Function |
 |:--|:--|
-|`command-t`, `command-c` | Test Current |
-|`command-t, command-d` | Test Changed  |
-|`command-t, command-a` | Test All  |
-|`comnand-ctrl-h` | Open Header File |
-|`command-ctrl-s` | Open Source File |
-|`command-ctrl-t` | Open Test File |
-|`command-ctrl-t, command-ctrl-s` | Open Test And Source Files |
-|`command-ctrl-right` | Open Next Module File |
-|`command-p, command-,` | Open project.yml |
-|`command-c, command-m` | New Module |
-|`command-c, command-v` | Ceedling Verion Information |
+|`super-ctrl-h` | Open Header File |
+|`super-ctrl-s` | Open Source File |
+|`super-ctrl-t` | Open Test File |
+|`super-ctrl-m` | Open Test, Header and Source Files |
+|`super-ctrl-right` | Cycle through module files |
+|`super-ctrl-p, super-ctrl-,` | Open project settings |
+|`super-ctrl-p, super-ctrl-m` | New module |
+|`super-ctrl-p, super-ctrl-v` | Ceedling version |
+|`super-ctrl-p, super-ctrl-e` | Ceedling environment |
+|`super-ctrl-p, super-ctrl-s` | Ceedling summary |
 
 ## Features
 * Ceedling.sublime-build for executing unit tests for the active module via <F7>

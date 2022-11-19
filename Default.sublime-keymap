@@ -1,79 +1,8 @@
 [
+
     {
         "keys": [
-            "f1"
-        ],
-        "command": "ceedling_open_file",
-        "args": {
-            "option": "config"
-        }
-    },
-    {
-        "keys": [
-            "f7"
-        ],
-        "command": "ceedling",
-        "args": {
-            "tasks": [
-                "test:$file_name"
-            ]
-        }
-    },
-    {
-        "keys": [
-            "ctrl+f7"
-        ],
-        "command": "ceedling",
-        "args": {
-            "tasks": [
-                "test:delta"
-            ]
-        }
-    },
-    {
-        "keys": [
-            "ctrl+alt+f7"
-        ],
-        "command": "ceedling",
-        "args": {
-            "tasks": [
-                "test:all"
-            ]
-        }
-    },
-    {
-        "keys": [
-            "shift+ctrl+alt+f7"
-        ],
-        "command": "ceedling",
-        "args": {
-            "tasks": [
-                "clean",
-                "test:$file_name"
-            ]
-        }
-    },
-    {
-        "keys": [
-            "ctrl+alt+period"
-        ],
-        "command": "ceedling_open_file",
-        "args": {
-            "option": "test_and_source"
-        }
-    },
-    {
-        "keys": [
-            "ctrl+period"
-        ],
-        "command": "ceedling_open_file",
-        "args": {
-            "option": "next"
-        }
-    },
-    {
-        "keys": [
-            "ctrl+alt+h"
+            "super+ctrl+h"
         ],
         "command": "ceedling_open_file",
         "args": {
@@ -82,7 +11,7 @@
     },
     {
         "keys": [
-            "ctrl+alt+s"
+            "super+ctrl+s"
         ],
         "command": "ceedling_open_file",
         "args": {
@@ -91,7 +20,7 @@
     },
     {
         "keys": [
-            "ctrl+alt+t"
+            "super+ctrl+t"
         ],
         "command": "ceedling_open_file",
         "args": {
@@ -100,37 +29,63 @@
     },
     {
         "keys": [
-            "ctrl+alt+m"
+            "super+ctrl+m"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "test_and_source"
+        }
+    },
+    {
+        "keys": [
+            "super+ctrl+right"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "next"
+        }
+    },
+    {
+        "keys": [
+            "super+ctrl+p","super+ctrl+m"
         ],
         "command": "ceedling_create_module",
         "args": {
-            "module": "module"
-        }
+            "action": "create"
+        },
     },
     {
         "keys": [
-            "ctrl+alt+x"
+            "super+ctrl+p","super+ctrl+v"
         ],
         "command": "ceedling",
         "args": {
-            "tasks": [
-                "clean"
-            ],
-            "file_regex": "^(...*?):",
-            "line_regex": "^...*?:([0-9]*)"
-        }
+            "tasks": ["version"]
+        },
     },
     {
         "keys": [
-            "ctrl+alt+shift+x"
+            "super+ctrl+p","super+ctrl+e"
         ],
         "command": "ceedling",
         "args": {
-            "tasks": [
-                "clobber"
-            ],
-            "file_regex": "^(...*?):",
-            "line_regex": "^...*?:([0-9]*)"
-        }
-    }
+            "tasks": ["environment"]
+        },
+    },
+    {
+        "keys": [
+            "super+ctrl+p","super+ctrl+s"
+        ],
+        "command": "ceedling",
+        "args": {
+            "tasks": ["summary"]
+        },
+    },
+    { "keys": ["super+ctrl+p", "super+ctrl+,"],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "config"
+        }}
 ]
+
+
