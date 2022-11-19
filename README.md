@@ -102,11 +102,11 @@ From `Tools >> Build System` menu select `Ceedling` as the build system for the 
 |`super-ctrl-t` | Open Test File |
 |`super-ctrl-m` | Open Test, Header and Source Files |
 |`super-ctrl-right` | Cycle through module files |
-|`super-ctrl-p, super-ctrl-,` | Open project settings |
-|`super-ctrl-p, super-ctrl-m` | New module |
-|`super-ctrl-p, super-ctrl-v` | Ceedling version |
-|`super-ctrl-p, super-ctrl-e` | Ceedling environment |
-|`super-ctrl-p, super-ctrl-s` | Ceedling summary |
+|`super-ctrl-c, super-ctrl-,` | Open project settings |
+|`super-ctrl-c, super-ctrl-m` | New module |
+|`super-ctrl-c, super-ctrl-v` | Ceedling version |
+|`super-ctrl-c, super-ctrl-e` | Ceedling environment |
+|`super-ctrl-c, super-ctrl-s` | Ceedling summary |
 
 ## Features
 * Ceedling.sublime-build for executing unit tests for the active module via <F7>

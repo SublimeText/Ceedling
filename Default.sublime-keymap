@@ -47,7 +47,7 @@
     },
     {
         "keys": [
-            "super+ctrl+p","super+ctrl+m"
+            "super+ctrl+c","super+ctrl+m"
         ],
         "command": "ceedling_create_module",
         "args": {
@@ -56,7 +56,7 @@
     },
     {
         "keys": [
-            "super+ctrl+p","super+ctrl+v"
+            "super+ctrl+c","super+ctrl+v"
         ],
         "command": "ceedling",
         "args": {
@@ -65,7 +65,7 @@
     },
     {
         "keys": [
-            "super+ctrl+p","super+ctrl+e"
+            "super+ctrl+c","super+ctrl+e"
         ],
         "command": "ceedling",
         "args": {
@@ -74,14 +74,14 @@
     },
     {
         "keys": [
-            "super+ctrl+p","super+ctrl+s"
+            "super+ctrl+c","super+ctrl+s"
         ],
         "command": "ceedling",
         "args": {
             "tasks": ["summary"]
         },
     },
-    { "keys": ["super+ctrl+p", "super+ctrl+,"],
+    { "keys": ["super+ctrl+c", "super+ctrl+,"],
         "command": "ceedling_open_file",
         "args": {
             "option": "config"
