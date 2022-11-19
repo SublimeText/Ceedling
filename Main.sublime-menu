@@ -1,33 +1,31 @@
 [
-  {
+  { "id": "preferences",
     "children": [
-      {
+      { "caption": "Package Settings",
+        "mnemonic": "P",
+        "id": "package-settings",
         "children": [
-          {
-            "caption": "Ceedling",
+          { "caption": "Ceedling",
             "children": [
-              {
+              { "caption": "-" },
+              { "caption": "Settings",
+                "command": "edit_settings",
                 "args": {
                   "base_file": "${packages}/Ceedling/Ceedling.sublime-settings",
                   "default": "{\n\t$0\n}\n"
-                },
-                "caption": "Settings",
-                "command": "edit_settings"
+                }
               },
-              {
+              { "caption": "Key Bindings",
+                "command": "edit_settings",
                 "args": {
                   "base_file": "${packages}/Ceedling/Default.sublime-keymap",
                   "default": "[\n\t$0\n]\n"
-                },
-                "caption": "Key Bindings",
-                "command": "edit_settings"
-              }
+                }
+              },
             ]
           }
-        ],
-        "id": "package-settings",
+        ]
       }
-    ],
-    "id": "preferences"
+    ]
   }
 ]
