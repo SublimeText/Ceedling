@@ -2,8 +2,7 @@
         "caption": "Ceedling: New Project [Minimal]",
         "command": "ceedling_create_project",
         "args": {
-            "options": [
-            ]
+            "options": []
         }
     },
     {

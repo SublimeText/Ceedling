@@ -178,7 +178,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
                 return
 
             working_dir = self.conf.working_dir
-            print(working_dir)
+
         self.output_view.settings().set("result_file_regex", file_regex)
         self.output_view.settings().set("result_line_regex", line_regex)
         self.output_view.settings().set("result_base_dir", working_dir)
