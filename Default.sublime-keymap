@@ -53,39 +53,7 @@
         "args": {
             "action": "create"
         },
-    },
-    {
-        "keys": [
-            "super+ctrl+c","super+ctrl+v"
-        ],
-        "command": "ceedling",
-        "args": {
-            "tasks": ["version"]
-        },
-    },
-    {
-        "keys": [
-            "super+ctrl+c","super+ctrl+e"
-        ],
-        "command": "ceedling",
-        "args": {
-            "tasks": ["environment"]
-        },
-    },
-    {
-        "keys": [
-            "super+ctrl+c","super+ctrl+s"
-        ],
-        "command": "ceedling",
-        "args": {
-            "tasks": ["summary"]
-        },
-    },
-    { "keys": ["super+ctrl+c", "super+ctrl+,"],
-        "command": "ceedling_open_file",
-        "args": {
-            "option": "config"
-        }}
+    }
 ]
 
 
