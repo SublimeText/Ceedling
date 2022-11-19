@@ -66,6 +66,8 @@ Add the following entry to the file on the right, update the path as desired, th
 }
 ```
 
+
+
 #### Adding Ceedling to existing projects
 The `New Project` module can also be used to add Ceedling support to exisiting source code.\
 Existing files and folders are not overwritten or modified in the process.\
@@ -89,8 +91,21 @@ The first four schemes generate header, source and test files for each of the na
 
 ## Running tests
 Sublime Text build system is used to run tests.
+
 From `Tools >> Build System` menu select `Ceedling` as the build system for the project.
 
+| Variant | Ceedling Task | Notes |
+|:--|:--|:--|
+| Default | `test:filename` | Test current module|
+| Test All | `test:all` | |
+| Test Changes | `test:delta` | |
+| Test Build only | `test:build_only`  | |
+| Clean and Test file | `clean test:filename` | |
+| Release | `release` | The release config is disabled in new project.yml. |
+
+Select variants using `ctrl-shift-b`/`command-shift-b`.
+
+Run selected build using `ctrl-b` / `command-b`.
 
 
 ## Key commands
