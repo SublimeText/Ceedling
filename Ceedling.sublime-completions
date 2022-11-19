@@ -1,28 +1,120 @@
 {
     "scope": "source.c,source.c++",
-    
-    "completions":
-    [
-        { "trigger": ".e",      "contents": "_Expect(${1:parameters});" },
-        { "trigger": ".er",     "contents": "_ExpectAndReturn(${1:parameters});" },
-        { "trigger": "ae",      "contents": "TEST_ASSERT_EQUAL(${1:expected}, ${2:actual});" },
-        { "trigger": "aem",     "contents": "TEST_ASSERT_EQUAL(${1:expected}, ${2:actual}, ${3:message});" },
-        { "trigger": "ah",      "contents": "TEST_ASSERT_EQUAL_HEX(${1:expected}, ${2:actual});" },
-        { "trigger": "ahm",     "contents": "TEST_ASSERT_EQUAL_HEX_MESSAGE(${1:expected}, ${2:actual});" },
-        { "trigger": "ah8",     "contents": "TEST_ASSERT_EQUAL_HEX8(${1:expected}, ${2:actual});" },
-        { "trigger": "ah8m",    "contents": "TEST_ASSERT_EQUAL_HEX8_MESSAGE(${1:expected}, ${2:actual});" },
-        { "trigger": "ah16",    "contents": "TEST_ASSERT_EQUAL_HEX16(${1:expected}, ${2:actual});" },
-        { "trigger": "ah16m",   "contents": "TEST_ASSERT_EQUAL_HEX16_MESSAGE(${1:expected}, ${2:actual});" },
-        { "trigger": "at",      "contents": "TEST_ASSERT_TRUE(${1:expression});" },
-        { "trigger": "atm",     "contents": "TEST_ASSERT_TRUE_MESSAGE(${1:expression}, ${2:message});" },
-        { "trigger": "af",      "contents": "TEST_ASSERT_FALSE(${1:expression});" },
-        { "trigger": "afm",     "contents": "TEST_ASSERT_FALSE_MESSAGE(${1:expression}, ${2:message});" },
-        { "trigger": "am",      "contents": "TEST_ASSERT_EQUAL_MEMORY(${1:expected}, ${2:actual}, ${3:length});" },
-        { "trigger": "amm",     "contents": "TEST_ASSERT_EQUAL_MEMORY_MESSAGE(${1:expected}, ${2:actual}, ${3:length}, ${4:message});" },
-        { "trigger": "ig",      "contents": "TEST_IGNORE();" },
-        { "trigger": "igm",     "contents": "TEST_IGNORE_MESSAGE(\"${1:message}\");" },
-        { "trigger": "test",    "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\t${1}(${3});\n}\n" },
-        { "trigger": "testf",   "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_FAIL_MESSAGE(\"${3:Implement me!}\");\n}\n" },
-        { "trigger": "testi",   "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_IGNORE_MESSAGE(\"${3:Implement me!}\");\n}\n" }
+    "completions": [
+        {
+            "trigger": ".e",
+            "contents": "_Expect(${1:parameters});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": ".er",
+            "contents": "_ExpectAndReturn(${1:parameters});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "ae",
+            "contents": "TEST_ASSERT_EQUAL(${1:expected}, ${2:actual});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "aem",
+            "contents": "TEST_ASSERT_EQUAL(${1:expected}, ${2:actual}, ${3:message});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "ah",
+            "contents": "TEST_ASSERT_EQUAL_HEX(${1:expected}, ${2:actual});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "ahm",
+            "contents": "TEST_ASSERT_EQUAL_HEX_MESSAGE(${1:expected}, ${2:actual});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "ah8",
+            "contents": "TEST_ASSERT_EQUAL_HEX8(${1:expected}, ${2:actual});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "ah8m",
+            "contents": "TEST_ASSERT_EQUAL_HEX8_MESSAGE(${1:expected}, ${2:actual});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "ah16",
+            "contents": "TEST_ASSERT_EQUAL_HEX16(${1:expected}, ${2:actual});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "ah16m",
+            "contents": "TEST_ASSERT_EQUAL_HEX16_MESSAGE(${1:expected}, ${2:actual});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "at",
+            "contents": "TEST_ASSERT_TRUE(${1:expression});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "atm",
+            "contents": "TEST_ASSERT_TRUE_MESSAGE(${1:expression}, ${2:message});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "af",
+            "contents": "TEST_ASSERT_FALSE(${1:expression});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "afm",
+            "contents": "TEST_ASSERT_FALSE_MESSAGE(${1:expression}, ${2:message});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "am",
+            "contents": "TEST_ASSERT_EQUAL_MEMORY(${1:expected}, ${2:actual}, ${3:length});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "amm",
+            "contents": "TEST_ASSERT_EQUAL_MEMORY_MESSAGE(${1:expected}, ${2:actual}, ${3:length}, ${4:message});",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "fa",
+            "contents": "TEST_FAIL();",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "fam",
+            "contents": "TEST_FAIL_MESSAGE(\"${1:message}\");",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "ig",
+            "contents": "TEST_IGNORE();",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "igm",
+            "contents": "TEST_IGNORE_MESSAGE(\"${1:message}\");",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "test",
+            "contents": "void test_${1:snippet}_should_${2:behavior}(void)\n{\n\t${1}(${3});\n}\n",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "testf",
+            "contents": "void test_${1:snippet}_should_${2:behavior}(void)\n{\n\tTEST_FAIL_MESSAGE(\"${3:Implement me!}\");\n}\n",
+            "kind": "snippet"
+        },
+        {
+            "trigger": "testi",
+            "contents": "void test_${1:snippet}_should_${2:behavior}(void)\n{\n\tTEST_IGNORE_MESSAGE(\"${3:Implement me!}\");\n}\n",
+            "kind": "snippet"
+        }
     ]
 }
