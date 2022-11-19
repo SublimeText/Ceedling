@@ -33,42 +33,6 @@
         }
     },
     {
-        "caption": "Ceedling: Test Current Module",
-        "command": "ceedling",
-        "args": {
-            "tasks": [
-                "test:$file_name"
-            ]
-        }
-    },
-    {
-        "caption": "Ceedling: Test Changed Modules",
-        "command": "ceedling",
-        "args": {
-            "tasks": [
-                "test:delta"
-            ]
-        }
-    },
-    {
-        "caption": "Ceedling: Test All Modules",
-        "command": "ceedling",
-        "args": {
-            "tasks": [
-                "test:all"
-            ]
-        }
-    },
-    {
-        "caption": "Ceedling: Build Release",
-        "command": "ceedling",
-        "args": {
-            "tasks": [
-                "release"
-            ]
-        }
-    },
-    {
         "caption": "Ceedling: Default Build",
         "command": "ceedling",
         "args": {
