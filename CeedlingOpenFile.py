@@ -71,7 +71,9 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
                 )
 
                 self.open_file(self.path_build("test", base_name), 0)
-                self.open_file(self.path_build("source", base_name), 1)
+                self.open_file(self.path_build("source", base_name), 1),
+                self.open_file(self.path_build("header", base_name), 1),
+
             else:
                 self.open_file(self.path_build(option, base_name))
 
