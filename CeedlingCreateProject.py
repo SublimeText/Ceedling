@@ -65,7 +65,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
             {
                 "tasks": ["new", "{}".format(project_name)],
                 "options": options,
-                "project_dir": project_dir,
+                "working_dir": project_dir,
             },
         )
 
@@ -109,5 +109,6 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
             sleep(0.01)
 
         os.chdir(folder)
+
         # Open folder in current Sublime Text window
         subprocess.Popen([self.get_subl_path(), "-a", os.getcwd()])
