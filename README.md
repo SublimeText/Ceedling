@@ -87,7 +87,9 @@ Additional naming schemes are supported using an abbreviated format identifiers:
 
 The first four schemes generate header, source and test files for each of the named variants.
 
-## Keymaps
+## Running tests
+Sublime Text build system is used to run tests.
+From `Tools >> Build System` menu select `Ceedling` as the build system for the project.
 
 #### macOS
 | Key command | Function |
