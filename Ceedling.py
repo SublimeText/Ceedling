@@ -144,7 +144,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
         prefix=[],
         file_regex="^(...*?):([0-9]*):?([0-9]*)",
         line_regex="",
-        project_dir="",
+        working_dir="",
         encoding="utf-8",
         env={},
         quiet=False,
@@ -167,9 +167,9 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
             # Try not to call get_output_panel until the regexes are assigned
             self.output_view = self.window.create_output_panel("exec")
 
-        # "project_dir" is set by "new project" command.
+        # "working_dir" is set by "new project" command.
         #  project.xml does not exist unit project is created.
-        if not project_dir:
+        if not working_dir:
             try:
                 self.conf = CeedlingProjectSettings(self.window)
 
@@ -177,15 +177,11 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
                 self.window.status_message("Ceedling: {}".format(e))
                 return
 
-            project_dir = self.conf.project_dir
-
+            working_dir = self.conf.working_dir
+            print(working_dir)
         self.output_view.settings().set("result_file_regex", file_regex)
         self.output_view.settings().set("result_line_regex", line_regex)
-        self.output_view.settings().set("result_base_dir", project_dir)
-        self.output_view.settings().set("line_numbers", False)
-        self.output_view.settings().set("gutter", False)
-        self.output_view.settings().set("scroll_past_end", False)
-        self.output_view.assign_syntax(syntax)
+        self.output_view.settings().set("result_base_dir", working_dir)
 
         current_file = self.window.active_view().file_name()
 
@@ -244,8 +240,8 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         # Change to the working dir, rather than spawning the process with it,
         # so that emitted working dir relative path names make sense
-        if project_dir != "":
-            os.chdir(project_dir)
+        if working_dir != "":
+            os.chdir(working_dir)
 
         self.debug_text = ""
         self.debug_text += "[cmd: " + str(cmd) + "]\n"
@@ -258,7 +254,7 @@ class CeedlingCommand(sublime_plugin.WindowCommand, ProcessListener):
 
         self.output_size = 0
         self.should_update_annotations = False
-        print(cmd)
+
         try:
             # Forward kwargs to AsyncProcess
             self.proc = AsyncProcess(cmd, merged_env, self, **kwargs)

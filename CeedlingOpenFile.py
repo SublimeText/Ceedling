@@ -81,7 +81,7 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
 
     def path_build(self, option: str, base: str) -> str:
         # todo: Check this assumption holds when env is set
-        ppath = self.conf.project_dir
+        ppath = self.conf.working_dir
         ext = self.conf.source_ext
 
         if ppath is None:

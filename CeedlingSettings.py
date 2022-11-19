@@ -15,9 +15,9 @@ class CeedlingProjectSettings:
         return self._cache_get("project_file")
 
     @property
-    def project_dir(self):
+    def working_dir(self):
         """Return path to project directory."""
-        return self._cache_get("project_dir")
+        return self._cache_get("working_dir")
 
     @property
     def build_root(self):
@@ -93,7 +93,7 @@ class CeedlingProjectSettings:
                 {
                     "last_modified": last_mod,
                     "project_file": project_file,
-                    "project_dir": os.path.dirname(project_file),
+                    "working_dir": os.path.dirname(project_file),
                 }
             )
             print("Project cache updated")
