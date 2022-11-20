@@ -71,48 +71,6 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
         window.status_message("Created project: {}".format(project_name))
 
-        sublime.set_timeout_async(self.open_new_dir(project_name), 1000)
-
-    def get_subl_path(self):
-        """Return path to subl executable."""
-        platform = sublime.platform()
-        version = sublime.version()
-
-        if platform == "osx":
-            vers = r"" if version.startswith("4") else r" 3"
-            subl = r"".join(
-                [
-                    r"/Applications/Sublime Text",
-                    vers,
-                    r".app/Contents/SharedSupport/bin/subl",
-                ]
-            )
-            if os.path.exists(subl):
-                return subl
-
-        elif platform == "linux":
-            if os.path.exists(r"/usr/bin/subl"):
-                return r"/usr/bin/subl"
-            elif os.path.exists(r"/usr/local/bin/subl"):
-                return r"/usr/local/bin/subl"
-
-        else:
-            if os.path.exists(r"C:\Program Files\Sublime Text"):
-                return r"C:\Program Files\Sublime Text\subl.exe"
-
-            elif os.path.exists(
-                r"C:\Program Files (x86)\Sublime Text\subl.exe"
-            ):
-                return r"C:\Program Files (x86)\Sublime Text\subl.exe"
-
-        raise IOError("subl binary not found.")
-
-    def open_new_dir(self, folder):
-        """Open newly created project in current window."""
-        while not (os.path.exists(folder)):
-            sleep(0.01)
-
-        os.chdir(folder)
-
-        # Open folder in current Sublime Text window
-        subprocess.Popen([self.get_subl_path(), "-a", os.getcwd()])
+        sublime.active_window().set_project_data(
+            {"folders": [{"name": project_name, "path": path}]}
+        )
