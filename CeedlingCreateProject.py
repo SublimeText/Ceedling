@@ -77,3 +77,8 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         sublime.active_window().set_project_data(
             {"folders": [{"name": project_name, "path": path}]}
         )
+
+        # Windows not refreshing folder listing
+        sublime.set_timeout_async(
+            lambda: window.run_command("refresh_folder_list"), 2000
+        )
