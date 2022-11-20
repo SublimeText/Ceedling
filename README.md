@@ -103,12 +103,15 @@ Select variants using `ctrl-shift-b`/`command-shift-b`.
 Run last selected build variant using `ctrl-b` / `command-b`.
 
 
-## Key commands
+## Key mapping
+A number of key commands for working with modules are predefiend. The main shortcuts follow the naming scheme of *h*eader, *s*ource, *t*est and *m*odule. \
+
 | Key command | Function |
 |:--|:--|
 |`super-ctrl-h` | Open Header File |
 |`super-ctrl-s` | Open Source File |
 |`super-ctrl-t` | Open Test File |
+|`super-ctrl-m` | Open Module Files |
 |`super-ctrl-right` | Cycle through module files |
 |`super-ctrl-x` |  Clean project |
 
