@@ -1,13 +1,13 @@
 [
     {
-        "caption": "Ceedling: New Project (Minimal)",
+        "caption": "Ceedling: New Project",
         "command": "ceedling_create_project",
         "args": {
             "options": []
         }
     },
     {
-        "caption": "Ceedling: New Project (Portable)",
+        "caption": "Ceedling: New Project (Local)",
         "command": "ceedling_create_project",
         "args": {
             "options": [
