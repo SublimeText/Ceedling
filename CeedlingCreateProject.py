@@ -13,6 +13,11 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
         window = self.window
         view = self.window.active_view()
+        active = sublime.active_window()
+
+        if active.views() or active.project_data():
+            sublime.error_message("New Project requires a new, empty window.")
+            return
 
         plugin_settings = sublime.load_settings("Ceedling.sublime-settings")
 
