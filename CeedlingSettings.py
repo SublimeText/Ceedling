@@ -84,48 +84,55 @@ class CeedlingProjectSettings:
                 raise IOError("Configuration file 'project.yml' not found.")
 
         # Update if cache is out of date or doesn't exist
-        last_mod = os.stat(project_file).st_mtime
-        cached_mod = self._cache_get("last_modified")
+        file_mod_time = os.stat(project_file).st_mtime
+        cached_mod_time = self._cache_get("last_modified")
 
-        if (cached_mod is None) or (last_mod > cached_mod):
-            self._cache_set(self.project_file_parse(project_file))
+        if (cached_mod_time is None) or (file_mod_time > cached_mod_time):
+            self._cache_set(self._project_file_parse(project_file))
             self._cache_set(
                 {
-                    "last_modified": last_mod,
+                    "last_modified": file_mod_time,
                     "project_file": project_file,
                     "working_dir": os.path.dirname(project_file),
                 }
             )
             print("Project cache updated")
 
-    def project_file_parse(self, project_file):
+    def _project_file_parse(self, project_file):
         """Parse project.yml settings.
 
         parameter: project_file - path to project.yml
         extract paths, build_root, test prefix and file extensions.
         """
-        defines = {
+        yml_default = {
             "paths": {
                 "source": "src/**",
                 "test": "test/**",
-                "includes": "src/**",
+                "includes": None,
             },
             "project": {"build_root": "build", "test_file_prefix": "test_"},
             "extension": {"source": "c", "header": "h"},
         }
-        config = self.read_yaml(project_file)
+
+        config = self._read_yaml(project_file)
         cache_update = {}
 
         try:
-            for section, elements in defines.items():
+            for section, elements in yml_default.items():
                 for key, default in elements.items():
                     value = config[section].get(key, default)
 
                     if section == "paths":
+                        # optional include path is None by default
+                        if value is None:
+                            cache_update.update({key: value})
+                            continue
 
+                        # value is a bare string
                         if isinstance(value, str):
                             value = [value]
 
+                        # value is a list of glob expressions
                         for i in value:
                             t_key = key
 
