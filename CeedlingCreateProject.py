@@ -2,8 +2,6 @@ import functools
 import os
 import sublime
 import sublime_plugin
-import subprocess
-from time import sleep
 
 
 class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
