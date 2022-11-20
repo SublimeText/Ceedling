@@ -1,7 +1,7 @@
 ## Reboot Note
 The Ceedling support package is currently being rewritten and supports:
-- Sublime Text 3 and 4
-- Ceedling 0.28.1
+- Sublime Text 3+
+- Ceedling 0.28.1 or later
 
 The package has been tested for basic functionality on macOS, Windows 10 and Ubuntu 22.04 LTS.
 
@@ -35,21 +35,21 @@ When you launch Sublime Text, it will pick up the contents of this package so th
 
 ### New Project
 `New Project` comes in two flavours.
-* The default is a bare bones install containing `project.yml`, `src` and `test` folders.
-* `Local` adds a `ceedling` executable bash script, and `vendor` directory.
+* The default `Ceedling: New Project` is a bare bones install containing `project.yml`, `src` and `test` folders.
+* `Ceedling: New Project (Local)` adds a `ceedling` executable bash script, and `vendor` directory.
 
-To create a new Ceedling project:
-1. Open a new window in Sublime Text
+#### Creating a New Project
+1. Open a `File >> New Window` in Sublime Text
 1. Open the command palette (Tools > Command Palette) and type `cnp` to narrow down the options.
-1. Select default or `Local`
+1. Select `Ceedling: New Project` or `Ceedling: New Project (Local)`
 1. Enter project folder location in the panel.\
 For example `~/projects/drsurly` will create a project folder `drsurly` within the `projects` folder.\
-`~` expands to the current users home directory.
+`~` expands to the current user home directory.
 1. Hit return/enter.
 
-The project folder should open in the current window a few seconds later.
+The project folder should open in the current window .
 
-#### New project settings
+#### Customising New Project creation
 The default parent folder for new projects is set to `~` by default.
 To change this open the Ceedling settings `Preferences >> Package Settings >> Ceedling >> Settings`.
 
@@ -58,6 +58,7 @@ Add the following entry to the file on the right, update the path as desired, th
 ```JSON
 {
     "default_project_folder": "~/path/to/parent/folder/",
+    "project_options": ["--gitignore", "--docs"]
 }
 ```
 
@@ -123,3 +124,18 @@ Run last selected build variant using `ctrl-b` / `command-b`.
 * Snippets for CMock mocks
     * FuncBeingMocked.e + [TAB] => FuncBeingMocked_Expect(<parameters>)
     * FuncBeingMocked.er + [TAB] => FuncBeingMocked_ExpectAndReturn(<parameters>)
+
+## Embedded TDD Resources
+### Throw The Switch
+
+Throw the Switch are the developers of the Ceedling testing framework.
+
+[http://www.throwtheswitch.org](http://www.throwtheswitch.org)
+
+[Unit Testing & Other Embedded Software Catalysts](https://www.udemy.com/course/unit-testing-and-other-embedded-software-catalysts/)
+
+[Interaction Tests, Mocks & Refactoring in Embedded Software](https://www.udemy.com/course/interaction-tests-mocks-and-refactoring-in-embedded-c/)
+
+
+### Model Conductor Hardware
+Mocking the embedded world - Karlesky, Williams, Bereza, Fletcher, (2007): [pdf](https://www.researchgate.net/profile/Michael-Karlesky/publication/228711578_Mocking_the_embedded_world_Test-driven_development_continuous_integration_and_design_patterns/links/5512b1c80cf20bfdad51c6b4/Mocking-the-embedded-world-Test-driven-development-continuous-integration-and-design-patterns.pdf)
