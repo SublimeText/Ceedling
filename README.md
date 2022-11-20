@@ -104,7 +104,7 @@ Run last selected build variant using `ctrl-b` / `command-b`.
 
 
 ## Key mapping
-A number of key commands for working with modules are predefiend. The main shortcuts follow the naming scheme of *h*eader, *s*ource, *t*est and *m*odule. \
+A number of key commands for working with modules are predefiend. The main shortcuts follow the naming scheme *h*eader, *s*ource, *t*est and *m*odule.
 
 | Key command | Function |
 |:--|:--|
