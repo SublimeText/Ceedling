@@ -26,7 +26,7 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
             return
 
         if option == "config":
-            return self.open_file(self.conf.project_yml)
+            return self._open_file(self.conf.project_yml)
 
         # Handle files within the project structure
         current_file_path = self.window.active_view().file_name()
@@ -70,18 +70,18 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
                     },
                 )
 
-                self.open_file(self.path_build("test", base_name), 0)
-                self.open_file(self.path_build("source", base_name), 1),
-                self.open_file(self.path_build("header", base_name), 1),
+                self._open_file(self._path_build("test", base_name), 0)
+                self._open_file(self._path_build("header", base_name), 1),
+                self._open_file(self._path_build("source", base_name), 1),
 
             else:
-                self.open_file(self.path_build(option, base_name))
+                self._open_file(self._path_build(option, base_name))
 
         except IOError as e:
             self.window.status_message("Ceedling: {}".format(e))
             return
 
-    def path_build(self, option: str, base: str) -> str:
+    def _path_build(self, option, base):
         # todo: Check this assumption holds when env is set
         ppath = self.conf.working_dir
         ext = self.conf.source_ext
@@ -103,8 +103,8 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
             ext = self.conf.header_ext
 
         # build list of files based on project.yml glob paths
-        incl = self.glob_search(gpath, ppath, base, ext)
-        excl = self.glob_search(xpath, ppath, base, ext)
+        incl = self._glob_search(gpath, ppath, base, ext)
+        excl = self._glob_search(xpath, ppath, base, ext)
 
         # remove files from excluded directories from results
         incl = list(set(incl) - set(excl))
@@ -122,7 +122,14 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
 
         return incl[0]
 
-    def glob_search(self, pattern, path, base, ext) -> list:
+    def _glob_search(self, pattern, path, base, ext):
+        """Return list of flies matching glob path.
+
+        Ceedling project.yml uses globstar `**` pattern.
+        This is not supported by Python before v3.5.
+        `glob2` module backports this functionality to earlier Python versions
+        and is used to maintain Sublime Text 3 support.
+        """
         res = []
         for glob_pat in pattern:
 
@@ -135,13 +142,10 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
 
         return res
 
-    def open_file(self, file_path, auto_set_view=-1):
+    def _open_file(self, file_path, auto_set_view=-1):
         file_view = self.window.open_file(file_path)
 
         if auto_set_view >= 0:
             self.window.run_command("move_to_group", {"group": auto_set_view})
 
         self.views.append(file_view)
-
-    def is_enabled(self):
-        return self.window.active_view() is not None
