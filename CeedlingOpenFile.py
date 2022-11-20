@@ -1,8 +1,6 @@
 import os
 import re
 
-
-import sublime
 import sublime_plugin
 
 from .CeedlingSettings import CeedlingProjectSettings
