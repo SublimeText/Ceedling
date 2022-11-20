@@ -160,7 +160,7 @@ class CeedlingProjectSettings:
         with open(project_file, "r") as f:
             pf = f.read()
 
-        # strip leading colons
+        # strip Ruby leading colons
         pf = re.sub(r":([a-z])", r"\1", pf)
 
         return yaml.load(pf, Loader=yaml.SafeLoader)
