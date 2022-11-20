@@ -29,6 +29,6 @@ class CeedlingCreateModuleCommand(sublime_plugin.WindowCommand):
         window = view.window()
         window.status_message("Creating {}: {}".format(module, text))
         window.run_command(
-            "ceedling", {"tasks": ["module:{}[{}]".format(module, text)]}
+            "ceedling_exec", {"tasks": ["module:{}[{}]".format(module, text)]}
         )
         window.status_message("Created {}: {}".format(module, text))

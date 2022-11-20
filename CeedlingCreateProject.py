@@ -61,7 +61,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         window = view.window()
         window.status_message("Creating project: {}".format(project_name))
         window.run_command(
-            "ceedling",
+            "ceedling_exec",
             {
                 "tasks": ["new", "{}".format(project_name)],
                 "options": options,

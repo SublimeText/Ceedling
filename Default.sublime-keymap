@@ -53,6 +53,32 @@
         "args": {
             "action": "create"
         },
+    },
+    {
+        "keys": [
+            "ctrl+alt+x"
+        ],
+        "command": "ceedling_exec",
+        "args": {
+            "tasks": [
+                "clean"
+            ],
+            "file_regex": "^(...*?):",
+            "line_regex": "^...*?:([0-9]*)"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+alt+shift+x"
+        ],
+        "command": "ceedling_exec",
+        "args": {
+            "tasks": [
+                "clobber"
+            ],
+            "file_regex": "^(...*?):",
+            "line_regex": "^...*?:([0-9]*)"
+        }
     }
 ]
 

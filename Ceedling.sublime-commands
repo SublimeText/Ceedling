@@ -17,7 +17,7 @@
     },
     {
         "caption": "Ceedling: Clean Project",
-        "command": "ceedling",
+        "command": "ceedling_exec",
         "args": {
             "tasks": [
                 "clean"
@@ -26,7 +26,7 @@
     },
     {
         "caption": "Ceedling: Clobber Project",
-        "command": "ceedling",
+        "command": "ceedling_exec",
         "args": {
             "tasks": [
                 "clobber"
@@ -35,7 +35,7 @@
     },
     {
         "caption": "Ceedling: Default Build",
-        "command": "ceedling",
+        "command": "ceedling_exec",
         "args": {
             "tasks": [
                 "default"
@@ -88,19 +88,19 @@
         "caption": "Ceedling: Create New Module",
         "command": "ceedling_create_module",
         "args": {
-            "module": "create"
+            "action": "create"
         }
     },
     {
         "caption": "Ceedling: Create Stub",
         "command": "ceedling_create_module",
         "args": {
-            "module": "stub"
+            "action": "stub"
         }
     },
     {
         "caption": "Ceedling: Test Summary",
-        "command": "ceedling",
+        "command": "ceedling_exec",
         "args": {
             "tasks": [
                 "summary"
@@ -109,7 +109,7 @@
     },
     {
         "caption": "Ceedling: Version",
-        "command": "ceedling",
+        "command": "ceedling_exec",
         "args": {
             "tasks": [
                 "version"
@@ -118,7 +118,7 @@
     },
     {
         "caption": "Ceedling: Environment",
-        "command": "ceedling",
+        "command": "ceedling_exec",
         "args": {
             "tasks": [
                 "environment"

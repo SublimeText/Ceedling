@@ -1,5 +1,5 @@
 {
-	"target": "ceedling",
+	"target": "ceedling_exec",
 	"tasks": ["test:$file_name"],
 	"file_regex": "^\"(.*?)\", line\\s+([0-9]+)",
 	"selector": "source.c",
