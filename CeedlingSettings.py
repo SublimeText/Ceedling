@@ -5,9 +5,12 @@ import yaml
 
 
 class CeedlingProjectSettings:
+    """project.yml configuration parser."""
+
     def __init__(self, window):
+        """Initialise and update settings cache."""
         self.settings = window.settings()
-        self.update_cache(window)
+        self._update_cache(window)
 
     @property
     def project_yml(self):
@@ -30,45 +33,64 @@ class CeedlingProjectSettings:
         return self._cache_get("test_file_prefix")
 
     @property
-    def test(self) -> list:
+    def test(self):
         """Return glob path to test directories."""
         return self._cache_get("test")
 
     @property
-    def test_excl(self) -> list:
+    def test_excl(self):
         """Return glob path to excluded test directories."""
         return self._cache_get("test_excl", [])
 
     @property
-    def source_excl(self) -> list:
-        return self._cache_get("source_excl", [])
-
-    @property
-    def source(self) -> list:
+    def source(self):
+        """Return source paths."""
         return self._cache_get("source")
 
     @property
-    def source_ext(self) -> list:
+    def source_excl(self):
+        """Return paths excluded from source search."""
+        return self._cache_get("source_excl", [])
+
+    @property
+    def includes(self):
+        """Return includes paths if configured."""
+        return self._cache_get("includes", self._cache_get("source"))
+
+    @property
+    def includes_excl(self):
+        """Return excluded include paths, if configured."""
+        return self._cache_get(
+            "includes_excl", self._cache_get("includes_excl", [])
+        )
+
+    @property
+    def source_ext(self):
+        """Return configured source file extension."""
         return self._cache_get("source_ext")
 
     @property
-    def header_ext(self) -> list:
+    def header_ext(self):
+        """Return configured header file extension."""
         return self._cache_get("header_ext")
 
-    def _cache_set(self, data: dict):
+    def _cache_set(self, data):
         for k, v in data.items():
             self.settings.set(k, v)
 
-    def _cache_get(self, key: str, default=None):
+    def _cache_get(self, key, default=None):
         c = self.settings.get(key, default)
         return c if c is not None else default
 
-    def update_cache(self, window):
-        # To use a project file name other than the default project.yml
-        # or place the project file in a directory other than the one
-        # in which you'll run [ceedling], create an environment variable
-        # CEEDLING_MAIN_PROJECT_FILE with your desired project file path.
+    def _update_cache(self, window):
+        """
+        Locate configuration based on Ceedling documentation.
 
+        To use a project file name other than the default project.yml
+        or place the project file in a directory other than the one
+        in which you'll run [ceedling], create an environment variable
+        CEEDLING_MAIN_PROJECT_FILE with your desired project file path.
+        """
         if os.path.exists(self._cache_get("project_yml", default="")):
             project_file = self.project_yml
 
@@ -159,7 +181,7 @@ class CeedlingProjectSettings:
 
         return cache_update
 
-    def read_yaml(self, project_file):
+    def _read_yaml(self, project_file):
         """Read project.yml configuration file.
 
         parameters: project_file - path to project.yml
