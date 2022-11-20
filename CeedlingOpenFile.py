@@ -92,12 +92,14 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
             xpath = self.conf.test_excl
 
             base = "".join((self.conf.test_file_prefix, base))
+
         elif option == "source":
             gpath = self.conf.source
             xpath = self.conf.source_excl
+
         else:
-            gpath = self.conf.source
-            xpath = self.conf.test_excl
+            gpath = self.conf.includes
+            xpath = self.conf.includes_excl
             ext = self.conf.header_ext
 
         # build list of files based on project.yml glob paths
