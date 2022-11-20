@@ -130,10 +130,10 @@ class CeedlingProjectSettings:
                             t_key = key
 
                             if i.startswith(("+")):
-                                i = i.lstrip("+:")
+                                i = i.lstrip("+")
 
                             elif i.startswith(("-")):
-                                i = i.lstrip("-:")
+                                i = i.lstrip("-")
 
                                 if not key.endswith("excl"):
                                     t_key = key + "_excl"
