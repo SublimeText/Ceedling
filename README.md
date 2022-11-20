@@ -125,17 +125,3 @@ Run last selected build variant using `ctrl-b` / `command-b`.
     * FuncBeingMocked.e + [TAB] => FuncBeingMocked_Expect(<parameters>)
     * FuncBeingMocked.er + [TAB] => FuncBeingMocked_ExpectAndReturn(<parameters>)
 
-## Embedded TDD Resources
-### Throw The Switch
-
-Throw the Switch are the developers of the Ceedling testing framework.
-
-[http://www.throwtheswitch.org](http://www.throwtheswitch.org)
-
-[Unit Testing & Other Embedded Software Catalysts](https://www.udemy.com/course/unit-testing-and-other-embedded-software-catalysts/)
-
-[Interaction Tests, Mocks & Refactoring in Embedded Software](https://www.udemy.com/course/interaction-tests-mocks-and-refactoring-in-embedded-c/)
-
-
-### Model Conductor Hardware
-Mocking the embedded world - Karlesky, Williams, Bereza, Fletcher, (2007): [pdf](https://www.researchgate.net/profile/Michael-Karlesky/publication/228711578_Mocking_the_embedded_world_Test-driven_development_continuous_integration_and_design_patterns/links/5512b1c80cf20bfdad51c6b4/Mocking-the-embedded-world-Test-driven-development-continuous-integration-and-design-patterns.pdf)
