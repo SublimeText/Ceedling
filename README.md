@@ -35,13 +35,13 @@ When you launch Sublime Text, it will pick up the contents of this package so th
 
 ### New Project
 `New Project` comes in two flavours.
-* `Minimal` is a bare bones install containing `project.yml`, `src` and `test` folders.
-* `Portable` adds a `ceedling` executable bash script, and `vendor` directory.
+* The default is a bare bones install containing `project.yml`, `src` and `test` folders.
+* `Local` adds a `ceedling` executable bash script, and `vendor` directory.
 
 To create a new Ceedling project:
 1. Open a new window in Sublime Text
 1. Open the command palette (Tools > Command Palette) and type `cnp` to narrow down the options.
-1. Select `Minimal` or `Portable`
+1. Select default or `Local`
 1. Enter project folder location in the panel.\
 For example `~/projects/drsurly` will create a project folder `drsurly` within the `projects` folder.\
 `~` expands to the current users home directory.
@@ -85,7 +85,7 @@ Additional naming schemes are supported using an abbreviated format identifiers:
 The first four schemes generate header, source and test files for each of the named variants.
 
 ## Running tests
-Sublime Text build system is used to run tests.
+Sublime Text's build system is used to run tests.
 
 From `Tools >> Build System` menu select `Ceedling` as the build system for the project.
 
@@ -103,17 +103,18 @@ Run last selected build variant using `ctrl-b` / `command-b`.
 
 
 ## Key commands
-
 | Key command | Function |
 |:--|:--|
 |`super-ctrl-h` | Open Header File |
 |`super-ctrl-s` | Open Source File |
 |`super-ctrl-t` | Open Test File |
 |`super-ctrl-right` | Cycle through module files |
+|`super-ctrl-x` |  Clean project |
+
 
 ## Features
-* Ceedling.sublime-build for executing unit tests for the active module via <F7>
-    * You must assign the builder for your project to 'Ceedling'
+* Ceedling.sublime-build for executing unit tests for the active module via `ctrl-b`/`command-b`
+    * You must assign the build system for your project to 'Ceedling'
 * Snippets for Unity unit testing framework macros
 * Snippets for Unity unit test methods
 	* test + [TAB] => unit test method template
