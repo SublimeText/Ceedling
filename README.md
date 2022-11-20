@@ -40,7 +40,7 @@ When you launch Sublime Text, it will pick up the contents of this package so th
 
 To create a new Ceedling project:
 1. Open a new window in Sublime Text
-1. Open the command palette (Tools > Command Palette) and type `cn`
+1. Open the command palette (Tools > Command Palette) and type `cnp` to narrow down the options.
 1. Select `Minimal` or `Portable`
 1. Enter project folder location in the panel.\
 For example `~/projects/drsurly` will create a project folder `drsurly` within the `projects` folder.\
@@ -92,15 +92,14 @@ From `Tools >> Build System` menu select `Ceedling` as the build system for the 
 | Variant | Ceedling Task | Notes |
 |:--|:--|:--|
 | Default | `test:filename` | Test current module|
-| Test All | `test:all` | |
-| Test Changes | `test:delta` | |
-| Test Build only | `test:build_only`  | |
+| Test All | `test:all` | Test all modules|
+| Test Changes | `test:delta` | Test changed modules |
+| Test Build only | `test:build_only`  | Build all without testing |
 | Clean and Test file | `clean test:filename` | |
 | Release | `release` | The release config is disabled in new project.yml. |
 
 Select variants using `ctrl-shift-b`/`command-shift-b`.
-
-Run selected build using `ctrl-b` / `command-b`.
+Run last selected build variant using `ctrl-b` / `command-b`.
 
 
 ## Key commands
@@ -110,13 +109,7 @@ Run selected build using `ctrl-b` / `command-b`.
 |`super-ctrl-h` | Open Header File |
 |`super-ctrl-s` | Open Source File |
 |`super-ctrl-t` | Open Test File |
-|`super-ctrl-m` | Open Test, Header and Source Files |
 |`super-ctrl-right` | Cycle through module files |
-|`super-ctrl-c, super-ctrl-,` | Open project settings |
-|`super-ctrl-c, super-ctrl-m` | New module |
-|`super-ctrl-c, super-ctrl-v` | Ceedling version |
-|`super-ctrl-c, super-ctrl-e` | Ceedling environment |
-|`super-ctrl-c, super-ctrl-s` | Ceedling summary |
 
 ## Features
 * Ceedling.sublime-build for executing unit tests for the active module via <F7>
