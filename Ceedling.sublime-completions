@@ -1,120 +1,161 @@
 {
     "scope": "source.c,source.c++",
-    "completions": [
+    "completions":
+    [
         {
-            "trigger": ".e",
-            "contents": "_Expect(${1:parameters});",
-            "kind": "snippet"
+            "annotation": "CMock _Expect(void)",
+            "contents": "${1:function}_Expect(void)",
+            "kind": "snippet",
+            "trigger": "mev"
         },
         {
-            "trigger": ".er",
-            "contents": "_ExpectAndReturn(${1:parameters});",
-            "kind": "snippet"
+            "annotation": "CMock _Expect(params)",
+            "contents": "${1:function}_Expect(${2:expected_params})",
+            "kind": "snippet",
+            "trigger": "mep"
+        },
+
+        {   "annotation": "CMock _Expect(retval)",
+            "contents": "${1:function}_ExpectAndReturn(${2:retval_to_return})",
+            "kind": "snippet",
+            "trigger": "mer"
+        },
+        {   "annotation": "CMock _Expect(params, retval)",
+            "contents": "${1:function}_ExpectAndReturn(${2:expected_params}, ${3:retval_to_return})",
+            "kind": "snippet",
+            "trigger": "mepr"
         },
         {
-            "trigger": "ae",
-            "contents": "TEST_ASSERT_EQUAL(${1:expected}, ${2:actual});",
-            "kind": "snippet"
+            "annotation": "assert equal int",
+            "contents": "TEST_ASSERT_EQUAL_INT(${1:expected}, ${2:actual});",
+            "kind": "snippet",
+            "trigger": "aei"
         },
         {
-            "trigger": "aem",
-            "contents": "TEST_ASSERT_EQUAL(${1:expected}, ${2:actual}, ${3:message});",
-            "kind": "snippet"
+            "annotation": "assert equal int message",
+            "contents": "TEST_ASSERT_EQUAL_INT_MESSAGE(${1:expected}, ${2:actual}, ${3:message});",
+            "kind": "snippet",
+            "trigger": "aeim"
         },
         {
-            "trigger": "ah",
+            "annotation": "assert equal hex",
             "contents": "TEST_ASSERT_EQUAL_HEX(${1:expected}, ${2:actual});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "aeh"
         },
         {
-            "trigger": "ahm",
+            "annotation": "assert equal hex message",
             "contents": "TEST_ASSERT_EQUAL_HEX_MESSAGE(${1:expected}, ${2:actual});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "aehm"
         },
         {
-            "trigger": "ah8",
+            "annotation": "assert equal hex8",
             "contents": "TEST_ASSERT_EQUAL_HEX8(${1:expected}, ${2:actual});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "aeh8"
         },
         {
-            "trigger": "ah8m",
+            "annotation": "assert equal hex8 message",
             "contents": "TEST_ASSERT_EQUAL_HEX8_MESSAGE(${1:expected}, ${2:actual});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "aeh8m"
         },
         {
-            "trigger": "ah16",
+            "annotation": "assert equal hex16",
             "contents": "TEST_ASSERT_EQUAL_HEX16(${1:expected}, ${2:actual});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "aeh16"
         },
         {
-            "trigger": "ah16m",
+            "annotation": "assert equal hex16 message",
             "contents": "TEST_ASSERT_EQUAL_HEX16_MESSAGE(${1:expected}, ${2:actual});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "aeh16m"
         },
         {
-            "trigger": "at",
+            "annotation": "assert true",
             "contents": "TEST_ASSERT_TRUE(${1:expression});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "at"
         },
         {
-            "trigger": "atm",
+            "annotation": "assert true message",
             "contents": "TEST_ASSERT_TRUE_MESSAGE(${1:expression}, ${2:message});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "atm"
         },
         {
-            "trigger": "af",
+            "annotation": "assert false",
             "contents": "TEST_ASSERT_FALSE(${1:expression});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "af"
         },
         {
-            "trigger": "afm",
+            "annotation": "assert false message",
             "contents": "TEST_ASSERT_FALSE_MESSAGE(${1:expression}, ${2:message});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "afm"
         },
         {
-            "trigger": "am",
+            "annotation": "assert equal memory",
             "contents": "TEST_ASSERT_EQUAL_MEMORY(${1:expected}, ${2:actual}, ${3:length});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "aem"
         },
         {
-            "trigger": "amm",
+            "annotation": "assert equal memory message",
             "contents": "TEST_ASSERT_EQUAL_MEMORY_MESSAGE(${1:expected}, ${2:actual}, ${3:length}, ${4:message});",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "amm"
         },
         {
-            "trigger": "fa",
+            "annotation": "fail",
             "contents": "TEST_FAIL();",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "fa"
         },
         {
-            "trigger": "fam",
+            "annotation": "fail message",
             "contents": "TEST_FAIL_MESSAGE(\"${1:message}\");",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "fam"
         },
         {
-            "trigger": "ig",
+            "annotation": "ignore",
             "contents": "TEST_IGNORE();",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "ig"
         },
         {
-            "trigger": "igm",
+            "annotation": "ignore message",
             "contents": "TEST_IGNORE_MESSAGE(\"${1:message}\");",
-            "kind": "snippet"
+            "kind": "snippet",
+            "trigger": "igm"
         },
         {
-            "trigger": "test",
-            "contents": "void test_${1:snippet}_should_${2:behavior}(void)\n{\n\t${1}(${3});\n}\n",
-            "kind": "snippet"
+            "annotation": "assert message",
+            "contents": "TEST_ASSERT_MESSAGE(${1:test},\"${2:message}\");",
+            "kind": "snippet",
+            "trigger": "amtm"
         },
         {
-            "trigger": "testf",
-            "contents": "void test_${1:snippet}_should_${2:behavior}(void)\n{\n\tTEST_FAIL_MESSAGE(\"${3:Implement me!}\");\n}\n",
-            "kind": "snippet"
+            "annotation": "test skeleton",
+            "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\t${3}\n}\n",
+            "kind": "function",
+            "trigger": "test"
         },
         {
-            "trigger": "testi",
-            "contents": "void test_${1:snippet}_should_${2:behavior}(void)\n{\n\tTEST_IGNORE_MESSAGE(\"${3:Implement me!}\");\n}\n",
-            "kind": "snippet"
+            "annotation": "test skeleton fail",
+            "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_FAIL_MESSAGE(\"${3:Implement me!}\");\n}\n",
+            "kind": "function",
+            "trigger": "testf"
+        },
+        {
+            "annotation": "test skeleton ignore",
+            "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_IGNORE_MESSAGE(\"${3:Implement me!}\");\n}\n",
+            "kind": "function",
+            "trigger": "testi"
         }
     ]
 }
