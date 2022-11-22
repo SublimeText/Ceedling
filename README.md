@@ -1,9 +1,11 @@
-## Reboot Note
-The Ceedling support package is currently being rewritten and supports:
+## Ceedling for Sublime Text 3+
+
+The Ceedling support package has rewritten and currently supports:
 - Sublime Text 3+
 - Ceedling 0.28.1 or later
 
 The package has been tested for basic functionality on macOS, Windows 10 and Ubuntu 22.04 LTS.
+
 
 ## Description
 
@@ -36,7 +38,8 @@ When you launch Sublime Text, it will pick up the contents of this package so th
 ### New Project
 `New Project` comes in two flavours.
 * The default `Ceedling: New Project` is a bare bones install containing `project.yml`, `src` and `test` folders.
-* `Ceedling: New Project (Local)` adds a `ceedling` executable bash script, and `vendor` directory.
+* `Ceedling: New Project (Local)` adds a `ceedling` executable bash script, and `vendor` directory which contains the current version of the Ceedling framework.
+
 
 #### Creating a New Project
 1. Open a `File >> New Window` in Sublime Text
