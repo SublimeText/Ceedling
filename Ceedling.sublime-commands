@@ -34,16 +34,7 @@
         }
     },
     {
-        "caption": "Ceedling: Default Build",
-        "command": "ceedling_exec",
-        "args": {
-            "tasks": [
-                "default"
-            ]
-        }
-    },
-    {
-        "caption": "Ceedling: Open Test and Source",
+        "caption": "Ceedling: Open Module Files",
         "command": "ceedling_open_file",
         "args": {
             "option": "test_and_source"
