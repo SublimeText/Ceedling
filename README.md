@@ -1,35 +1,40 @@
-## Ceedling for Sublime Text 3+
+# Ceedling for Sublime Text 3+
 
-The Ceedling support package has rewritten and currently supports:
+The Ceedling for Sublime Text package has been substantially rewritten and currently supports:
+
 - Sublime Text 3+
-- Ceedling 0.28.1 or later
+- Ceedling gem v0.28.1 or later
 
-The package has been tested for basic functionality on macOS, Windows 10 and Ubuntu 22.04 LTS.
+The package has been developed on macOS, and tested on Windows 10 and Ubuntu 22.04 LTS.
+
+## Important Note
+
+This update has breaking changes with the previous version and no longer supports invoking commands using `rake`.
+
+This reflects changed behaviour introduced in v0.28.1 of the Ceedling gem:
+
+> Using a modern version of Ceedling means that you issue commands like ceedling test:all instead of rake test:all. If you have a continuous integration server or other calling service, it may need to be updated to comply.
+
+> Similarly, older versions of Ceedling actually placed a rakefile in the project directory, allowing the project to customize its own flow. For the most part this went unused and better ways were later introduced. At this point, the rakefile is more trouble than its worth and often should just be removed.
+
+Refer to [CeedlingUpgrade.md](https://github.com/ThrowTheSwitch/Ceedling/blob/master/docs/CeedlingUpgrade.md) for details.
 
 
-## Description
+## Additional Requirements
+To use the Ceedling plugin you'll need:
+- Ruby version supported by Ceedling (3.0.x recommended)
+- GCC compiler for default builds
+- Ceedling 0.28.1 or later (tested with 0.31.1)
 
-[Ceedling](http://throwtheswitch.org/) is a set of tools and libraries for testing and building C applications. This package adds support to Sublime Text for developing Ceedling applications.
+## Installation
 
-## Ceedling Installation
-
-If you already have the Ruby scripting language installed with RubyGems support, simply execute the following at the command line:
-
-```sh
-gem install ceedling
-```
-
-## Package Installation
-
-Bring up a command line in the Packages/ folder of your Sublime user folder, and execute the following:
-
-```sh
-mkdir Ceedling
-cd Ceedling
-git init
-git pull git://github.com/SublimeText/Ceedling.git
-
-```
+### Plugin
+The preferred method of installing the Ceedling plugin is using `Package Control`.
+[Install Package Control](https://packagecontrol.io/installation) if you haven't done so previously then:
+- Open the command palette
+- Select `Package Control: Install Packages`
+- Type `Ceedling`
+- Click the package listing to install.
 
 When you launch Sublime Text, it will pick up the contents of this package so that you can consume the goodness that it provides.
 
@@ -106,7 +111,7 @@ Select variants using `ctrl-shift-b`/`command-shift-b`.
 Run last selected build variant using `ctrl-b` / `command-b`.
 
 
-## Key mapping
+### Key mapping
 A number of key commands for working with modules are predefiend. The main shortcuts follow the naming scheme *h*eader, *s*ource, *t*est and *m*odule.
 
 | Key command | Function |
@@ -117,6 +122,47 @@ A number of key commands for working with modules are predefiend. The main short
 |`super-ctrl-m` | Open Module Files |
 |`super-ctrl-right` | Cycle through module files |
 |`super-ctrl-x` |  Clean project |
+
+### Commands
+
+| Command Name | Description |
+|:--|:--|
+| Ceedling: New Project | `ceedling new name`|
+| Ceedling: New Project (Local) | `ceedling --local new name` |
+| Ceedling: Clean Project | `ceedling clean` |
+| Ceedling: Clobber Project | `ceedling clobber`|
+| Ceedling: Create New Module | `ceedling create:module name`|
+| Ceedling: Open Module Header | Opens header for current module |
+| Ceedling: Open Module Source | Opens source for current module |
+| Ceedling: Open Module Test | Open test for current module |
+| Ceedling: Open Next Module File | Cycle through header, source and test for current module |
+| Ceedling: Open Module Files | Open all module files in 2 column layout |
+| Ceedling: Edit Project Configuration | Opens `project.yml` |
+| Ceedling: Test Summary | Print summary of previously run tests |
+| Ceedling: Version | Print version information for ceedling used in current project. |
+| Ceedling: Environment | Display ENV variables set by ceedling |
+
+### Completions and Snippets
+
+Completions are scope sensitive and requires use of a C/C++ syntax that identifies function blocks.
+
+The plugin will work with:
+- Built-in Sublime Text `C` and `C++` syntaxes
+- [C99](https://packagecontrol.io/packages/C99)
+- [C Improved](https://packagecontrol.io/packages/C%20Improved)
+
+Completions are available if the active file includes "unity.h".
+
+Placing the caret/cursor within:
+- a C/C++ file activates snippets for template test functions.
+- a function activates snippets for Unity assertions.
+
+Assertion snippets do not have a fixed shortcut.
+Typing the initial letter of each word in the assertion will narrow the selection.
+
+`ne` narrows the options to `assert not empty` and `assert not equal` for all types.
+`ne8`
+
 
 
 ## Features
