@@ -3,279 +3,81 @@ import sublime_plugin
 
 TEST_FUNCTIONS = [
     [
-        "test\tskeleton test",
+        "test\ttemplate test",
         "void test_${1:function}_should_${2:behavior}(void)\n{\n\t${3}\n}\n",
     ],
     [
-        "testf\tskeleton test fail",
+        "testf\ttemplate test fail",
         'void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_FAIL_MESSAGE("${3:Implement me!}");\n}\n',
     ],
     [
-        "testi\tskeleton test ignore",
+        "testi\ttest ignore",
         'void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_IGNORE_MESSAGE("${3:Implement me!}");\n}\n',
     ],
 ]
 
-TEST_ASSERTIONS_MSG = [
-    [
-        "test fail message",
-        'TEST_FAIL("${1:message}");',
-    ],
-    [
-        "test pass message",
-        'TEST_PASS("${1:message}");',
-    ],
-    [
-        "test ignore message",
-        'TEST_IGNORE("${1:message}");',
-    ],
-    [
-        "test message",
-        'TEST_MESSAGE("${1:message}");',
-    ],
-    [
-        "test assert message",
-        'TEST_ASSERT_MESSAGE( ${1:condition}, "${2:message}");',
-    ],
-    [
-        "test assert true message",
-        'TEST_ASSERT_TRUE_MESSAGE(${1:condition, "${2:message}"});',
-    ],
-    [
-        "test assert false message",
-        'TEST_ASSERT_FALSE_MESSAGE(${1:condition}, "${2:message}");',
-    ],
-    [
-        "test assert unless message",
-        'TEST_ASSERT_UNLESS_MESSAGE(${1:condition}, "${2:message}");',
-    ],
-    [
-        "test assert null message",
-        'TEST_ASSERT_NULL_MESSAGE(${1:pointer}, "${2:message}");',
-    ],
-    [
-        "test assert empty message",
-        "TEST_ASSERT_EMPTY_MESSAGE(${1:pointer}, '${2:message}');",
-    ],
-    [
-        "test assert not empty message",
-        "TEST_ASSERT_NOT_EMPTY_MESSAGE(${1:pointer}, '${2:message}');",
-    ],
-    [
-        "test assert equal int message",
-        "TEST_ASSERT_EQUAL_INT_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal int8 message",
-        "TEST_ASSERT_EQUAL_INT8_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal int16 message",
-        "TEST_ASSERT_EQUAL_INT16_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal int32 message",
-        "TEST_ASSERT_EQUAL_INT32_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal int64 message",
-        "TEST_ASSERT_EQUAL_INT64_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal uint message",
-        "TEST_ASSERT_EQUAL_UINT_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal uint8 message",
-        "TEST_ASSERT_EQUAL_UINT8_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal uint16 message",
-        "TEST_ASSERT_EQUAL_UINT16_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal uint32 message",
-        "TEST_ASSERT_EQUAL_UINT32_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal uint64 message",
-        "TEST_ASSERT_EQUAL_UINT64_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal HEX message",
-        "TEST_ASSERT_EQUAL_HEX_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal HEX8 message",
-        "TEST_ASSERT_EQUAL_HEX8_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal HEX16 message",
-        "TEST_ASSERT_EQUAL_HEX16_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal HEX32 message",
-        "TEST_ASSERT_EQUAL_HEX32_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal HEX64 message",
-        "TEST_ASSERT_EQUAL_HEX64_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert equal char message",
-        "TEST_ASSERT_EQUAL_CHAR_MESSAGE(${1:expected}, ${2:actual}, '${3:message}');",
-    ],
-    [
-        "test assert bits message",
-        "TEST_ASSERT_BITS_MESSAGE(${1:mask}, ${2:expected}, ${3:actual}, '${4:message}')",
-    ],
-    [
-        "test assert bits high message",
-        "TEST_ASSERT_BITS_HIGH_MESSAGE(${1:mask}, ${2:actual}, '${3:message}')",
-    ],
-    [
-        "test assert bits low message",
-        "TEST_ASSERT_BITS_LOW_MESSAGE(${1:mask}, ${2:actual}, '${3:message}')",
-    ],
-    [
-        "test assert bit high message",
-        "TEST_ASSERT_BIT_HIGH_MESSAGE(${1:bit}, ${2:actual}, '${3:message}')",
-    ],
-    [
-        "test assert bit low message",
-        "TEST_ASSERT_BIT_LOW_MESSAGE(${1:bit}, ${2:actual}, '${3:message}')",
-    ],
-]
+TYPES_INTEGER = {
+    "INT": ["", "8", "16", "32", "64"],
+    "UINT": ["", "8", "16", "32", "64"],
+    "size_t": [""],
+    "HEX": ["", "8", "16", "32", "64"],
+    "CHAR": [""],
+}
 
-TEST_ASSERTIONS = [
-    [
-        "test fail",
-        "TEST_FAIL()",
-    ],
-    [
-        "test pass",
-        "TEST_PASS()",
-    ],
-    [
-        "test ignore",
-        "TEST_IGNORE()",
-    ],
-    [
-        "test assert",
-        "TEST_ASSERT( ${1:condition});",
-    ],
-    [
-        "test assert true",
-        "TEST_ASSERT_TRUE(${1:condition});",
-    ],
-    [
-        "test assert false",
-        "TEST_ASSERT_FALSE(${1:condition});",
-    ],
-    [
-        "test assert unless",
-        "TEST_ASSERT_UNLESS(${1:condition});",
-    ],
-    [
-        "test assert null",
-        "TEST_ASSERT_NULL(${1:pointer});",
-    ],
-    [
-        "test assert empty",
-        "TEST_ASSERT_EMPTY(${1:pointer});",
-    ],
-    [
-        "test assert not empty",
-        "TEST_ASSERT_NOT_EMPTY(${1:pointer});",
-    ],
-    [
-        "test assert equal int",
-        "TEST_ASSERT_EQUAL_INT(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal int8",
-        "TEST_ASSERT_EQUAL_INT8(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal int16",
-        "TEST_ASSERT_EQUAL_INT16(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal int32",
-        "TEST_ASSERT_EQUAL_INT32(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal int64",
-        "TEST_ASSERT_EQUAL_INT64(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal uint",
-        "TEST_ASSERT_EQUAL_UINT(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal uint8",
-        "TEST_ASSERT_EQUAL_UINT8(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal uint16",
-        "TEST_ASSERT_EQUAL_UINT16(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal uint32",
-        "TEST_ASSERT_EQUAL_UINT32(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal uint64",
-        "TEST_ASSERT_EQUAL_UINT64(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal HEX",
-        "TEST_ASSERT_EQUAL_HEX(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal HEX8",
-        "TEST_ASSERT_EQUAL_HEX8(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal HEX16",
-        "TEST_ASSERT_EQUAL_HEX16(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal HEX32",
-        "TEST_ASSERT_EQUAL_HEX32(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal HEX64",
-        "TEST_ASSERT_EQUAL_HEX64(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert equal char",
-        "TEST_ASSERT_EQUAL_CHAR(${1:expected}, ${2:actual});",
-    ],
-    [
-        "test assert bits",
-        "TEST_ASSERT_BITS(${1:mask}, ${2:expected}, ${3:actual})",
-    ],
-    [
-        "test assert bits high",
-        "TEST_ASSERT_BITS_HIGH(${1:mask}, ${2:actual})",
-    ],
-    [
-        "test assert bits low",
-        "TEST_ASSERT_BITS_LOW(${1:mask}, ${2:actual})",
-    ],
-    [
-        "test assert bit high",
-        "TEST_ASSERT_BIT_HIGH(${1:bit}, ${2:actual})",
-    ],
-    [
-        "test assert bit low",
-        "TEST_ASSERT_BIT_LOW(${1:bit}, ${2:actual})",
-    ],
+TYPES_ARRAY = {
+    "PTR": [""],
+    "STRING": [""],
+    "MEMORY": [""],
+}
+
+ASSERTIONS_COMMON = [
+    {
+        "cmp1": "EQUAL",
+        "extra": TYPES_ARRAY,
+    },
+    {
+        "cmp1": "NOT",
+        "cmp2": "EQUAL",
+    },
+    {
+        "cmp1": "GREATER",
+        "cmp2": "THAN",
+    },
+    {
+        "cmp1": "LESS",
+        "cmp2": "THAN",
+    },
+    {
+        "cmp1": "GREATER",
+        "cmp2": "OR",
+        "cmp3": "EQUAL",
+    },
+    {
+        "cmp1": "LESS",
+        "cmp2": "OR",
+        "cmp3": "EQUAL",
+    },
+    {
+        "p5": "WITHIN",
+    },
+    {
+        "p4": "ARRAY",
+        "p5": "WITHIN",
+    },
+    {
+        "cmp1": "EQUAL",
+        "p4": "ARRAY",
+    },
+    {
+        "cmp1": "EACH",
+        "cmp2": "EQUAL",
+    },
 ]
 
 
 class CeedlingCompletions(sublime_plugin.EventListener):
+    _cache = {}
+
     def on_query_completions(self, view, prefix, locations):
         if not any(
             view.match_selector(caret, "(source.c | source.c++ | source.c99)")
@@ -292,21 +94,20 @@ class CeedlingCompletions(sublime_plugin.EventListener):
         ):
             return None
 
-        if all(
-            view.match_selector(caret, "meta.function & meta.block")
-            for caret in locations
-        ):
-            if prefix.endswith("me"):
+        if view.match_selector(locations[0], "meta.function & meta.block"):
+            print(prefix)
+            if prefix.endswith("ms"):
+                print("msg detect")
                 return (
-                    TEST_ASSERTIONS_MSG,
+                    self.completions(msg=True),
                     sublime.INHIBIT_WORD_COMPLETIONS
-                    | sublime.INHIBIT_EXPLICIT_COMPLETIONS,
+                    | sublime.DYNAMIC_COMPLETIONS,
                 )
             else:
                 return (
-                    TEST_ASSERTIONS,
+                    self.completions(),
                     sublime.INHIBIT_WORD_COMPLETIONS
-                    | sublime.INHIBIT_EXPLICIT_COMPLETIONS,
+                    | sublime.DYNAMIC_COMPLETIONS,
                 )
 
         else:
@@ -315,3 +116,84 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                 sublime.INHIBIT_WORD_COMPLETIONS
                 | sublime.INHIBIT_EXPLICIT_COMPLETIONS,
             )
+
+    def completions(self, msg=False):
+        k = "msg" if msg else "nomsg"
+
+        if k in self._cache.keys():
+            print("cached", k)
+            return self._cache[k]
+
+        self._cache[k] = [
+            y
+            for x in (
+                self._generate_completions(TYPES_INTEGER, assert_def, msg=msg)
+                for assert_def in ASSERTIONS_COMMON
+            )
+            for y in x
+        ]
+
+        return self._cache[k]
+
+    def _generate_completions(self, types, definition, msg=False):
+        """Return list of trigger:content pairs."""
+        message = "MESSAGE" if msg else ""
+        result = []
+        base_p = ["expected", "actual"]
+
+        types = types.copy()
+        types.update(definition.get("extra", {}))
+
+        if definition.get("cmp1") in ("NOT", "GREATER", "LESS"):
+            base_p[0] = "threshold"
+
+        if "WITHIN" == definition.get("p5", ""):
+            base_p.insert(0, "delta")
+
+        elif "ARRAY" == definition.get("p4", ""):
+            base_p.append("num_elements")
+
+        for k, v in types.items():
+            p = base_p[:]
+
+            if p[0] == "threshold" and k == "HEX":
+                v = v[1:]
+
+            if k in ("STRING_LEN", "MEMORY"):
+                p.insert(2, "len")
+
+            for val in v:
+
+                assert_text = [
+                    w
+                    for w in (
+                        "test",
+                        "assert",
+                        "{}".format(definition.get("cmp1", "")),
+                        "{}".format(definition.get("cmp2", "")),
+                        "{}".format(definition.get("cmp3", "")),
+                        "{}{}".format(k, val),
+                        "{}".format(definition.get("p4", "")),
+                        "{}".format(definition.get("p5", "")),
+                        "{}".format(message),
+                    )
+                    if w != ""
+                ]
+
+                trigger = " ".join(assert_text[2:]).lower()
+
+                content = "_".join(assert_text).upper()
+                content += " ("
+
+                params = [
+                    "${{{}:{}}}".format(i, d) for i, d in enumerate(p, 1)
+                ]
+
+                if msg:
+                    params.append('"${{{}:message}}"'.format(len(params) + 1))
+
+                content += ", ".join(params)
+                content += ");"
+                result.append([trigger, content])
+
+        return result
