@@ -43,8 +43,9 @@ When you launch Sublime Text, it will pick up the contents of this package so th
 
 ### New Project
 `New Project` comes in two flavours.
-* The default `Ceedling: New Project` is a bare bones install containing `project.yml`, `src` and `test` folders.
-* `Ceedling: New Project (Local)` adds a `ceedling` executable bash script, and `vendor` directory which contains the current version of the Ceedling framework.
+
+* The default `Ceedling: New Project` is basic install containing `project.yml`, `src` and `test` folders.
+* `Ceedling: New Project (Local)` adds a `ceedling` executable script, and a `vendor` directory which contains the current version of the Ceedling framework.
 
 
 #### Creating a New Project
@@ -63,7 +64,8 @@ The default parent folder for new projects is set to `~` by default.
 
 To change the default folder open the Ceedling settings `Preferences » Package Settings » Ceedling » Settings`.
 
-Add the following entry to the file on the right, update the path as desired, then save.
+Add the following entry to `User Settings`, update the path as desired, then save.
+
 
 ```JSON
 {
@@ -74,7 +76,7 @@ Add the following entry to the file on the right, update the path as desired, th
 
 `project_options` provides additional control over project creation.
 
-Options listed are disabled by default. Adding a setting to `project_options` will enable.
+Options are disabled by default. Adding an option to `project_options` will enable.
 
 ```
 --docs  "Add docs in project vendor directory"
@@ -93,7 +95,9 @@ Use the path of the existing project when prompted for the location.
 
 
 ### Create New Module
+
 The `Create New Module` command now uses paths relative to the project folder.
+
 Specifying `basename` will generate the files `test/test_basename.c`, `src/basename.h` and `src/basename.c` by default.
 
 Additional naming schemes are supported using an abbreviated format identifiers:
@@ -108,7 +112,7 @@ Additional naming schemes are supported using an abbreviated format identifiers:
 The first four schemes generate header, source and test files for each of the named variants.
 
 ## Running tests
-Sublime Text's build system is used to run tests.
+The Sublime Text build system is used to run all tests.
 
 From `Tools » Build System` menu select `Ceedling` as the build system for the project.
 
@@ -126,14 +130,15 @@ Run last selected build variant using `ctrl-b` / `command-b`.
 
 
 ### Key mapping
-A number of key commands for working with modules are predefiend. The main shortcuts follow the naming scheme *h*eader, *s*ource, *t*est and *m*odule.
+
+A number of key commands for working with modules are predefined.
 
 | Key command | Function |
 |:--|:--|
 |`super-ctrl-h` | Open Header File |
 |`super-ctrl-s` | Open Source File |
 |`super-ctrl-t` | Open Test File |
-|`super-ctrl-m` | Open Module Files |
+|`super-ctrl-m` | Open Module Files in 2 column layout |
 |`super-ctrl-right` | Cycle through module files |
 |`super-ctrl-x` |  Clean project |
 
@@ -170,7 +175,7 @@ The completions work with:
 ## Completions Nitty Gritty
 
 There are now almost 200 completions for Unity assertions which matching `message` versions.
-To keep the response snappy, the completions are heavily filtered based on the shortcut sequence typed.
+To keep the response snappy the completions are filtered based on the shortcut sequence typed.
 
 ### `integer` types
 | Shortcut | Assertion |
@@ -221,13 +226,11 @@ Where `x` is:
 
 
 ### Messages
-Append `ms` to shortcut to access the message variant.
+Append `ms` to a shortcut to access the message variant.
 
 
 
-## Features
-* Ceedling.sublime-build for executing unit tests for the active module via `ctrl-b`/`command-b`
-    * You must assign the build system for your project to 'Ceedling'
+## Previous version features
 
 * Snippets for Unity unit test methods
 	* test + [TAB] => unit test method template
