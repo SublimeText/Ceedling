@@ -91,26 +91,29 @@ ASSERTIONS_COMMON = [
 
 
 class CeedlingCompletions(sublime_plugin.EventListener):
+
+    pattern = None
+
     def __init__(self):
 
-        pattern = "".join(
-            [
-                r"(?:(?P<basic>tp|tf|ti)?)?",
-                r"(?:(?P<bool>at|af|aun|anu|ann|aem|ane)?)",
-                r"(?:(?P<cmp1>[engl])(?P<cmp2>[eto])?)?",
-                r"(?:",
-                r"(?P<utype>[uihc]|sz)(?P<bits>(8|16|32|64)?)|",
-                r"(?P<stype>sl)|",
-                r"(?P<atype>p|s|m(?!s))|",
-                r"(?P<ntype>d|f)",
-                r")?",
-                r"(?:(?P<array>a)?)?",
-                r"(?:(?P<within>w)?)?",
-                r"(?:(?P<msg>ms$))?",
-            ]
+        self.pattern = re.compile(
+            "".join(
+                [
+                    r"(?:(?P<basic>tp|tf|ti)?)?",
+                    r"(?:(?P<bool>at|af|aun|anu|ann|aem|ane)?)",
+                    r"(?:(?P<cmp1>[engl])(?P<cmp2>[eto])?)?",
+                    r"(?:",
+                    r"(?P<utype>[uihc]|sz)(?P<bits>(8|16|32|64)?)|",
+                    r"(?P<stype>sl)|",
+                    r"(?P<atype>p|s|m(?!s))|",
+                    r"(?P<ntype>d|f)",
+                    r")?",
+                    r"(?:(?P<array>a)?)?",
+                    r"(?:(?P<within>w)?)?",
+                    r"(?:(?P<msg>ms$))?",
+                ]
+            )
         )
-
-        self.pattern = re.compile(pattern)
 
     def on_query_completions(self, view, prefix, locations):
         if not any(
@@ -129,7 +132,6 @@ class CeedlingCompletions(sublime_plugin.EventListener):
             return None
 
         if view.match_selector(locations[0], "meta.function & meta.block"):
-
             return (
                 self.completions(prefix),
                 sublime.INHIBIT_WORD_COMPLETIONS | sublime.DYNAMIC_COMPLETIONS,
@@ -141,7 +143,7 @@ class CeedlingCompletions(sublime_plugin.EventListener):
     def completions(self, prefix):
 
         types, matches, msg = self._completion_filter(prefix)
-        print(msg)
+
         if not all((types, matches)):
             return []
 
@@ -176,7 +178,7 @@ class CeedlingCompletions(sublime_plugin.EventListener):
             return None, None, None
 
         tokens = tokens.groupdict()
-        print(tokens)
+
         if tokens.get("basic"):
             print("Basic Fail Pass")
             return None, None, None
@@ -213,7 +215,6 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                 match = [i for i in match if not i.get("p5")]
 
         if tokens.get("within"):
-
             match = self._match_filter(match, tokens.get("within"), "p5")
             if not tokens.get("array"):
                 match = [i for i in match if not i.get("p4")]
