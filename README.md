@@ -29,8 +29,9 @@ To use the Ceedling plugin you'll need:
 ## Installation
 
 ### Plugin
-The preferred method of installing the Ceedling plugin is using `Package Control`.
-[Install Package Control](https://packagecontrol.io/installation) if you haven't done so previously then:
+The preferred method of installing the Ceedling for ST3+ plugin is using [Package Control](https://packagecontrol.io/installation).
+
+With Package Control installed:
 - Open the command palette
 - Select `Package Control: Install Packages`
 - Type `Ceedling`
@@ -47,7 +48,7 @@ When you launch Sublime Text, it will pick up the contents of this package so th
 
 
 #### Creating a New Project
-1. Open a `File >> New Window` in Sublime Text
+1. Open a `File » New Window` in Sublime Text
 1. Open the command palette (Tools > Command Palette) and type `cnp` to narrow down the options.
 1. Select `Ceedling: New Project` or `Ceedling: New Project (Local)`
 1. Enter project folder location in the panel.\
@@ -59,7 +60,8 @@ The project folder should open in the current window .
 
 #### Customising New Project creation
 The default parent folder for new projects is set to `~` by default.
-To change this open the Ceedling settings `Preferences >> Package Settings >> Ceedling >> Settings`.
+
+To change the default folder open the Ceedling settings `Preferences » Package Settings » Ceedling » Settings`.
 
 Add the following entry to the file on the right, update the path as desired, then save.
 
@@ -70,10 +72,22 @@ Add the following entry to the file on the right, update the path as desired, th
 }
 ```
 
+`project_options` provides additional control over project creation.
 
+Options listed are disabled by default. Adding a setting to `project_options` will enable.
+
+```
+--docs  "Add docs in project vendor directory"
+
+--local  "Create a copy of Ceedling in the project vendor directory"
+
+--gitignore  "Create a gitignore file for ignoring ceedling generated files"
+
+--no_configs  "Don't install starter configuration files"
+```
 
 #### Adding Ceedling to existing projects
-The `New Project` module can also be used to add Ceedling support to exisiting source code.\
+The `New Project` module can be used to add Ceedling support to exisiting source code.\
 Existing files and folders are not overwritten or modified in the process.\
 Use the path of the existing project when prompted for the location.
 
@@ -96,7 +110,7 @@ The first four schemes generate header, source and test files for each of the na
 ## Running tests
 Sublime Text's build system is used to run tests.
 
-From `Tools >> Build System` menu select `Ceedling` as the build system for the project.
+From `Tools » Build System` menu select `Ceedling` as the build system for the project.
 
 | Variant | Ceedling Task | Notes |
 |:--|:--|:--|
@@ -153,11 +167,12 @@ The completions work with:
 
 **Completions are only active if the current file includes "unity.h"**
 
-#### Completions Nitty Gritty
+## Completions Nitty Gritty
 
 There are now almost 200 completions for Unity assertions which matching `message` versions.
 To keep the response snappy, the completions are heavily filtered based on the shortcut sequence typed.
 
+### `integer` types
 | Shortcut | Assertion |
 |:--|:--|
 |`ex` | TEST_ASSERT_EQUAL_X |
@@ -179,7 +194,7 @@ Where `x` is:
 - `c`: char
 - `sz`: size_t
 
-There is currently basic support for `double` and `float` types.
+### `double` and `float` types
 | Shortcut | Assertion |
 |:--|:--|
 |`xw` | TEST_ASSERT_FLOAT_WITHIN |
@@ -188,12 +203,11 @@ There is currently basic support for `double` and `float` types.
 |`eex` | TEST_ASSERT_EACH_EQUAL_FLOAT |
 
 Where `x` is:
-
 - `d`: double
 - `f`: float
 
 
-Structs and Strings assertions have not been forgotten.
+### `struct` and `strings` types
 | Shortcut | Assertion |
 |:--|:--|
 |`eex` | TEST_ASSERT_EACH_EQUAL_X |
@@ -201,20 +215,14 @@ Structs and Strings assertions have not been forgotten.
 |`exa` | TEST_ASSERT_EQUAL_X_ARRAY |
 
 Where `x` is:
+- `p`: pointer
+- `s`: string
+- `m`: memory
 
-- `p`: PTR
-- `s`: STRING
-- `m`: MEMORY
 
+### Messages
+Append `ms` to shortcut to access the message variant.
 
-The triggers follow a basic schema using the first letter of the key being targeted.
-
-`af` - TEST_ASSERT_FALSE
-afms - TEST_ASSERT_FALSE_MESSAGE
-at - TEST_ASSERT_TRUE
-atms - TEST_ASSERT_TRUE_MESSAGE
-ig - TEST_IGNORE
-igms - TEST_IGNORE_MESSAGE
 
 
 ## Features
@@ -225,7 +233,7 @@ igms - TEST_IGNORE_MESSAGE
 	* test + [TAB] => unit test method template
 	* testi + [TAB] => unit test method template with TEST_IGNORE(message)
 	* testf + [TAB] => unit test method template with TEST_FAIL(message)
-* Snippets for CMock mocks
-    * FuncBeingMocked.e + [TAB] => FuncBeingMocked_Expect(<parameters>)
-    * FuncBeingMocked.er + [TAB] => FuncBeingMocked_ExpectAndReturn(<parameters>)
+* ~~Snippets for CMock mocks~~
+    * ~~FuncBeingMocked.e + [TAB] => FuncBeingMocked_Expect(<parameters>)~~
+    * ~~FuncBeingMocked.er + [TAB] => FuncBeingMocked_ExpectAndReturn(<parameters>)~~
 
