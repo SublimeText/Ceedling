@@ -39,7 +39,7 @@ With Package Control installed:
 
 When you launch Sublime Text, it will pick up the contents of this package so that you can consume the goodness that it provides.
 
-## Functionality in Ceedling
+## Functionality in Ceedling for Sublime Text 3+
 
 ### New Project
 `New Project` comes in two flavours.
@@ -78,7 +78,7 @@ Add the following entry to `User Settings`, update the path as desired, then sav
 
 Options are disabled by default. Adding an option to `project_options` will enable.
 
-```
+```sh
 --docs  "Add docs in project vendor directory"
 
 --local  "Create a copy of Ceedling in the project vendor directory"
@@ -111,7 +111,7 @@ Additional naming schemes are supported using an abbreviated format identifiers:
 
 The first four schemes generate header, source and test files for each of the named variants.
 
-## Running tests
+### Running tests
 The Sublime Text build system is used to run all tests.
 
 From `Tools » Build System` menu select `Ceedling` as the build system for the project.
@@ -130,7 +130,7 @@ Select variants using `Control-Shift-B` (Windows, Linux) /`Command-Shift-B` (mac
 Run last selected build variant using `Control-B` (Windows, Linux) / `Command-B`(macOS).
 
 
-### Key mapping
+### Key mappings
 
 A number of key commands for working with modules are predefined.
 
@@ -174,14 +174,15 @@ The completions are known to work with:
 
 **Completions are only active if the current file includes "unity.h"**
 
-### Unit Test Method Templates
+### Unit Test Function Templates
+
+Unit test method function templates are active when the caret/cursor not in a function body.
 
 | Shortcut | Assertion |
 |:--|:--|
-| `test` | unit test method template |
-| `testi` | unit test method template with TEST_IGNORE(message) |
-| `testf` | unit test method template with TEST_FAIL(message) |
-
+| `test` | unit test function template |
+| `testi` | unit test function template with TEST_IGNORE(message) |
+| `testf` | unit test function template with TEST_FAIL(message) |
 
 ### Assert Completions
 
@@ -189,7 +190,7 @@ To keep response snappy the completions are filtered based on the shortcut seque
 
 Assert completions are active when the caret is within a function body.
 
-### `integer` types
+#### `integer` types
 | Shortcut | Assertion |
 |:--|:--|
 |`ex` | TEST_ASSERT_EQUAL_X |
@@ -210,7 +211,7 @@ Where `x` is:
 - `c`: char
 - `sz`: size_t
 
-### `double` and `float` types
+#### `double` and `float` types
 | Shortcut | Assertion |
 |:--|:--|
 |`xw` | TEST_ASSERT_FLOAT_WITHIN |
@@ -223,7 +224,7 @@ Where `x` is:
 - `f`: float
 
 
-### `struct` and `string` types
+#### `struct` and `string` types
 | Shortcut | Assertion |
 |:--|:--|
 |`eex` | TEST_ASSERT_EACH_EQUAL_X |
