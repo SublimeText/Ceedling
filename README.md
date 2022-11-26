@@ -174,11 +174,11 @@ To keep the response snappy, the completions are heavily filtered based on the s
 Where `x` can be any of:
 
 - `i`: `int`
-- `i[8, 16, 32, 64]`
+- `i8`, `i16`, `i32`, `i64`
 - `u`: `uint`
-- `u[8, 16, 32, 64]`
+- `u8`, `u16`, `u32`, `u64`
 - `h`: `hex`
-- `h[8, 16, 32, 64]`
+- `h8`, `h16`, `h32`, `h64`
 - `c`: `char`
 - `sz`: `size_t`
 
