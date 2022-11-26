@@ -157,7 +157,41 @@ Placing the caret/cursor within:
 - a C/C++ file activates snippets for template test functions.
 - a function activates snippets for Unity assertions.
 
-There are completions for most Unity assertions.
+#### Packed with 20 times more Goodness
+There are now almost 200 completions for Unity assertions which matching `message` versions.
+
+To keep the response snappy, the completions are heavily filtered based on the shortcut sequence typed.
+
+`ex` - TEST_ASSERT_EQUAL_X
+`eex` - TEST_ASSERT_EACH_EQUAL_X
+`gx` - TEST_ASSERT_GREATER_THAN_X
+`gox` - TEST_ASSERT_GREATER_OR_EQUAL_X
+`lx` - TEST_ASSERT_LESS_THAN_X
+`lox` - TEST_ASSERT_LESS_OR_EQUAL_X
+`nex` - TEST_ASSERT_NOT_EQUAL_X
+`xw` - TEST_ASSERT_X_WITHIN
+`xa` - TEST_ASSERT_EQUAL_X_ARRAY
+`xaw` - TEST_ASSERT_X_ARRAY_WITHIN
+
+Where `x` can be any of `i`, `i8`, `i16`, `i32` `i64`, `u`, `u8`, `u16`, `u32` `u64`, `h`, `h8`, `h16`, `h32` `h64`, `c` - char, `sz` - size_t.
+
+There is currently basic support for `double` and `float` types.
+`fw` - TEST_ASSERT_FLOAT_WITHIN
+`ef` - TEST_ASSERT_EQUAL_FLOAT
+`efa` - TEST_ASSERT_EQUAL_FLOAT_ARRAY
+`eef` - TEST_ASSERT_EACH_EQUAL_FLOAT
+
+
+Structs and Strings assertions have not been forgotten:
+`eex` - TEST_ASSERT_EACH_EQUAL_X
+`ex`  - TEST_ASSERT_EQUAL_X
+`exa` - TEST_ASSERT_EQUAL_X_ARRAY
+
+Use following in place of `x` to access the completions:
+`p` - `PTR`
+`s` - `STRING`
+`m` - `MEMORY`
+
 The triggers follow a basic schema using the first letter of the key being targeted.
 
 
@@ -168,15 +202,6 @@ atms - TEST_ASSERT_TRUE_MESSAGE
 ig - TEST_IGNORE
 igms - TEST_IGNORE_MESSAGE
 
-eei - TEST_ASSERT_EACH_EQUAL_INT
-ei  - TEST_ASSERT_EQUAL_INT
-eia - TEST_ASSERT_EQUAL_INT_ARRAY
-gti - TEST_ASSERT_GREATER_THAN_INT
-goi - TEST_ASSERT_GREATER_OR_EQUAL_INT
-loi - TEST_ASSERT_LESS_OR_EQUAL_INT
-lti - TEST_ASSERT_LESS_THAN_INT
-iaw - TEST_ASSERT_INT_ARRAY_WITHIN
-nei - TEST_ASSERT_NOT_EQUAL_INT
 
 ## Features
 * Ceedling.sublime-build for executing unit tests for the active module via `ctrl-b`/`command-b`
