@@ -157,7 +157,8 @@ Placing the caret/cursor within:
 - a C/C++ file activates snippets for template test functions.
 - a function activates snippets for Unity assertions.
 
-#### Packed with 20 times more Goodness
+### Packed with 20 times more Goodness
+
 There are now almost 200 completions for Unity assertions which matching `message` versions.
 
 To keep the response snappy, the completions are heavily filtered based on the shortcut sequence typed.
@@ -186,10 +187,12 @@ There is currently basic support for `double` and `float` types.
 |`eef` | TEST_ASSERT_EACH_EQUAL_FLOAT |
 
 
-Structs and Strings assertions have not been forgotten:
-`eex` - TEST_ASSERT_EACH_EQUAL_X
-`ex`  - TEST_ASSERT_EQUAL_X
-`exa` - TEST_ASSERT_EQUAL_X_ARRAY
+Structs and Strings assertions have not been forgotten.
+| Shortcut | Assertion |
+|:--|:--|
+|`eex` | TEST_ASSERT_EACH_EQUAL_X |
+|`ex`  | TEST_ASSERT_EQUAL_X |
+|`exa` | TEST_ASSERT_EQUAL_X_ARRAY |
 
 Use following in place of `x` to access the completions:
 `p` - `PTR`
@@ -198,8 +201,7 @@ Use following in place of `x` to access the completions:
 
 The triggers follow a basic schema using the first letter of the key being targeted.
 
-
-af - TEST_ASSERT_FALSE
+`af` - TEST_ASSERT_FALSE
 afms - TEST_ASSERT_FALSE_MESSAGE
 at - TEST_ASSERT_TRUE
 atms - TEST_ASSERT_TRUE_MESSAGE
