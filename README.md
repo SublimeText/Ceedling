@@ -142,25 +142,20 @@ A number of key commands for working with modules are predefiend. The main short
 | Ceedling: Version | Print version information for ceedling used in current project. |
 | Ceedling: Environment | Display ENV variables set by ceedling |
 
-### Completions and Snippets
+### Completions - Now with 20 times more Goodness
 
 Completions are scope sensitive and requires use of a C/C++ syntax that identifies function blocks.
 
-The plugin will work with:
+The completions work with:
 - Built-in Sublime Text `C` and `C++` syntaxes
 - [C99](https://packagecontrol.io/packages/C99)
 - [C Improved](https://packagecontrol.io/packages/C%20Improved)
 
-Completions are available if the active file includes "unity.h".
+**Completions are only active if the current file includes "unity.h"**
 
-Placing the caret/cursor within:
-- a C/C++ file activates snippets for template test functions.
-- a function activates snippets for Unity assertions.
-
-### Packed with 20 times more Goodness
+#### Completions Nitty Gritty
 
 There are now almost 200 completions for Unity assertions which matching `message` versions.
-
 To keep the response snappy, the completions are heavily filtered based on the shortcut sequence typed.
 
 | Shortcut | Assertion |
