@@ -1,3 +1,4 @@
+import re
 import sublime
 import sublime_plugin
 
@@ -76,7 +77,26 @@ ASSERTIONS_COMMON = [
 
 
 class CeedlingCompletions(sublime_plugin.EventListener):
-    _cache = {}
+    def __init__(self):
+
+        pattern = "".join(
+            [
+                r"(?:(?P<basic>tp|tf|ti)?)?",
+                r"(?:(?P<bool>at|af|aun|anu|ann|aem|ane)?)",
+                r"(?:(?P<cmp1>[engl])(?P<cmp2>[eto])?)?",
+                r"(?:",
+                r"(?P<utype>[uihc]|sz)(?P<bits>(8|16|32|64)?)|",
+                r"(?P<stype>sl)|",
+                r"(?P<atype>p|s|m(?!s))|",
+                r"(?P<ntype>d|f)",
+                r")?",
+                r"(?:(?P<array>a)?)?",
+                r"(?:(?P<within>w)?)?",
+                r"(?:(?P<msg>ms$))?",
+            ]
+        )
+
+        self.pattern = re.compile(pattern)
 
     def on_query_completions(self, view, prefix, locations):
         if not any(
@@ -134,6 +154,98 @@ class CeedlingCompletions(sublime_plugin.EventListener):
         ]
 
         return self._cache[k]
+    def _num_filter(self, match, key):
+        return [i for i in match if key in i.get("extra", "")]
+
+    def _type_filter(self, type_dict, key):
+        return {
+            i: t
+            for i, t in type_dict.items()
+            if i.lower().startswith(key[0].lower())
+        }
+
+    def _match_filter(self, match, token, key):
+        return [
+            match[i]
+            for i, a in enumerate(match)
+            if token == a.get(key, "-")[0].lower()
+        ]
+
+    def _completion_filter(self, prefix):
+
+        tokens = self.pattern.match(prefix)
+
+        if not any(tokens.groups()):
+            return None, None, None
+
+        tokens = tokens.groupdict()
+        print(tokens)
+        if tokens.get("basic"):
+            print("Basic Fail Pass")
+            return None, None, None
+
+        if tokens.get("bool"):
+            print("Boolean")
+            return None, None, None
+
+        match = ASSERTIONS_COMMON.copy()
+        types = TYPES_INTEGER.copy()
+
+        if tokens.get("cmp1") is not None:
+            match = self._match_filter(match, tokens.get("cmp1"), "cmp1")
+
+        if tokens.get("cmp2"):
+            match = self._match_filter(match, tokens.get("cmp2"), "cmp2")
+
+        elif any(
+            (
+                tokens.get("ntype"),
+                tokens.get("utype"),
+                tokens.get("atype"),
+                tokens.get("stype"),
+                tokens.get("array"),
+                tokens.get("within"),
+            )
+        ):
+            match = [i for i in match if not i.get("cmp2")]
+
+        if tokens.get("array"):
+            match = self._match_filter(match, tokens.get("array"), "p4")
+
+            if not tokens.get("within"):
+                match = [i for i in match if not i.get("p5")]
+
+        if tokens.get("within"):
+
+            match = self._match_filter(match, tokens.get("within"), "p5")
+            if not tokens.get("array"):
+                match = [i for i in match if not i.get("p4")]
+
+        if tokens.get("ntype"):
+
+            match = self._num_filter(match, "numeric")
+            types = self._type_filter(TYPES_NUMERIC, tokens.get("ntype"))
+
+        elif tokens.get("atype"):
+
+            match = self._num_filter(match, "array")
+            types = self._type_filter(TYPES_ARRAY, tokens.get("atype"))
+
+        elif tokens.get("stype"):
+
+            match = self._num_filter(match, "struct")
+            types = self._type_filter(TYPES_STRUCT_STRING, tokens.get("stype"))
+
+        elif tokens.get("utype"):
+            types = self._type_filter(types, tokens.get("utype"))
+
+            if tokens.get("bits"):
+                bit_value = tokens.get("bits")
+                for k, v in types.items():
+                    if bit_value in v:
+                        types[k] = [bit_value]
+
+        return types, match, True if tokens.get("msg") else False
 
     def _generate_completions(self, types, definition, msg=False):
         """Return list of trigger:content pairs."""
