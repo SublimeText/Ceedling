@@ -125,8 +125,9 @@ From `Tools » Build System` menu select `Ceedling` as the build system for the 
 | Clean and Test file | `clean test:filename` | |
 | Release | `release` | The release config is disabled in new project.yml. |
 
-Select variants using `ctrl-shift-b`/`command-shift-b`.
-Run last selected build variant using `ctrl-b` / `command-b`.
+Select variants using `Control-Shift-B` (Windows, Linux) /`Command-Shift-B` (macOS).
+
+Run last selected build variant using `Control-B` (Windows, Linux) / `Command-B`(macOS).
 
 
 ### Key mapping
@@ -162,6 +163,7 @@ A number of key commands for working with modules are predefined.
 | Ceedling: Environment | Display ENV variables set by ceedling |
 
 ### Completions - Now with 20 times more Goodness
+There are now almost 200 completions for Unity assertions with matching `message` versions.
 
 Completions are scope sensitive and requires use of a C/C++ syntax that identifies function blocks.
 
@@ -174,8 +176,7 @@ The completions work with:
 
 ## Completions Nitty Gritty
 
-There are now almost 200 completions for Unity assertions which matching `message` versions.
-To keep the response snappy the completions are filtered based on the shortcut sequence typed.
+To keep response snappy the completions are filtered based on the shortcut sequence.
 
 ### `integer` types
 | Shortcut | Assertion |
@@ -192,7 +193,6 @@ To keep the response snappy the completions are filtered based on the shortcut s
 |`xaw` | TEST_ASSERT_X_ARRAY_WITHIN |
 
 Where `x` is:
-
 - `i`, `i8`, `i16`, `i32`, `i64`
 - `u`, `u8`, `u16`, `u32`, `u64`
 - `h`, `h8`, `h16`, `h32`, `h64`
@@ -212,7 +212,7 @@ Where `x` is:
 - `f`: float
 
 
-### `struct` and `strings` types
+### `struct` and `string` types
 | Shortcut | Assertion |
 |:--|:--|
 |`eex` | TEST_ASSERT_EACH_EQUAL_X |
