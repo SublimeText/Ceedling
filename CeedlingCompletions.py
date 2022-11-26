@@ -167,8 +167,8 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                 assert_text = [
                     w
                     for w in (
-                        "test",
-                        "assert",
+                        "TEST",
+                        "ASSERT",
                         "{}".format(definition.get("cmp1", "")),
                         "{}".format(definition.get("cmp2", "")),
                         "{}".format(definition.get("cmp3", "")),
@@ -180,20 +180,20 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                     if w != ""
                 ]
 
-                trigger = " ".join(assert_text[2:]).lower()
+                trigger = " ".join(assert_text[1:]).lower()
 
-                content = "_".join(assert_text).upper()
+                content = "_".join(assert_text)
                 content += " ("
 
                 params = [
                     "${{{}:{}}}".format(i, d) for i, d in enumerate(p, 1)
                 ]
-
                 if msg:
                     params.append('"${{{}:message}}"'.format(len(params) + 1))
 
                 content += ", ".join(params)
                 content += ");"
+
                 result.append([trigger, content])
 
         return result
