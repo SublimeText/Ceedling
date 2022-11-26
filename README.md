@@ -111,7 +111,7 @@ Additional naming schemes are supported using an abbreviated format identifiers:
 | dhi | driver, hardware, interrupt | 9 |
 | dh | driver, hardware | 6 |
 
-The first four schemes generate header, source and test files for each of the named variants.
+`mch`, `mvp`, `dhi` and `dh` schemes generate header, source and test files for each of the named modules.
 
 ### Running tests
 The Sublime Text build system is used to run all tests.
