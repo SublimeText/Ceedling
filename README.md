@@ -171,14 +171,11 @@ To keep the response snappy, the completions are heavily filtered based on the s
 |`xa` | TEST_ASSERT_EQUAL_X_ARRAY |
 |`xaw` | TEST_ASSERT_X_ARRAY_WITHIN |
 
-Where `x` can be any of:
+Where `x` can be:
 
-- `i`: `int`
-- `i8`, `i16`, `i32`, `i64`
-- `u`: `uint`
-- `u8`, `u16`, `u32`, `u64`
-- `h`: `hex`
-- `h8`, `h16`, `h32`, `h64`
+- `i`, `i8`, `i16`, `i32`, `i64`
+- `u`, `u8`, `u16`, `u32`, `u64`
+- `h`, `h8`, `h16`, `h32`, `h64`
 - `c`: `char`
 - `sz`: `size_t`
 
