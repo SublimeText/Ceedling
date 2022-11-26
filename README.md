@@ -171,13 +171,13 @@ To keep the response snappy, the completions are heavily filtered based on the s
 |`xa` | TEST_ASSERT_EQUAL_X_ARRAY |
 |`xaw` | TEST_ASSERT_X_ARRAY_WITHIN |
 
-Where `x` can be:
+Where `x` is:
 
 - `i`, `i8`, `i16`, `i32`, `i64`
 - `u`, `u8`, `u16`, `u32`, `u64`
 - `h`, `h8`, `h16`, `h32`, `h64`
-- `c`: `char`
-- `sz`: `size_t`
+- `c`: char
+- `sz`: size_t
 
 There is currently basic support for `double` and `float` types.
 | Shortcut | Assertion |
@@ -186,7 +186,12 @@ There is currently basic support for `double` and `float` types.
 |`ex` | TEST_ASSERT_EQUAL_FLOAT  |
 |`exa` | TEST_ASSERT_EQUAL_FLOAT_ARRAY |
 |`eex` | TEST_ASSERT_EACH_EQUAL_FLOAT |
-Use `d`: `double`,  `f`: `float` in place of `x` to access the completions.
+
+Where `x` is:
+
+- `d`: double
+- `f`: float
+
 
 Structs and Strings assertions have not been forgotten.
 | Shortcut | Assertion |
@@ -195,7 +200,11 @@ Structs and Strings assertions have not been forgotten.
 |`ex`  | TEST_ASSERT_EQUAL_X |
 |`exa` | TEST_ASSERT_EQUAL_X_ARRAY |
 
-Use `p`: `PTR`,  `s`: `STRING`, `m`: `MEMORY` in place of `x` to access the completions.
+Where `x` is:
+
+- `p`: PTR
+- `s`: STRING
+- `m`: MEMORY
 
 
 The triggers follow a basic schema using the first letter of the key being targeted.
@@ -211,7 +220,7 @@ igms - TEST_IGNORE_MESSAGE
 ## Features
 * Ceedling.sublime-build for executing unit tests for the active module via `ctrl-b`/`command-b`
     * You must assign the build system for your project to 'Ceedling'
-* Snippets for Unity unit testing framework macros
+
 * Snippets for Unity unit test methods
 	* test + [TAB] => unit test method template
 	* testi + [TAB] => unit test method template with TEST_IGNORE(message)
