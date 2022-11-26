@@ -162,21 +162,32 @@ A number of key commands for working with modules are predefined.
 | Ceedling: Version | Print version information for ceedling used in current project. |
 | Ceedling: Environment | Display ENV variables set by ceedling |
 
-### Completions - Now with 20 times more Goodness
-There are now almost 200 completions for Unity assertions with matching `message` versions.
+## Completions
+There are now around 200 completions  with matching `message` versions.
 
-Completions are scope sensitive and requires use of a C/C++ syntax that identifies function blocks.
+Completions are scope sensitive and require use of a C/C++ syntax that correctly identifies function blocks.
 
-The completions work with:
+The completions are known to work with:
 - Built-in Sublime Text `C` and `C++` syntaxes
 - [C99](https://packagecontrol.io/packages/C99)
 - [C Improved](https://packagecontrol.io/packages/C%20Improved)
 
 **Completions are only active if the current file includes "unity.h"**
 
-## Completions Nitty Gritty
+### Unit Test Method Templates
+
+| Shortcut | Assertion |
+|:--|:--|
+| `test` | unit test method template |
+| `testi` | unit test method template with TEST_IGNORE(message) |
+| `testf` | unit test method template with TEST_FAIL(message) |
+
+
+### Assert Completions
 
 To keep response snappy the completions are filtered based on the shortcut sequence.
+
+Assert completions are active when the caret is within a function body.
 
 ### `integer` types
 | Shortcut | Assertion |
@@ -230,12 +241,8 @@ Append `ms` to a shortcut to access the message variant.
 
 
 
-## Previous version features
+## Previous version features currently missing
 
-* Snippets for Unity unit test methods
-	* test + [TAB] => unit test method template
-	* testi + [TAB] => unit test method template with TEST_IGNORE(message)
-	* testf + [TAB] => unit test method template with TEST_FAIL(message)
 * ~~Snippets for CMock mocks~~
     * ~~FuncBeingMocked.e + [TAB] => FuncBeingMocked_Expect(<parameters>)~~
     * ~~FuncBeingMocked.er + [TAB] => FuncBeingMocked_ExpectAndReturn(<parameters>)~~
