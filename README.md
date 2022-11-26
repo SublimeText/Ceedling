@@ -102,12 +102,14 @@ Specifying `basename` will generate the files `test/test_basename.c`, `src/basen
 
 Additional naming schemes are supported using an abbreviated format identifiers:
 
-* mch - model, conductor, hardware
-* mvp - model, view, presenter
-* dhi - driver, hardware, interrupt
-* dh - driver, hardware
-* test - test file only
-* src - header, source, test (default output)
+| Abbreviation | Naming Scheme | Files |
+|:--|:--|--:|
+| src | header, source, test (default) | 3 |
+| test | test file only | 1 |
+| mch | model, conductor, hardware | 9 |
+| mvp | model, view, presenter | 9 |
+| dhi | driver, hardware, interrupt | 9 |
+| dh | driver, hardware | 6 |
 
 The first four schemes generate header, source and test files for each of the named variants.
 
