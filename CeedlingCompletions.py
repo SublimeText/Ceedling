@@ -17,6 +17,8 @@ TEST_FUNCTIONS = [
     ],
 ]
 
+
+# Base tyoes used
 TYPES_INTEGER = {
     "INT": ["", "8", "16", "32", "64"],
     "UINT": ["", "8", "16", "32", "64"],
@@ -25,16 +27,25 @@ TYPES_INTEGER = {
     "CHAR": [""],
 }
 
+TYPES_NUMERIC = {
+    "FLOAT": [""],
+    "DOUBLE": [""],
+}
+
 TYPES_ARRAY = {
     "PTR": [""],
     "STRING": [""],
     "MEMORY": [""],
 }
 
+TYPES_STRUCT_STRING = {
+    "STRING_LEN": [""],
+}
+
 ASSERTIONS_COMMON = [
     {
         "cmp1": "EQUAL",
-        "extra": TYPES_ARRAY,
+        "extra": ["numeric", "array", "struct"],
     },
     {
         "cmp1": "NOT",
@@ -60,6 +71,7 @@ ASSERTIONS_COMMON = [
     },
     {
         "p5": "WITHIN",
+        "extra": ["numeric"],
     },
     {
         "p4": "ARRAY",
@@ -68,10 +80,12 @@ ASSERTIONS_COMMON = [
     {
         "cmp1": "EQUAL",
         "p4": "ARRAY",
+        "extra": ["array", "numeric"],
     },
     {
         "cmp1": "EACH",
         "cmp2": "EQUAL",
+        "extra": ["array", "numeric"],
     },
 ]
 
@@ -115,45 +129,28 @@ class CeedlingCompletions(sublime_plugin.EventListener):
             return None
 
         if view.match_selector(locations[0], "meta.function & meta.block"):
-            print(prefix)
-            if prefix.endswith("ms"):
-                print("msg detect")
-                return (
-                    self.completions(msg=True),
-                    sublime.INHIBIT_WORD_COMPLETIONS
-                    | sublime.DYNAMIC_COMPLETIONS,
-                )
-            else:
-                return (
-                    self.completions(),
-                    sublime.INHIBIT_WORD_COMPLETIONS
-                    | sublime.DYNAMIC_COMPLETIONS,
-                )
+
+            return (
+                self.completions(prefix),
+                sublime.INHIBIT_WORD_COMPLETIONS | sublime.DYNAMIC_COMPLETIONS,
+            )
 
         else:
-            return (
-                TEST_FUNCTIONS,
-                sublime.INHIBIT_WORD_COMPLETIONS
-                | sublime.INHIBIT_EXPLICIT_COMPLETIONS,
-            )
+            return (TEST_FUNCTIONS, sublime.INHIBIT_WORD_COMPLETIONS)
 
-    def completions(self, msg=False):
-        k = "msg" if msg else "nomsg"
+    def completions(self, prefix):
 
-        if k in self._cache.keys():
-            print("cached", k)
-            return self._cache[k]
+        types, matches, msg = self._completion_filter(prefix)
+        print(msg)
+        if not all((types, matches)):
+            return []
 
-        self._cache[k] = [
-            y
-            for x in (
-                self._generate_completions(TYPES_INTEGER, assert_def, msg=msg)
-                for assert_def in ASSERTIONS_COMMON
-            )
-            for y in x
+        return [
+            x
+            for m in matches
+            for x in self._generate_completions(types, m, msg=msg)
         ]
 
-        return self._cache[k]
     def _num_filter(self, match, key):
         return [i for i in match if key in i.get("extra", "")]
 
@@ -249,27 +246,28 @@ class CeedlingCompletions(sublime_plugin.EventListener):
 
     def _generate_completions(self, types, definition, msg=False):
         """Return list of trigger:content pairs."""
-        message = "MESSAGE" if msg else ""
-        result = []
-        base_p = ["expected", "actual"]
 
-        types = types.copy()
-        types.update(definition.get("extra", {}))
+        result = []
+        message = "MESSAGE" if msg else ""
+        base_p = ["expected", "actual"]
 
         if definition.get("cmp1") in ("NOT", "GREATER", "LESS"):
             base_p[0] = "threshold"
 
-        if "WITHIN" == definition.get("p5", ""):
-            base_p.insert(0, "delta")
-
-        elif "ARRAY" == definition.get("p4", ""):
+        if definition.get("p4") or definition.get("cmp1") == "EACH":
             base_p.append("num_elements")
+
+        if definition.get("p5"):
+            base_p.insert(0, "delta")
 
         for k, v in types.items():
             p = base_p[:]
 
-            if p[0] == "threshold" and k == "HEX":
-                v = v[1:]
+            if "threshold" in p and k == "HEX":
+                try:
+                    v.remove("")
+                except ValueError:
+                    pass
 
             if k in ("STRING_LEN", "MEMORY"):
                 p.insert(2, "len")

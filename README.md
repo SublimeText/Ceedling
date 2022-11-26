@@ -157,13 +157,26 @@ Placing the caret/cursor within:
 - a C/C++ file activates snippets for template test functions.
 - a function activates snippets for Unity assertions.
 
-Assertion snippets do not have a fixed shortcut.
-Typing the initial letter of each word in the assertion will narrow the selection.
-
-`ne` narrows the options to `assert not empty` and `assert not equal` for all types.
-`ne8`
+There are completions for most Unity assertions.
+The triggers follow a basic schema using the first letter of the key being targeted.
 
 
+af - TEST_ASSERT_FALSE
+afms - TEST_ASSERT_FALSE_MESSAGE
+at - TEST_ASSERT_TRUE
+atms - TEST_ASSERT_TRUE_MESSAGE
+ig - TEST_IGNORE
+igms - TEST_IGNORE_MESSAGE
+
+eei - TEST_ASSERT_EACH_EQUAL_INT
+ei  - TEST_ASSERT_EQUAL_INT
+eia - TEST_ASSERT_EQUAL_INT_ARRAY
+gti - TEST_ASSERT_GREATER_THAN_INT
+goi - TEST_ASSERT_GREATER_OR_EQUAL_INT
+loi - TEST_ASSERT_LESS_OR_EQUAL_INT
+lti - TEST_ASSERT_LESS_THAN_INT
+iaw - TEST_ASSERT_INT_ARRAY_WITHIN
+nei - TEST_ASSERT_NOT_EQUAL_INT
 
 ## Features
 * Ceedling.sublime-build for executing unit tests for the active module via `ctrl-b`/`command-b`
