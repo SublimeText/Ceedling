@@ -9,11 +9,11 @@ TEST_FUNCTIONS = [
     ],
     [
         "testf\ttemplate test fail",
-        'void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_FAIL_MESSAGE("${3:Implement me!}");\n}\n',
+        'void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_FAIL_MESSAGE ("${3:Implement me!}");\n}\n',
     ],
     [
-        "testi\ttest ignore",
-        'void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_IGNORE_MESSAGE("${3:Implement me!}");\n}\n',
+        "testi\ttemplate test ignore",
+        'void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_IGNORE_MESSAGE ("${3:Implement me!}");\n}\n',
     ],
 ]
 
@@ -41,6 +41,36 @@ TYPES_ARRAY = {
 TYPES_STRUCT_STRING = {
     "STRING_LEN": [""],
 }
+
+ASSERTIONS_BASIC = [
+    {"cmp3": "FAIL"},
+    {"cmp3": "IGNORE"},
+    {"cmp3": "ONLY"},
+    {"cmp3": "PASS"},
+]
+
+ASSERTIONS_BOOL = [
+    {"cmp3": "TRUE"},
+    {"cmp3": "UNLESS"},
+    {"cmp3": "FALSE"},
+]
+
+ASSERTIONS_PTR = [
+    {
+        "cmp2": "NULL",
+    },
+    {
+        "cmp2": "NOT",
+        "cmp3": "NULL",
+    },
+    {
+        "cmp2": "EMPTY",
+    },
+    {
+        "cmp2": "NOT",
+        "cmp3": "EMPTY",
+    },
+]
 
 ASSERTIONS_COMMON = [
     {
@@ -96,26 +126,29 @@ class CeedlingCompletions(sublime_plugin.EventListener):
 
     def __init__(self):
 
-        self.pattern = re.compile(
+        self.parser = re.compile(
             "".join(
                 [
-                    r"(?:(?P<basic>tp|tf|ti)?)?",
-                    r"(?:(?P<bool>at|af|aun|anu|ann|aem|ane)?)",
+                    r"(",
+                    r"(?:(?P<basic>^pa|^fa|^ig))|",
+                    r"(?:(?P<simple>^a(?=ms)|(^a((?P<bool>[tfu])|(?P<ptr>n?[ne])))))|",
                     r"(?:(?P<cmp1>[engl])(?P<cmp2>[eto])?)?",
                     r"(?:",
-                    r"(?P<utype>[uihc]|sz)(?P<bits>(8|16|32|64)?)|",
+                    r"(?P<utype>([uihc]|sz))(?P<bits>(8|16|32|64)?)|",
                     r"(?P<stype>sl)|",
                     r"(?P<atype>p|s|m(?!s))|",
                     r"(?P<ntype>d|f)",
                     r")?",
                     r"(?:(?P<array>a)?)?",
                     r"(?:(?P<within>w)?)?",
+                    r")",
                     r"(?:(?P<msg>ms$))?",
                 ]
             )
         )
 
     def on_query_completions(self, view, prefix, locations):
+
         if not any(
             view.match_selector(caret, "(source.c | source.c++ | source.c99)")
             for caret in locations
@@ -142,7 +175,8 @@ class CeedlingCompletions(sublime_plugin.EventListener):
 
     def completions(self, prefix):
 
-        types, matches, msg = self._completion_filter(prefix)
+        r = self._completion_filter(prefix)
+        types, matches = r.pop("types"), r.pop("matches")
 
         if not all((types, matches)):
             return []
@@ -150,7 +184,7 @@ class CeedlingCompletions(sublime_plugin.EventListener):
         return [
             x
             for m in matches
-            for x in self._generate_completions(types, m, msg=msg)
+            for x in self._generate_completions(types, m, **r)
         ]
 
     def _num_filter(self, match, key):
@@ -172,65 +206,85 @@ class CeedlingCompletions(sublime_plugin.EventListener):
 
     def _completion_filter(self, prefix):
 
-        tokens = self.pattern.match(prefix)
+        tokens = self.parser.match(prefix)
 
         if not any(tokens.groups()):
-            return None, None, None
+            return {
+                "types": None,
+                "matches": None,
+                "msg": False,
+            }
 
         tokens = tokens.groupdict()
 
-        if tokens.get("basic"):
-            print("Basic Fail Pass")
-            return None, None, None
+        msg = True if tokens.pop("msg") else False
 
-        if tokens.get("bool"):
-            print("Boolean")
-            return None, None, None
+        if tokens.get("basic"):
+            return {
+                "types": {"": [""]},
+                "matches": ASSERTIONS_BASIC.copy(),
+                "msg": msg,
+                "params": [""],
+                "text": "",
+            }
+
+        elif tokens.get("simple"):
+
+            if tokens.get("bool"):
+                p = ["condition"]
+                m = ASSERTIONS_BOOL.copy()
+
+            elif tokens.get("ptr"):
+                p = ["pointer"]
+                m = ASSERTIONS_PTR.copy()
+
+            else:
+                m = {"": [""]}
+                p = ["condition"]
+
+            return {
+                "types": {"": [""]},
+                "matches": m,
+                "msg": msg,
+                "params": p,
+            }
 
         match = ASSERTIONS_COMMON.copy()
         types = TYPES_INTEGER.copy()
 
-        if tokens.get("cmp1") is not None:
-            match = self._match_filter(match, tokens.get("cmp1"), "cmp1")
+        cmp1 = tokens.pop("cmp1")
+        cmp2 = tokens.pop("cmp2")
 
-        if tokens.get("cmp2"):
-            match = self._match_filter(match, tokens.get("cmp2"), "cmp2")
+        if cmp1 is not None:
+            match = self._match_filter(match, cmp1, "cmp1")
 
-        elif any(
-            (
-                tokens.get("ntype"),
-                tokens.get("utype"),
-                tokens.get("atype"),
-                tokens.get("stype"),
-                tokens.get("array"),
-                tokens.get("within"),
-            )
-        ):
+        if cmp2:
+            match = self._match_filter(match, cmp2, "cmp2")
+
+        elif any(tokens.values()):
             match = [i for i in match if not i.get("cmp2")]
 
         if tokens.get("array"):
-            match = self._match_filter(match, tokens.get("array"), "p4")
 
+            match = self._match_filter(match, tokens.get("array"), "p4")
             if not tokens.get("within"):
                 match = [i for i in match if not i.get("p5")]
 
         if tokens.get("within"):
             match = self._match_filter(match, tokens.get("within"), "p5")
-            if not tokens.get("array"):
-                match = [i for i in match if not i.get("p4")]
+
+        if not tokens.get("array"):
+            match = [i for i in match if not i.get("p4")]
 
         if tokens.get("ntype"):
-
             match = self._num_filter(match, "numeric")
             types = self._type_filter(TYPES_NUMERIC, tokens.get("ntype"))
 
         elif tokens.get("atype"):
-
             match = self._num_filter(match, "array")
             types = self._type_filter(TYPES_ARRAY, tokens.get("atype"))
 
         elif tokens.get("stype"):
-
             match = self._num_filter(match, "struct")
             types = self._type_filter(TYPES_STRUCT_STRING, tokens.get("stype"))
 
@@ -243,26 +297,36 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                     if bit_value in v:
                         types[k] = [bit_value]
 
-        return types, match, True if tokens.get("msg") else False
+        return {
+            "types": types,
+            "matches": match,
+            "msg": msg,
+        }
 
-    def _generate_completions(self, types, definition, msg=False):
+    def _generate_completions(
+        self,
+        types,
+        definition,
+        msg=False,
+        text="ASSERT",
+        params=["expected", "actual"],
+    ):
         """Return list of trigger:content pairs."""
-
         result = []
         message = "MESSAGE" if msg else ""
-        base_p = ["expected", "actual"]
+        param = params[:]
 
         if definition.get("cmp1") in ("NOT", "GREATER", "LESS"):
-            base_p[0] = "threshold"
+            param[0] = "threshold"
 
         if definition.get("p4") or definition.get("cmp1") == "EACH":
-            base_p.append("num_elements")
+            param.append("num_elements")
 
         if definition.get("p5"):
-            base_p.insert(0, "delta")
+            param.insert(0, "delta")
 
         for k, v in types.items():
-            p = base_p[:]
+            p = param[:]
 
             if "threshold" in p and k == "HEX":
                 try:
@@ -279,7 +343,7 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                     w
                     for w in (
                         "TEST",
-                        "ASSERT",
+                        "{}".format(text),
                         "{}".format(definition.get("cmp1", "")),
                         "{}".format(definition.get("cmp2", "")),
                         "{}".format(definition.get("cmp3", "")),
@@ -296,15 +360,18 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                 content = "_".join(assert_text)
                 content += " ("
 
-                params = [
-                    "${{{}:{}}}".format(i, d) for i, d in enumerate(p, 1)
-                ]
+                p_out = []
+
+                if p[0] != "":
+                    p_out.extend(
+                        "${{{}:{}}}".format(i, d) for i, d in enumerate(p, 1)
+                    )
+
                 if msg:
-                    params.append('"${{{}:message}}"'.format(len(params) + 1))
+                    p_out.append('"${{{}:message}}"'.format(len(p_out) + 1))
 
-                content += ", ".join(params)
+                content += ", ".join(p_out)
                 content += ");"
-
                 result.append([trigger, content])
 
         return result
