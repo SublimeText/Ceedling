@@ -178,7 +178,7 @@ The completions are known to work with:
 
 ### Unit Test Function Templates
 
-Unit test method function templates are active when the caret/cursor not in a function body.
+Unit test method function templates are active when the caret is outside a function body.
 
 | Shortcut | Assertion |
 |:--|:--|
@@ -216,10 +216,10 @@ Where `x` is:
 #### `double` and `float` types
 | Shortcut | Assertion |
 |:--|:--|
-|`xw` | TEST_ASSERT_FLOAT_WITHIN |
-|`ex` | TEST_ASSERT_EQUAL_FLOAT  |
-|`exa` | TEST_ASSERT_EQUAL_FLOAT_ARRAY |
-|`eex` | TEST_ASSERT_EACH_EQUAL_FLOAT |
+|`xw` | TEST_ASSERT_X_WITHIN |
+|`ex` | TEST_ASSERT_EQUAL_X  |
+|`exa` | TEST_ASSERT_EQUAL_X_ARRAY |
+|`eex` | TEST_ASSERT_EACH_EQUAL_X |
 
 Where `x` is:
 - `d`: double
