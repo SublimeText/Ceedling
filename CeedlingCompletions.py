@@ -219,23 +219,6 @@ class CeedlingCompletions(sublime_plugin.EventListener):
             for x in self._generate_completions(t, m, **r)
         ]
 
-    def _num_filter(self, match, key):
-        return [i for i in match if key in i.get("extra", "")]
-
-    def _type_filter(self, type_dict, key):
-        return {
-            i: t
-            for i, t in type_dict.items()
-            if i.lower().startswith(key[0].lower())
-        }
-
-    def _match_filter(self, match, token, key):
-        return [
-            match[i]
-            for i, a in enumerate(match)
-            if token == a.get(key, "-")[0].lower()
-        ]
-
     def _completion_filter(self, prefix):
 
         if len(prefix) == 1 and prefix in ("a", "p", "f", "i", "g", "l"):
