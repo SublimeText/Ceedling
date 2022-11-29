@@ -138,12 +138,64 @@ A number of key commands for working with modules are predefined.
 
 | Key command | Function |
 |:--|:--|
-|`super-ctrl-h` | Open Header File |
-|`super-ctrl-s` | Open Source File |
-|`super-ctrl-t` | Open Test File |
-|`super-ctrl-m` | Open Module Files in 2 column layout |
-|`super-ctrl-right` | Cycle through module files |
-|`super-ctrl-x` |  Clean project |
+|`ctrl+super-h` | Open Header File |
+|`ctrl+super-s` | Open Source File |
+|`ctrl+super-t` | Open Test File |
+|`ctrl+super-.` | Open Module Files in 2 column layout |
+|`ctrl+super-right` | Cycle through module files |
+
+```json
+[
+
+    {
+        "keys": [
+            "ctrl+alt+h"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "header"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+alt+s"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "source"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+alt+t"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "test"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+ctl+m"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "test_and_source"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+ctl+right"
+        ],
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "next"
+        }
+    },
+]
+
+
+```
 
 ### Commands
 
