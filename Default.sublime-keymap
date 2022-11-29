@@ -1,0 +1,82 @@
+[
+    // {
+    //     "keys": [
+    //         "super+ctrl+h"
+    //     ],
+    //     "command": "ceedling_open_file",
+    //     "args": {
+    //         "option": "header"
+    //     }
+    // },
+    // {
+    //     "keys": [
+    //         "super+ctrl+s"
+    //     ],
+    //     "command": "ceedling_open_file",
+    //     "args": {
+    //         "option": "source"
+    //     }
+    // },
+    // {
+    //     "keys": [
+    //         "super+ctrl+t"
+    //     ],
+    //     "command": "ceedling_open_file",
+    //     "args": {
+    //         "option": "test"
+    //     }
+    // },
+    // {
+    //     "keys": [
+    //         "super+ctrl+m"
+    //     ],
+    //     "command": "ceedling_open_file",
+    //     "args": {
+    //         "option": "test_and_source"
+    //     }
+    // },
+    // {
+    //     "keys": [
+    //         "super+ctrl+right"
+    //     ],
+    //     "command": "ceedling_open_file",
+    //     "args": {
+    //         "option": "next"
+    //     }
+    // },
+    // {
+    //     "keys": [
+    //         "super+ctrl+c","super+ctrl+m"
+    //     ],
+    //     "command": "ceedling_create_module",
+    //     "args": {
+    //         "action": "create"
+    //     },
+    // },
+    // {
+    //     "keys": [
+    //         "ctrl+alt+x"
+    //     ],
+    //     "command": "ceedling_exec",
+    //     "args": {
+    //         "tasks": [
+    //             "clean"
+    //         ],
+    //         "file_regex": "^(...*?):",
+    //         "line_regex": "^...*?:([0-9]*)"
+    //     }
+    // },
+    // {
+    //     "keys": [
+    //         "ctrl+alt+shift+x"
+    //     ],
+    //     "command": "ceedling_exec",
+    //     "args": {
+    //         "tasks": [
+    //             "clobber"
+    //         ],
+    //         "file_regex": "^(...*?):",
+    //         "line_regex": "^...*?:([0-9]*)"
+    //     }
+    // }
+]

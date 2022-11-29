@@ -134,7 +134,9 @@ Run last selected build variant using `Control-B` (Windows, Linux) / `Command-B`
 
 ### Key mappings
 
-A number of key commands for working with modules are predefined.
+Note: key mappings are not enabled by default.
+
+A number of key commands for working with modules were defined by the previous version.
 
 | Key command | Function |
 |:--|:--|
@@ -144,58 +146,9 @@ A number of key commands for working with modules are predefined.
 |`ctrl+super-.` | Open Module Files in 2 column layout |
 |`ctrl+super-right` | Cycle through module files |
 
-```json
-[
 
-    {
-        "keys": [
-            "ctrl+alt+h"
-        ],
-        "command": "ceedling_open_file",
-        "args": {
-            "option": "header"
-        }
-    },
-    {
-        "keys": [
-            "ctrl+alt+s"
-        ],
-        "command": "ceedling_open_file",
-        "args": {
-            "option": "source"
-        }
-    },
-    {
-        "keys": [
-            "ctrl+alt+t"
-        ],
-        "command": "ceedling_open_file",
-        "args": {
-            "option": "test"
-        }
-    },
-    {
-        "keys": [
-            "ctrl+ctl+m"
-        ],
-        "command": "ceedling_open_file",
-        "args": {
-            "option": "test_and_source"
-        }
-    },
-    {
-        "keys": [
-            "ctrl+ctl+right"
-        ],
-        "command": "ceedling_open_file",
-        "args": {
-            "option": "next"
-        }
-    },
-]
+To use these key mappings go to `Preferences » Package Settings » Ceedling » Key Bindings`. Copy the commented bindings from the left panel the User `Default.sublime-keymap` on the right and uncomment by selecting then `Edit » Comments » Toggle Block Comments`.
 
-
-```
 
 ### Commands
 
