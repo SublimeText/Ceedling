@@ -192,7 +192,7 @@ To improve response the completions are partly filtered based on the shortcut se
 
 Assert completions are active when the caret is within a function body.
 
-If the shortcut requires more than one character to disambiguate the completion will show `Ceedling: ambiguous match...` indicating more input is required. The `boolean` types will trigger this message.
+
 
 #### Basic fail and ignore
 | Shortcut  | Assertion |
@@ -212,6 +212,8 @@ If the shortcut requires more than one character to disambiguate the completion 
 | `ann` | `TEST_ASSERT_NOT_NULL` |
 | `ae` | `TEST_ASSERT_EMPTY` |
 | `ane` | `TEST_ASSERT_NOT_EMPTY` |
+
+`boolean` types require more than one character to disambiguate the completion. Completions pop-up will show `Ceedling: ambiguous match...` indicating more input is required.
 
 #### `integer` types
 | Shortcut | Assertion |
@@ -264,6 +266,11 @@ Where `x` is:
 Append `ms` to a shortcut to access the message variant.
 
 
+## Todo
+
+- completions for `Float` and `Double`
+- completions for `bits` types
+- completions for `CMock`
 
 ## Previous version features currently missing
 
