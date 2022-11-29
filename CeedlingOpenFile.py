@@ -123,7 +123,8 @@ class CeedlingOpenFileCommand(sublime_plugin.WindowCommand):
         return incl[0]
 
     def _glob_search(self, pattern, path, base, ext):
-        """Return list of flies matching glob path.
+        """Return list of files matching glob path.
+
 
         Ceedling project.yml uses globstar `**` pattern.
         This is not supported by Python before v3.5.
