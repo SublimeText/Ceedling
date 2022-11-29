@@ -192,6 +192,23 @@ To keep response snappy the completions are filtered based on the shortcut seque
 
 Assert completions are active when the caret is within a function body.
 
+#### Basic fail and ignore
+| Shortcut  | Assertion |
+|:--|:--|
+| `p` | `TEST_PASS` |
+| `f` | `TEST_FAIL` |
+| `i` | `TEST_IGNORE` |
+
+#### `boolean` types
+
+| Shortcut | Assertion  |
+|:--|:--|
+| `at` | `TEST_ASSERT_TRUE` |
+| `au` | `TEST_ASSERT_UNLESS` |
+| `af` |  |
+|  |  |
+|  |  |
+
 #### `integer` types
 | Shortcut | Assertion |
 |:--|:--|
