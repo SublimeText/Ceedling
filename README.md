@@ -188,16 +188,18 @@ Unit test method function templates are active when the caret is outside a funct
 
 ### Assert Completions
 
-To keep response snappy the completions are filtered based on the shortcut sequence.
+To improve response the completions are partly filtered based on the shortcut sequence.
 
 Assert completions are active when the caret is within a function body.
+
+If the shortcut requires more than one character to disambiguate the completion will show `Ceedling: ambiguous match...` indicating more input is required. The `boolean` types will trigger this message.
 
 #### Basic fail and ignore
 | Shortcut  | Assertion |
 |:--|:--|
-| `p` | `TEST_PASS` |
-| `f` | `TEST_FAIL` |
-| `i` | `TEST_IGNORE` |
+| `pa` | `TEST_PASS` |
+| `fa` | `TEST_FAIL` |
+| `ig` | `TEST_IGNORE` |
 
 #### `boolean` types
 
@@ -205,9 +207,11 @@ Assert completions are active when the caret is within a function body.
 |:--|:--|
 | `at` | `TEST_ASSERT_TRUE` |
 | `au` | `TEST_ASSERT_UNLESS` |
-| `af` |  |
-|  |  |
-|  |  |
+| `af` | `TEST_ASSERT_FALSE` |
+| `an` | `TEST_ASSERT_NULL` |
+| `ann` | `TEST_ASSERT_NOT_NULL` |
+| `ae` | `TEST_ASSERT_EMPTY` |
+| `ane` | `TEST_ASSERT_NOT_EMPTY` |
 
 #### `integer` types
 | Shortcut | Assertion |
