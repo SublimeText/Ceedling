@@ -2,6 +2,12 @@ import re
 import sublime
 import sublime_plugin
 
+
+class CeedlingFlags:
+    Pending = 1
+    NoMatch = 2
+
+
 TEST_FUNCTIONS = [
     [
         "test\ttemplate test",
@@ -72,7 +78,7 @@ ASSERTIONS_PTR = [
     },
 ]
 
-ASSERTIONS_COMMON = [
+CEEDLING_ASSERT_COMMON = [
     {
         "cmp1": "EQUAL",
         "extra": ["numeric", "array", "struct"],
@@ -126,26 +132,42 @@ class CeedlingCompletions(sublime_plugin.EventListener):
 
     def __init__(self):
 
+        if sublime.version().startswith("4"):
+            self.flags = (
+                sublime.DYNAMIC_COMPLETIONS | sublime.INHIBIT_WORD_COMPLETIONS
+            )
+        else:
+            self.flags = sublime.INHIBIT_WORD_COMPLETIONS
+
         self.parser = re.compile(
             "".join(
                 [
-                    r"(",
-                    r"(?:(?P<basic>^pa|^fa|^ig))|",
-                    r"(?:(?P<simple>^a(?=ms)|(^a((?P<bool>[tfu])|(?P<ptr>n?[ne])))))|",
+                    r"(?:",
+                    r"(?P<basic>^pa|fa|ig)|",
+                    r"(?:((?P<bool>^a[tfu])|(?P<ptr>^an?[ne])))|",
                     r"(?:(?P<cmp1>[engl])(?P<cmp2>[eto])?)?",
                     r"(?:",
-                    r"(?P<utype>([uihc]|sz))(?P<bits>(8|16|32|64)?)|",
+                    r"(?P<utype>sz|c|[uih])(?P<bits>(?<=[uih])(?:8|16|32|64))?|",
+                    r"(?P<ntype>(?:(?<=e)[df])|(?:[df](?=[wind])))|",
                     r"(?P<stype>sl)|",
-                    r"(?P<atype>p|s|m(?!s))|",
-                    r"(?P<ntype>d|f)",
+                    r"(?<=e)(?P<atype>p|s|m(?!s))",
                     r")?",
-                    r"(?:(?P<array>a)?)?",
-                    r"(?:(?P<within>w)?)?",
+                    r"(?P<p4>a)?",
+                    r"(?P<p5>w)?",
                     r")",
-                    r"(?:(?P<msg>ms$))?",
+                    r"(?P<msg>ms$)?",
                 ]
             )
         )
+
+        self._matches_filtered = [
+            {
+                k: v[0].lower()
+                for k, v in m.items()
+                if k in ("cmp1", "cmp2", "p4", "p5")
+            }
+            for m in CEEDLING_ASSERT_COMMON
+        ]
 
     def on_query_completions(self, view, prefix, locations):
 
@@ -165,17 +187,27 @@ class CeedlingCompletions(sublime_plugin.EventListener):
             return None
 
         if view.match_selector(locations[0], "meta.function & meta.block"):
-            return (
-                self.completions(prefix),
-                sublime.INHIBIT_WORD_COMPLETIONS | sublime.DYNAMIC_COMPLETIONS,
-            )
+
+            result = self.completions(prefix)
+            return result if result is None else (result, self.flags)
 
         else:
-            return (TEST_FUNCTIONS, sublime.INHIBIT_WORD_COMPLETIONS)
+            return (TEST_FUNCTIONS, self.flags)
 
     def completions(self, prefix):
 
         r = self._completion_filter(prefix)
+
+        if r is CeedlingFlags.NoMatch:
+            return None
+
+        elif r is CeedlingFlags.Pending:
+            # return a empty placeholder to prevent
+            # document matches overriding completions
+            return [
+                ["Ceedling: ambiguous match...", ""],
+            ]
+
         types, matches = r.pop("types"), r.pop("matches")
 
         if not all((types, matches)):
@@ -183,8 +215,8 @@ class CeedlingCompletions(sublime_plugin.EventListener):
 
         return [
             x
-            for m in matches
-            for x in self._generate_completions(types, m, **r)
+            for t, m in zip(types, matches)
+            for x in self._generate_completions(t, m, **r)
         ]
 
     def _num_filter(self, match, key):
@@ -206,99 +238,96 @@ class CeedlingCompletions(sublime_plugin.EventListener):
 
     def _completion_filter(self, prefix):
 
+        if len(prefix) == 1 and prefix in ("a", "p", "f", "i", "g", "l"):
+            return CeedlingFlags.Pending
+
         tokens = self.parser.match(prefix)
 
         if not any(tokens.groups()):
-            return {
-                "types": None,
-                "matches": None,
-                "msg": False,
-            }
+            return CeedlingFlags.NoMatch
 
         tokens = tokens.groupdict()
 
         msg = True if tokens.pop("msg") else False
 
-        if tokens.get("basic"):
+        if tokens.pop("basic"):
             return {
-                "types": {"": [""]},
+                "types": [{"": [""]}] * len(ASSERTIONS_BASIC),
                 "matches": ASSERTIONS_BASIC.copy(),
                 "msg": msg,
                 "params": [""],
                 "text": "",
             }
 
-        elif tokens.get("simple"):
-
-            if tokens.get("bool"):
-                p = ["condition"]
-                m = ASSERTIONS_BOOL.copy()
-
-            elif tokens.get("ptr"):
-                p = ["pointer"]
-                m = ASSERTIONS_PTR.copy()
-
-            else:
-                m = {"": [""]}
-                p = ["condition"]
-
+        elif tokens.pop("bool"):
             return {
-                "types": {"": [""]},
-                "matches": m,
+                "types": [{"": [""]}] * len(ASSERTIONS_BOOL),
+                "matches": ASSERTIONS_BOOL.copy(),
                 "msg": msg,
-                "params": p,
+                "params": ["condition"],
             }
 
-        match = ASSERTIONS_COMMON.copy()
-        types = TYPES_INTEGER.copy()
+        elif tokens.pop("ptr"):
+            return {
+                "types": [{"": [""]}] * len(ASSERTIONS_PTR),
+                "matches": ASSERTIONS_PTR.copy(),
+                "msg": msg,
+                "params": ["pointer"],
+            }
 
-        cmp1 = tokens.pop("cmp1")
-        cmp2 = tokens.pop("cmp2")
+        match = CEEDLING_ASSERT_COMMON.copy()
 
-        if cmp1 is not None:
-            match = self._match_filter(match, cmp1, "cmp1")
+        # check values from parser against
+        # base assert definitions
+        tokens_filtered = {
+            k: v
+            for k, v in tokens.items()
+            if k in ("cmp1", "cmp2", "p4", "p5")
+            if v is not None
+        }
 
-        if cmp2:
-            match = self._match_filter(match, cmp2, "cmp2")
+        c, p = [], []
+        for i in self._matches_filtered:
+            c.append(
+                sum(
+                    tokens_filtered.get(j, "token") == i.get(j, "match")
+                    for j in ("cmp1", "cmp2")
+                )
+            )
 
-        elif any(tokens.values()):
-            match = [i for i in match if not i.get("cmp2")]
+            p.append(
+                sum(
+                    tokens_filtered.get(j, "token") == i.get(j, "match")
+                    for j in ("p4", "p5")
+                )
+            )
+        pairsums = [l + m for l, m in zip(c, p)]
 
-        if tokens.get("array"):
+        match = [
+            m
+            for t, m in zip([k == max(pairsums) for k in pairsums], match)
+            if t is True
+        ]
 
-            match = self._match_filter(match, tokens.get("array"), "p4")
-            if not tokens.get("within"):
-                match = [i for i in match if not i.get("p5")]
+        if len(match) == 0:
+            return None
+        # If the request is valid one def should match.
+        match_types = []
 
-        if tokens.get("within"):
-            match = self._match_filter(match, tokens.get("within"), "p5")
+        for m in match:
+            types = TYPES_INTEGER.copy()
+            for t in m.get("extra", []):
 
-        if not tokens.get("array"):
-            match = [i for i in match if not i.get("p4")]
-
-        if tokens.get("ntype"):
-            match = self._num_filter(match, "numeric")
-            types = self._type_filter(TYPES_NUMERIC, tokens.get("ntype"))
-
-        elif tokens.get("atype"):
-            match = self._num_filter(match, "array")
-            types = self._type_filter(TYPES_ARRAY, tokens.get("atype"))
-
-        elif tokens.get("stype"):
-            match = self._num_filter(match, "struct")
-            types = self._type_filter(TYPES_STRUCT_STRING, tokens.get("stype"))
-
-        elif tokens.get("utype"):
-            types = self._type_filter(types, tokens.get("utype"))
-
-            if tokens.get("bits"):
-                bit_value = tokens.get("bits")
-                for k, v in types.items():
-                    if bit_value in v:
-                        types[k] = [bit_value]
+                if t == "numeric":
+                    types.update(TYPES_NUMERIC)
+                elif t == "array":
+                    types.update(TYPES_ARRAY)
+                elif t == "struct":
+                    types.update(TYPES_STRUCT_STRING)
+            match_types.append(types)
 
         return {
-            "types": types,
+            "types": match_types,
             "matches": match,
             "msg": msg,
         }
@@ -355,7 +384,7 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                     if w != ""
                 ]
 
-                trigger = " ".join(assert_text[1:]).lower()
+                trigger = " ".join(assert_text[1 if k == "" else 2 :]).lower()
 
                 content = "_".join(assert_text)
                 content += " ("
@@ -372,6 +401,7 @@ class CeedlingCompletions(sublime_plugin.EventListener):
 
                 content += ", ".join(p_out)
                 content += ");"
+
                 result.append([trigger, content])
 
         return result
