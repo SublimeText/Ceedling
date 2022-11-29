@@ -192,6 +192,9 @@ To improve response the completions are partly filtered based on the shortcut se
 
 Assert completions are active when the caret is within a function body.
 
+Some types require more than one character to disambiguate the completion. Completions pop-up will show `Ceedling: ambiguous match...` indicating more input is required.
+
+In some cases Sublime Text's completion filtering will prevent matching on two characters. For example `double within` may require use of `dwi` rather than `dw`.
 
 
 #### Basic fail and ignore
@@ -205,7 +208,7 @@ Assert completions are active when the caret is within a function body.
 
 | Shortcut | Assertion  |
 |:--|:--|
-| `at` | `TEST_ASSERT_TRUE` |
+| `atr` | `TEST_ASSERT_TRUE` |
 | `au` | `TEST_ASSERT_UNLESS` |
 | `af` | `TEST_ASSERT_FALSE` |
 | `an` | `TEST_ASSERT_NULL` |
@@ -213,7 +216,7 @@ Assert completions are active when the caret is within a function body.
 | `ae` | `TEST_ASSERT_EMPTY` |
 | `ane` | `TEST_ASSERT_NOT_EMPTY` |
 
-`boolean` types require more than one character to disambiguate the completion. Completions pop-up will show `Ceedling: ambiguous match...` indicating more input is required.
+`
 
 #### `integer` types
 | Shortcut | Assertion |
