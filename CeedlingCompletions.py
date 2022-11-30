@@ -138,9 +138,9 @@ class CeedlingCompletions(sublime_plugin.EventListener):
             "".join(
                 [
                     r"(?:",
-                    r"(?P<basic>^pa|fa|ig)|",
-                    r"(?:((?P<bool>^a[tfu])|(?P<ptr>^an?[ne])))|",
-                    r"(?:(?P<cmp1>[engl])(?P<cmp2>[eto])?)?",
+                    r"^s(?P<basic>[pfi])|",
+                    r"^a(?:((?P<bool>[tfu])|(?P<ptr>n?[ne])))|",
+                    r"(?:(?P<cmp1>[engl])(?P<cmp2>(((?<=[en])e))|((?<=[gl])[to]))?)?",
                     r"(?:",
                     r"(?P<utype>sz|c|[uih])(?P<bits>(?<=[uih])(?:8|16|32|64))?|",
                     r"(?P<ntype>(?:(?<=e)[df])|(?:[df](?=[wind])))|",
