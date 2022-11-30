@@ -132,12 +132,7 @@ class CeedlingCompletions(sublime_plugin.EventListener):
 
     def __init__(self):
 
-        if sublime.version().startswith("4"):
-            self.flags = (
-                sublime.DYNAMIC_COMPLETIONS | sublime.INHIBIT_WORD_COMPLETIONS
-            )
-        else:
-            self.flags = sublime.INHIBIT_WORD_COMPLETIONS
+        self.st4 = sublime.version().startswith("4")
 
         self.parser = re.compile(
             "".join(
@@ -186,27 +181,33 @@ class CeedlingCompletions(sublime_plugin.EventListener):
         ):
             return None
 
+        nomatch_flags = sublime.DYNAMIC_COMPLETIONS if self.st4 else 0
+        match_flags = sublime.INHIBIT_WORD_COMPLETIONS | nomatch_flags
+
         if view.match_selector(locations[0], "meta.function & meta.block"):
 
             result = self.completions(prefix)
-            return result if result is None else (result, self.flags)
+
+            return (
+                (None, nomatch_flags)
+                if result is None
+                else (result, match_flags)
+            )
 
         else:
-            return (TEST_FUNCTIONS, self.flags)
+            return TEST_FUNCTIONS, nomatch_flags
 
     def completions(self, prefix):
 
         r = self._completion_filter(prefix)
 
         if r is CeedlingFlags.NoMatch:
-            return None
+            return []
 
         elif r is CeedlingFlags.Pending:
             # return a empty placeholder to prevent
             # document matches overriding completions
-            return [
-                ["Ceedling: ambiguous match...", ""],
-            ]
+            return [["Ceedling: ambiguous match...", ""]]
 
         types, matches = r.pop("types"), r.pop("matches")
 
@@ -258,8 +259,6 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                 "params": ["pointer"],
             }
 
-        match = CEEDLING_ASSERT_COMMON.copy()
-
         # check values from parser against
         # base assert definitions
         tokens_filtered = {
@@ -284,23 +283,27 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                     for j in ("p4", "p5")
                 )
             )
-        pairsums = [l + m for l, m in zip(c, p)]
+
+        # pairs should sum to max value of 2
+        pairsums = [m + n for m, n in zip(c, p)]
 
         match = [
             m
-            for t, m in zip([k == max(pairsums) for k in pairsums], match)
+            for t, m in zip(
+                [k == max(pairsums) for k in pairsums], CEEDLING_ASSERT_COMMON
+            )
             if t is True
         ]
 
         if len(match) == 0:
             return None
+
         # If the request is valid one def should match.
         match_types = []
 
         for m in match:
             types = TYPES_INTEGER.copy()
             for t in m.get("extra", []):
-
                 if t == "numeric":
                     types.update(TYPES_NUMERIC)
                 elif t == "array":
@@ -350,7 +353,6 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                 p.insert(2, "len")
 
             for val in v:
-
                 assert_text = [
                     w
                     for w in (
