@@ -222,11 +222,11 @@ class CeedlingCompletions(sublime_plugin.EventListener):
 
     def _completion_filter(self, prefix):
 
-        if len(prefix) == 1 and prefix in ("a", "p", "f", "i", "g", "l"):
-            return CeedlingFlags.Pending
-
+        # if len(prefix) == 1 and prefix in ("a", "p", "f", "i"):
+        # return CeedlingFlags.Pending
+        print(prefix)
         tokens = self.parser.match(prefix)
-
+        print(tokens.groups())
         if not any(tokens.groups()):
             return CeedlingFlags.NoMatch
 
@@ -267,6 +267,17 @@ class CeedlingCompletions(sublime_plugin.EventListener):
             if k in ("cmp1", "cmp2", "p4", "p5")
             if v is not None
         }
+
+        # Valid combinations are:
+        #  |c1|c2|nt|p4|p5|
+        #  | x| x| x|  |  |
+        #  | x|  | x| x|  |
+        #  |  |  | x|  | x|
+        #  |  |  | x| x| x|
+        #  c1 = [elgn]
+        #  c2 = [eto]
+        #  p4 = a
+        #  p5 = w
 
         c, p = [], []
         for i in self._matches_filtered:
@@ -369,7 +380,7 @@ class CeedlingCompletions(sublime_plugin.EventListener):
                     if w != ""
                 ]
 
-                trigger = " ".join(assert_text[1 if k == "" else 2 :]).lower()
+                trigger = " ".join(assert_text[0 if k == "" else 2 :]).lower()
 
                 content = "_".join(assert_text)
                 content += " ("
