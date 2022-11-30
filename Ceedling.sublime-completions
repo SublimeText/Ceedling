@@ -1,0 +1,24 @@
+{
+    "scope": "(source.c | source.c++ | source.c99) - meta.function",
+    "completions":
+    [
+        {
+            "annotation": "Test Function",
+            "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\t${3}\n}\n",
+            "kind": "function",
+            "trigger": "test"
+        },
+        {
+            "annotation": "Test Function Fail",
+            "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_FAIL_MESSAGE(\"${3:Implement me!}\");\n}\n",
+            "kind": "function",
+            "trigger": "testf"
+        },
+        {
+            "annotation": "Test Function Ignore",
+            "contents": "void test_${1:function}_should_${2:behavior}(void)\n{\n\tTEST_IGNORE_MESSAGE(\"${3:Implement me!}\");\n}\n",
+            "kind": "function",
+            "trigger": "testi"
+        }
+    ]
+}
