@@ -25,10 +25,12 @@ class CeedlingExecCommand(_ExecCommand):
 
         variables = self.window.extract_variables()
 
+        # Check if the user is attempting to build an unsupported file.
         if variables.get("file_extension") not in (
             self.conf.source_ext,
             self.conf.header_ext,
         ) and any(i.find("$file") != -1 for i in kwargs.get("tasks")):
+
             print("File cannot be compiled.")
             return
 
