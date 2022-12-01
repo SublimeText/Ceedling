@@ -23,33 +23,19 @@ class CeedlingExecCommand(_ExecCommand):
 
             kwargs["working_dir"] = self.conf.working_dir
 
-        current_file = self.window.active_view().file_name()
+        variables = self.window.extract_variables()
 
-        if current_file is None:
-            current_file = current_file_name = ""
+        if variables.get("file_extension") not in (
+            self.conf.source_ext,
+            self.conf.header_ext,
+        ):
+            print("File cannot be compiled.")
+            return
 
-        else:
-            _, current_ext = os.path.splitext(current_file)
-            if current_ext in ("", ".yml", ".rb"):
-                return
-
-            else:
-                current_file_name = os.path.basename(current_file)
-
-        task_sub = []
-
-        for t in kwargs.pop("tasks"):
-            for p, v in zip(
-                ["$file_name", "$file"],
-                [current_file_name, current_file],
-            ):
-                # verify tasks with a placeholder have a replacement value
-                if t.rfind(p) >= 0 and v == "":
-                    return
-
-                t = t.replace(p, v)
-
-            task_sub.append(t)
+        task_sub = [
+            sublime.expand_variables(task, variables)
+            for task in kwargs.pop("tasks", [])
+        ]
 
         # Build up the command line
         if sys.platform == "win32":
@@ -57,10 +43,11 @@ class CeedlingExecCommand(_ExecCommand):
         else:
             cmd = ["ceedling"]
 
-        prefix = kwargs.pop("prefix", [])
-        options = kwargs.pop("options", [])
-
-        for i in (prefix, task_sub, options):
+        for i in (
+            kwargs.pop("prefix", []),
+            task_sub,
+            kwargs.pop("options", []),
+        ):
             cmd.extend(i)
 
         kwargs["cmd"] = cmd
