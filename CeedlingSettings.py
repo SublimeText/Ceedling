@@ -123,7 +123,7 @@ class CeedlingProjectSettings:
             print("Project cache updated")
 
     def _project_file_parse(self, project_file):
-        """Parse project.yml settings.
+        """Return project settings.
 
         parameter: project_file - path to project.yml
         extract paths, build_root, test prefix and file extensions.
@@ -139,7 +139,7 @@ class CeedlingProjectSettings:
         }
 
         config = self._read_yaml(project_file)
-        cache_update = {}
+        project_settings = {}
 
         try:
             for section, elements in yml_default.items():
@@ -149,7 +149,7 @@ class CeedlingProjectSettings:
                     if section == "paths":
                         # optional include path is None by default
                         if value is None:
-                            cache_update.update({key: value})
+                            project_settings.update({key: value})
                             continue
 
                         # value is a bare string
@@ -169,19 +169,19 @@ class CeedlingProjectSettings:
                                 if not key.endswith("excl"):
                                     t_key = key + "_excl"
 
-                            t = cache_update.get(t_key, list())
+                            t = project_settings.get(t_key, list())
                             t.append(i)
-                            cache_update.update({t_key: t})
+                            project_settings.update({t_key: t})
                     else:
                         if section == "extension":
                             key += "_ext"
-                        cache_update.update({key: value})
+                        project_settings.update({key: value})
 
         except KeyError as e:
             print("Key missing:\n", e)
             raise KeyError(e)
 
-        return cache_update
+        return project_settings
 
     def _read_yaml(self, project_file):
         """Read project.yml configuration file.
