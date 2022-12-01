@@ -29,7 +29,6 @@ class CeedlingExecCommand(_ExecCommand):
             self.conf.source_ext,
             self.conf.header_ext,
         ) and any(i.find("$file") != -1 for i in kwargs.get("tasks")):
-
             print("File cannot be compiled.")
             return
 
