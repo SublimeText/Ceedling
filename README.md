@@ -268,7 +268,7 @@ Where `x` is:
 
 
 ### Messages
-Append `ms` to a shortcut to access the message variant.
+Append `m` to a trigger to access the message variant.
 
 
 ## Todo
