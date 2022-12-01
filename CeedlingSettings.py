@@ -10,7 +10,7 @@ class CeedlingProjectSettings:
     def __init__(self, window):
         """Initialise and update settings cache."""
         self.settings = window.settings()
-        self._update_cache(window)
+        self._cache_update(window)
 
     @property
     def project_yml(self):
@@ -82,7 +82,7 @@ class CeedlingProjectSettings:
         c = self.settings.get(key, default)
         return c if c is not None else default
 
-    def _update_cache(self, window):
+    def _cache_update(self, window):
         """
         Locate configuration based on Ceedling documentation.
 
