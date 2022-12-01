@@ -3,12 +3,12 @@ import sys
 
 import sublime
 import sublime_plugin
-from Default.exec import ExecCommand
+from Default.exec import ExecCommand as _ExecCommand
 
 from .CeedlingSettings import CeedlingProjectSettings
 
 
-class CeedlingExecCommand(ExecCommand):
+class CeedlingExecCommand(_ExecCommand):
     def run(self, **kwargs):
 
         # "working_dir" is set by "new project" command.
