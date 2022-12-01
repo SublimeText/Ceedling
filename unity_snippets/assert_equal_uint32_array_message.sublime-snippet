@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_EQUAL_UINT32_ARRAY_MESSAGE(${1:expected}, ${2:actual}, ${3:num_elements}, "${4:message}");
-]]></content>
-<tabTrigger>aeu32am</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_FLOAT_IS_NOT_NAN(${1:actual});
-]]></content>
-<tabTrigger>afinn</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

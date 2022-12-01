@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_FALSE(${1:condition});
-]]></content>
-<tabTrigger>af</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

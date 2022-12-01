@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_DOUBLE_IS_NEG_INF(${1:actual});
-]]></content>
-<tabTrigger>adini</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

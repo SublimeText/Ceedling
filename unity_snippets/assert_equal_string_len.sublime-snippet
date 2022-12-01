@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_EQUAL_STRING_LEN(${1:expected}, ${2:actual}, ${3:len});
-]]></content>
-<tabTrigger>aesl</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

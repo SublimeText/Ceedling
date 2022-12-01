@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_EACH_EQUAL_HEX16(${1:expected}, ${2:actual}, ${3:num_elements});
-]]></content>
-<tabTrigger>aeeh16</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

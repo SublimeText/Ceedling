@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_FALSE_MESSAGE(${1:condition}, "${2:message}");
-]]></content>
-<tabTrigger>afm</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

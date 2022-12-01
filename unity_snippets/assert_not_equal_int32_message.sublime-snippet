@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_NOT_EQUAL_INT32_MESSAGE(${1:threshold}, ${2:actual}, "${3:message}");
-]]></content>
-<tabTrigger>anei32m</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

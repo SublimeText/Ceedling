@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_BITS_MESSAGE(${1:mask}, ${2:expected}, ${3:actual}, "${4:message}");
-]]></content>
-<tabTrigger>abm</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_EMPTY_MESSAGE(${1:pointer}, "${2:message}");
-]]></content>
-<tabTrigger>aem</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_EACH_EQUAL_UINT8(${1:expected}, ${2:actual}, ${3:num_elements});
-]]></content>
-<tabTrigger>aeeu8</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

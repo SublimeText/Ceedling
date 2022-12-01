@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_FAIL();
-]]></content>
-<tabTrigger>fa</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

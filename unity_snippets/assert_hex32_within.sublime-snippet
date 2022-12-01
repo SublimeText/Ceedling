@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_HEX32_WITHIN(${1:delta}, ${2:expected}, ${3:actual});
-]]></content>
-<tabTrigger>ah32w</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>

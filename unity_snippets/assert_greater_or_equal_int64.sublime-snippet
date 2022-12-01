@@ -1,7 +1,0 @@
-<snippet>
-<content><![CDATA[
-TEST_ASSERT_GREATER_OR_EQUAL_INT64(${1:threshold}, ${2:actual});
-]]></content>
-<tabTrigger>agoei64</tabTrigger>
-<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
-</snippet>
