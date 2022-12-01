@@ -1,0 +1,7 @@
+<snippet>
+<content><![CDATA[
+TEST_ASSERT_EQUAL_DOUBLE_MESSAGE(${1:expected}, ${2:actual}, ${3:message})
+]]></content>
+<tabTrigger>aedm</tabTrigger>
+<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
+</snippet>

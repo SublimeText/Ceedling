@@ -1,0 +1,14 @@
+<snippet>
+    <content><![CDATA[
+void test_${1:function}_should_${2:behavior}(void)
+{
+    TEST_IGNORE_MESSAGE("${3:Implement me!}");
+}
+
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>testi</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>(source.c | source.c++ | source.c99) - meta.function</scope>
+    <description>test ignore template</description>
+</snippet>

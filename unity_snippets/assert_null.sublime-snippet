@@ -1,0 +1,7 @@
+<snippet>
+<content><![CDATA[
+TEST_ASSERT_NULL(${1:pointer})
+]]></content>
+<tabTrigger>an</tabTrigger>
+<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
+</snippet>

@@ -1,0 +1,7 @@
+<snippet>
+<content><![CDATA[
+TEST_ASSERT_EQUAL_HEX32(${1:expected}, ${2:actual})
+]]></content>
+<tabTrigger>aeh32</tabTrigger>
+<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
+</snippet>

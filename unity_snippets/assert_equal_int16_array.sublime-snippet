@@ -1,0 +1,7 @@
+<snippet>
+<content><![CDATA[
+TEST_ASSERT_EQUAL_INT16_ARRAY(${1:expected}, ${2:actual}, ${3:num_elements})
+]]></content>
+<tabTrigger>aei16a</tabTrigger>
+<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
+</snippet>

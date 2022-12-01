@@ -1,0 +1,7 @@
+<snippet>
+<content><![CDATA[
+TEST_ASSERT_LESS_OR_EQUAL_UINT8_MESSAGE(${1:threshold}, ${2:actual}, ${3:message})
+]]></content>
+<tabTrigger>aloeu8m</tabTrigger>
+<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
+</snippet>

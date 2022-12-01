@@ -1,0 +1,7 @@
+<snippet>
+<content><![CDATA[
+TEST_ASSERT_UINT_WITHIN(${1:delta}, ${2:expected}, ${3:actual})
+]]></content>
+<tabTrigger>auw</tabTrigger>
+<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
+</snippet>

@@ -1,0 +1,7 @@
+<snippet>
+<content><![CDATA[
+TEST_ONLY()
+]]></content>
+<tabTrigger>on</tabTrigger>
+<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
+</snippet>

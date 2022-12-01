@@ -1,0 +1,7 @@
+<snippet>
+<content><![CDATA[
+TEST_ASSERT_FLOAT_IS_NOT_NEG_INF(${1:actual})
+]]></content>
+<tabTrigger>afinni</tabTrigger>
+<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
+</snippet>

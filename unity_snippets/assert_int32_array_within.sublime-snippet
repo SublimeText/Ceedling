@@ -1,0 +1,7 @@
+<snippet>
+<content><![CDATA[
+TEST_ASSERT_INT32_ARRAY_WITHIN(${1:delta}, ${2:expected}, ${3:actual}, ${4:num_elements})
+]]></content>
+<tabTrigger>ai32aw</tabTrigger>
+<scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
+</snippet>
