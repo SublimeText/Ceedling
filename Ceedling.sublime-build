@@ -1,33 +1,51 @@
 {
 	"target": "ceedling_exec",
-	"tasks": ["test:$file_name"],
+	"tasks": [
+		"test:$file_name"
+	],
 	"file_regex": "^\"(.*?)\", line\\s+([0-9]+)",
 	"selector": "source.c",
-	"cancel": {"kill": true},
+	"cancel": {
+		"kill": true
+	},
 	"variants": [
 		{
 			"name": "Test All",
-			"tasks": ["test:all"]
+			"tasks": [
+				"test:all"
+			]
 		},
 		{
 			"name": "Test Changed",
-			"tasks": ["test:delta"]
+			"tasks": [
+				"test:delta"
+			]
 		},
 		{
 			"name": "Test Build only",
-			"tasks": ["test:build_only"]
+			"tasks": [
+				"test:build_only"
+			]
 		},
 		{
 			"name": "Clean and Test File",
-			"tasks": ["clean", "test:$file_name"]
+			"tasks": [
+				"clean",
+				"test:$file_name"
+			]
 		},
 		{
 			"name": "Clean and Test All",
-			"tasks": ["clean", "test:all"]
+			"tasks": [
+				"clean",
+				"test:all"
+			]
 		},
 		{
 			"name": "Release",
-			"tasks": ["release"]
+			"tasks": [
+				"release"
+			]
 		}
 	]
 }
