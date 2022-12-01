@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_ASSERT_GREATER_THAN_FLOAT(${1:threshold}, ${2:actual})
+TEST_ASSERT_GREATER_THAN_FLOAT(${1:threshold}, ${2:actual});
 ]]></content>
 <tabTrigger>agtf</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>

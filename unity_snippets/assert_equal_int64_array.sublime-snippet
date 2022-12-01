@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_ASSERT_EQUAL_INT64_ARRAY(${1:expected}, ${2:actual}, ${3:num_elements})
+TEST_ASSERT_EQUAL_INT64_ARRAY(${1:expected}, ${2:actual}, ${3:num_elements});
 ]]></content>
 <tabTrigger>aei64a</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>

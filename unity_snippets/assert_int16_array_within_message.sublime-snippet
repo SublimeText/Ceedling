@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_ASSERT_INT16_ARRAY_WITHIN_MESSAGE(${1:delta}, ${2:expected}, ${3:actual}, ${4:num_elements}, ${5:message})
+TEST_ASSERT_INT16_ARRAY_WITHIN_MESSAGE(${1:delta}, ${2:expected}, ${3:actual}, ${4:num_elements}, "${5:message}");
 ]]></content>
 <tabTrigger>ai16awm</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>

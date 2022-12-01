@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_ASSERT_UINT64_ARRAY_WITHIN(${1:delta}, ${2:expected}, ${3:actual}, ${4:num_elements})
+TEST_ASSERT_UINT64_ARRAY_WITHIN(${1:delta}, ${2:expected}, ${3:actual}, ${4:num_elements});
 ]]></content>
 <tabTrigger>au64aw</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>

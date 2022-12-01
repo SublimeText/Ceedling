@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_PASS()
+TEST_PASS();
 ]]></content>
 <tabTrigger>pa</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>

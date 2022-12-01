@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_ASSERT_GREATER_THAN_INT16_MESSAGE(${1:threshold}, ${2:actual}, ${3:message})
+TEST_ASSERT_GREATER_THAN_INT16_MESSAGE(${1:threshold}, ${2:actual}, "${3:message}");
 ]]></content>
 <tabTrigger>agti16m</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>

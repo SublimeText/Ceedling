@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_ASSERT_LESS_OR_EQUAL_size_t(${1:threshold}, ${2:actual})
+TEST_ASSERT_LESS_OR_EQUAL_size_t(${1:threshold}, ${2:actual});
 ]]></content>
 <tabTrigger>aloesz</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>

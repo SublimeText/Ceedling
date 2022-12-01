@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_MESSAGE(${1:message})
+TEST_MESSAGE("${1:message}");
 ]]></content>
 <tabTrigger>me</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>

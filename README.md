@@ -134,9 +134,7 @@ Run last selected build variant using `Control-B` (Windows, Linux) / `Command-B`
 
 ### Key mappings
 
-Note: key mappings are not enabled by default.
-
-A number of key commands for working with modules were defined by the previous version.
+Note: key mappings are disabled by default.
 
 | Key command | Function |
 |:--|:--|
@@ -147,8 +145,9 @@ A number of key commands for working with modules were defined by the previous v
 |`ctrl+super-right` | Cycle through module files |
 
 
-To use these key mappings go to `Preferences » Package Settings » Ceedling » Key Bindings`. Copy the commented bindings from the left panel the User `Default.sublime-keymap` on the right and uncomment by selecting then `Edit » Comments » Toggle Block Comments`.
+To use these key mappings go to `Preferences » Package Settings » Ceedling » Key Bindings`. Copy the commented bindings from the left panel to the User `Default.sublime-keymap` on the right and uncomment by selecting then `Edit » Comments » Toggle Block Comments`.
 
+See the [Key Bindings](https://www.sublimetext.com/docs/key_bindings.html) documetation for more information on setting key assignments.
 
 ### Commands
 
@@ -169,17 +168,14 @@ To use these key mappings go to `Preferences » Package Settings » Ceedling » 
 | Ceedling: Version | Print version information for ceedling used in current project. |
 | Ceedling: Environment | Display ENV variables set by ceedling |
 
-## Completions
-There are now around 200 completions  with matching `message` versions.
+## Snippets
 
-Completions are scope sensitive and require use of a C/C++ syntax that correctly identifies function blocks.
+Snippets are scope sensitive and require use of a C/C++ syntax that correctly identifies function blocks.
 
-The completions are known to work with:
+The snippets are known to work with:
 - Built-in Sublime Text `C` and `C++` syntaxes
 - [C99](https://packagecontrol.io/packages/C99)
 - [C Improved](https://packagecontrol.io/packages/C%20Improved)
-
-**Completions are only active if the current file includes "unity.h"**
 
 ### Unit Test Function Templates
 
@@ -192,28 +188,28 @@ Unit test method function templates are active when the caret is outside a funct
 | `testf` | unit test function template with TEST_FAIL(message) |
 
 ### Assert Completions
+Unity `test assert` snippets are active when the caret is positioned within a function body. 
 
-To improve response the completions are partly filtered based on the shortcut sequence.
+Snippets are triggered by abbreviation of the assert name.
+With few exceptions the trigger is the first letter of each word in the name, ignoring the `t`est.
 
-Assert completions are active when the caret is within a function body.
-
-Some types require more than one character to disambiguate the completion. Completions pop-up will show `Ceedling: ambiguous match...` indicating more input is required.
-
-In some cases Sublime Text's completion filtering will prevent matching on two characters. For example `double within` may require use of `dwi` rather than `dw`.
-
+Abbreviations can resolve to more than one snippet.
+`aem` is used for `assert_empty_message`, `assert_equal_message` and `assert_equal_memory`. 
 
 #### Basic fail and ignore
 | Shortcut  | Assertion |
 |:--|:--|
 | `pa` | `TEST_PASS` |
+| `pam` | `TEST_PASS_MESSAGE` |
 | `fa` | `TEST_FAIL` |
+| `fam` | `TEST_FAIL_MESSAGE` |
 | `ig` | `TEST_IGNORE` |
+| `igm` | `TEST_IGNORE_MESSAGE` |
 
 #### `boolean` types
-
 | Shortcut | Assertion  |
 |:--|:--|
-| `atr` | `TEST_ASSERT_TRUE` |
+| `at` | `TEST_ASSERT_TRUE` |
 | `au` | `TEST_ASSERT_UNLESS` |
 | `af` | `TEST_ASSERT_FALSE` |
 | `an` | `TEST_ASSERT_NULL` |
@@ -226,16 +222,16 @@ In some cases Sublime Text's completion filtering will prevent matching on two c
 #### `integer` types
 | Shortcut | Assertion |
 |:--|:--|
-|`ex` | TEST_ASSERT_EQUAL_X |
-|`eex` | TEST_ASSERT_EACH_EQUAL_X |
-|`gx` | TEST_ASSERT_GREATER_THAN_X |
-|`gox` | TEST_ASSERT_GREATER_OR_EQUAL_X |
-|`lx` | TEST_ASSERT_LESS_THAN_X |
-|`lox` | TEST_ASSERT_LESS_OR_EQUAL_X |
-|`nex` | TEST_ASSERT_NOT_EQUAL_X |
-|`xw` | TEST_ASSERT_X_WITHIN |
-|`xa` | TEST_ASSERT_EQUAL_X_ARRAY |
-|`xaw` | TEST_ASSERT_X_ARRAY_WITHIN |
+|`aex` | TEST_ASSERT_EQUAL_X |
+|`aeex` | TEST_ASSERT_EACH_EQUAL_X |
+|`agtx` | TEST_ASSERT_GREATER_THAN_X |
+|`agoex` | TEST_ASSERT_GREATER_OR_EQUAL_X |
+|`altx` | TEST_ASSERT_LESS_THAN_X |
+|`aloex` | TEST_ASSERT_LESS_OR_EQUAL_X |
+|`anex` | TEST_ASSERT_NOT_EQUAL_X |
+|`axw` | TEST_ASSERT_X_WITHIN |
+|`aexa` | TEST_ASSERT_EQUAL_X_ARRAY |
+|`axaw` | TEST_ASSERT_X_ARRAY_WITHIN |
 
 Where `x` is:
 - `i`, `i8`, `i16`, `i32`, `i64`
@@ -247,10 +243,10 @@ Where `x` is:
 #### `double` and `float` types
 | Shortcut | Assertion |
 |:--|:--|
-|`xw` | TEST_ASSERT_X_WITHIN |
-|`ex` | TEST_ASSERT_EQUAL_X  |
-|`exa` | TEST_ASSERT_EQUAL_X_ARRAY |
-|`eex` | TEST_ASSERT_EACH_EQUAL_X |
+|`axw` | TEST_ASSERT_X_WITHIN |
+|`aex` | TEST_ASSERT_EQUAL_X  |
+|`aexa` | TEST_ASSERT_EQUAL_X_ARRAY |
+|`aeex` | TEST_ASSERT_EACH_EQUAL_X |
 
 Where `x` is:
 - `d`: double
@@ -260,9 +256,9 @@ Where `x` is:
 #### `struct` and `string` types
 | Shortcut | Assertion |
 |:--|:--|
-|`eex` | TEST_ASSERT_EACH_EQUAL_X |
-|`ex`  | TEST_ASSERT_EQUAL_X |
-|`exa` | TEST_ASSERT_EQUAL_X_ARRAY |
+|`aeex` | TEST_ASSERT_EACH_EQUAL_X |
+|`aex`  | TEST_ASSERT_EQUAL_X |
+|`aexa` | TEST_ASSERT_EQUAL_X_ARRAY |
 
 Where `x` is:
 - `p`: pointer
@@ -276,13 +272,7 @@ Append `ms` to a shortcut to access the message variant.
 
 ## Todo
 
-- completions for `Float` and `Double`
-- completions for `bits` types
-- completions for `CMock`
-
-## Previous version features currently missing
-
-* ~~Snippets for CMock mocks~~
-    * ~~FuncBeingMocked.e + [TAB] => FuncBeingMocked_Expect(<parameters>)~~
-    * ~~FuncBeingMocked.er + [TAB] => FuncBeingMocked_ExpectAndReturn(<parameters>)~~
+[x] snippets for `Float` and `Double`
+[x] snippets for `bits` types
+[] snippets for `CMock`
 

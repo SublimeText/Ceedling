@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_ASSERT_UNLESS(${1:condition})
+TEST_ASSERT_UNLESS(${1:condition});
 ]]></content>
 <tabTrigger>au</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>

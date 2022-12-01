@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_ASSERT_DOUBLE_IS_NOT_DETERMINATE(${1:actual})
+TEST_ASSERT_DOUBLE_IS_NOT_DETERMINATE(${1:actual});
 ]]></content>
 <tabTrigger>adind</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>

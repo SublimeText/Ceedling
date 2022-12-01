@@ -1,6 +1,6 @@
 <snippet>
 <content><![CDATA[
-TEST_ASSERT_FLOAT_IS_NOT_NEG_INF_MESSAGE(${1:actual}, ${2:message})
+TEST_ASSERT_FLOAT_IS_NOT_NEG_INF_MESSAGE(${1:actual}, "${2:message}");
 ]]></content>
 <tabTrigger>afinnim</tabTrigger>
 <scope>(source.c | source.c++ | source.c99) (meta.function & meta.block)</scope>
