@@ -222,16 +222,16 @@ Abbreviations can resolve to more than one snippet.
 #### `integer` types
 | Shortcut | Assertion |
 |:--|:--|
-|`aex` | TEST_ASSERT_EQUAL_X |
-|`aeex` | TEST_ASSERT_EACH_EQUAL_X |
-|`agtx` | TEST_ASSERT_GREATER_THAN_X |
-|`agoex` | TEST_ASSERT_GREATER_OR_EQUAL_X |
-|`altx` | TEST_ASSERT_LESS_THAN_X |
-|`aloex` | TEST_ASSERT_LESS_OR_EQUAL_X |
-|`anex` | TEST_ASSERT_NOT_EQUAL_X |
-|`axw` | TEST_ASSERT_X_WITHIN |
-|`aexa` | TEST_ASSERT_EQUAL_X_ARRAY |
-|`axaw` | TEST_ASSERT_X_ARRAY_WITHIN |
+|`aex` | `TEST_ASSERT_EQUAL_X` |
+|`aeex` | `TEST_ASSERT_EACH_EQUAL_X` |
+|`agtx` | `TEST_ASSERT_GREATER_THAN_X` |
+|`agoex` | `TEST_ASSERT_GREATER_OR_EQUAL_X` |
+|`altx` | `TEST_ASSERT_LESS_THAN_X` |
+|`aloex` | `TEST_ASSERT_LESS_OR_EQUAL_X` |
+|`anex` | `TEST_ASSERT_NOT_EQUAL_X` |
+|`axw` | `TEST_ASSERT_X_WITHIN` |
+|`aexa` | `TEST_ASSERT_EQUAL_X_ARRAY` |
+|`axaw` | `TEST_ASSERT_X_ARRAY_WITHIN` |
 
 Where `x` is:
 - `i`, `i8`, `i16`, `i32`, `i64`
@@ -243,10 +243,10 @@ Where `x` is:
 #### `double` and `float` types
 | Shortcut | Assertion |
 |:--|:--|
-|`axw` | TEST_ASSERT_X_WITHIN |
-|`aex` | TEST_ASSERT_EQUAL_X  |
-|`aexa` | TEST_ASSERT_EQUAL_X_ARRAY |
-|`aeex` | TEST_ASSERT_EACH_EQUAL_X |
+|`axw` | `TEST_ASSERT_X_WITHIN` |
+|`aex` | `TEST_ASSERT_EQUAL_X`  |
+|`aexa` | `TEST_ASSERT_EQUAL_X_ARRAY` |
+|`aeex` | `TEST_ASSERT_EACH_EQUAL_X` |
 
 Where `x` is:
 - `d`: double
@@ -256,9 +256,9 @@ Where `x` is:
 #### `struct` and `string` types
 | Shortcut | Assertion |
 |:--|:--|
-|`aeex` | TEST_ASSERT_EACH_EQUAL_X |
-|`aex`  | TEST_ASSERT_EQUAL_X |
-|`aexa` | TEST_ASSERT_EQUAL_X_ARRAY |
+|`aeex` | `TEST_ASSERT_EACH_EQUAL_X` |
+|`aex`  | `TEST_ASSERT_EQUAL_X` |
+|`aexa` | `TEST_ASSERT_EQUAL_X_ARRAY` |
 
 Where `x` is:
 - `p`: pointer
@@ -272,7 +272,7 @@ Append `ms` to a shortcut to access the message variant.
 
 ## Todo
 
-[x] snippets for `Float` and `Double`
-[x] snippets for `bits` types
-[] snippets for `CMock`
+- [x] snippets for `Float` and `Double`
+- [x] snippets for `bits` types
+- [] snippets for `CMock`
 
