@@ -191,10 +191,11 @@ Unit test method function templates are active when the caret is outside a funct
 Unity `test assert` snippets are active when the caret is positioned within a function body. 
 
 Snippets are triggered by abbreviation of the assert name.
-With few exceptions the trigger is the first letter of each word in the name, ignoring the `t`est.
+With few exceptions the trigger is the first letter of each word in the name, ignoring the test prefix.
 
 Abbreviations can resolve to more than one snippet.
-`aem` is used for `assert_empty_message`, `assert_equal_message` and `assert_equal_memory`. 
+`aem` is used for `assert_empty_message`, `assert_equal_message` and `assert_equal_memory`.
+Adding extra characters to the trigger doesn't make the issue significantly better, and adds unnecessary keystrokes. Pick the desired option from the completions pop-up and move on.
 
 #### Basic fail and ignore
 | Shortcut  | Assertion |
