@@ -274,5 +274,5 @@ Append `ms` to a shortcut to access the message variant.
 
 - [x] snippets for `Float` and `Double`
 - [x] snippets for `bits` types
-- [] snippets for `CMock`
+- [ ] snippets for `CMock`
 
