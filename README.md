@@ -189,12 +189,12 @@ Unit test method function templates are active when the caret is outside a funct
 
 ### Assert Completions
 
-Unity `test assert` snippets are provided by the `Unity-C` package.
+Unity `test assert` snippets are provided by the `unity-test-c` package.
 
-`Unity-C` is installed along with `Ceedling` when using `Package Control`.
+`unity-test-c` is installed along with `Ceedling` when using `Package Control`.
 
-If installing Ceedling manually you'll need to also install `Unity-C`:
+If installing Ceedling manually you'll need to also install `unity-for-c`:
 
-- [Unity-C for Sublime Text 3](https://github.com/pajacobson/unity-c/tree/st3)
-- [Unity-C for Sublime Text 4](https://github.com/pajacobson/unity-c)
+- [Unity-Test-C for Sublime Text 3](https://github.com/pajacobson/unity-test-c/tree/st3)
+- [Unity-Test-C for Sublime Text 4](https://github.com/pajacobson/unity-test-c)
 
