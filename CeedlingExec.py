@@ -30,7 +30,11 @@ class CeedlingExecCommand(_ExecCommand):
                 variables.get("file_extension")
                 not in (self.conf.source_ext, self.conf.header_ext)
             ):
-                print("Nothing to test.")
+                self.window.status_message(
+                    "Ceedling: Cannot test {}".format(
+                        variables.get("file_name", "nothing")
+                    )
+                )
                 return
 
         task_sub = [
