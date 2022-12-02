@@ -25,12 +25,13 @@ class CeedlingExecCommand(_ExecCommand):
         variables = self.window.extract_variables()
 
         # Check if the user is attempting to build an unsupported file.
-        if variables.get("file_extension") not in (
-            self.conf.source_ext,
-            self.conf.header_ext,
-        ) and any(i.find("$file") != -1 for i in kwargs.get("tasks")):
-            print("File cannot be compiled.")
-            return
+        if any(i.find("$file") != -1 for i in kwargs.get("tasks")):
+            if variables.get("file_name") is None or (
+                variables.get("file_extension")
+                not in (self.conf.source_ext, self.conf.header_ext)
+            ):
+                print("Nothing to test.")
+                return
 
         task_sub = [
             sublime.expand_variables(task, variables)
