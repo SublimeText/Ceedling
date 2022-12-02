@@ -40,6 +40,7 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
 
     def on_done(self, view, options, path):
         """Handler for onDone event."""
+
         path = os.path.normpath(path)
         pfolder = os.path.abspath(os.path.expanduser(path))
         project_dir, project_name = os.path.split(pfolder)

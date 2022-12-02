@@ -1,11 +1,13 @@
 # Ceedling for Sublime Text 3+
 
+Ceedling is a set of tools and libraries for testing and building C applications.
+This package adds support to Sublime Text 3+ for developing C applications using Ceedling.
+
 The Ceedling for Sublime Text package has been substantially rewritten and currently supports:
 
 - Sublime Text 3+
 - Ceedling gem v0.28.1 or later
 
-The package has been developed on macOS, and tested on Windows 10 and Ubuntu 22.04 LTS.
 
 ## Important Note
 
