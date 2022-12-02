@@ -4,18 +4,20 @@ import sublime
 import sublime_plugin
 
 
+# Taken from https://github.com/SublimeText/PackageDev/blob/master/plugins/create_package.py#L47
+def open_new_window():
+    sublime.run_command("new_window")
+    new_window = sublime.active_window()
+    return new_window
+
+
 class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
     """Create new Ceedling project directory."""
 
     def run(self, options=[]):
 
-        window = self.window
-        view = self.window.active_view()
-        active = sublime.active_window()
-
-        if active.views() or active.project_data():
-            sublime.error_message("New Project requires a new, empty window.")
-            return
+        window = open_new_window()
+        view = window.active_view()
 
         plugin_settings = sublime.load_settings("Ceedling.sublime-settings")
 
