@@ -37,6 +37,11 @@ class CeedlingCreateModuleCommand(sublime_plugin.WindowCommand):
         )
         window.status_message("Created {}: {}".format(module, text))
 
+        # Windows/Linux need folder listing refresh
+        sublime.set_timeout_async(
+            lambda: window.run_command("refresh_folder_list"), 3500
+        )
+
 
 class CeedlingDestroyModuleCommand(sublime_plugin.WindowCommand):
     def run(self, **kwargs):
@@ -86,6 +91,11 @@ class CeedlingDestroyModuleCommand(sublime_plugin.WindowCommand):
         self.window.run_command(
             "ceedling_exec",
             {"tasks": ["module:destroy[{}]".format(module_name)]},
+        )
+
+        # Windows/Linux need folder listing refresh
+        sublime.set_timeout_async(
+            lambda: window.run_command("refresh_folder_list"), 3500
         )
 
     def _find_clones(self, view):
