@@ -75,8 +75,9 @@ class CeedlingDestroyModuleCommand(sublime_plugin.WindowCommand):
         for i in ("test", "source", "include"):
             f = self.pathbuilder.build_path(i, module_name)
             v = self.window.find_open_file(f)
+
             if v is not None:
-                viewlist = v.clones()
+                viewlist = self._find_clones(v)
                 viewlist.append(v)
                 for vi in viewlist:
                     vi.set_scratch(True)
@@ -86,3 +87,19 @@ class CeedlingDestroyModuleCommand(sublime_plugin.WindowCommand):
             "ceedling_exec",
             {"tasks": ["module:destroy[{}]".format(module_name)]},
         )
+
+    def _find_clones(self, view):
+        """Return view id of cloned windows."""
+
+        if int(sublime.version()) >= 4080:
+            return view.clones()
+        else:
+            clones = []
+            for window in sublime.windows():
+                for _view in window.views():
+                    if (
+                        _view.buffer_id() == view.buffer_id()
+                        and view.id() != _view.id()
+                    ):
+                        clones.append(_view)
+            return clones
