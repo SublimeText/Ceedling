@@ -53,22 +53,20 @@ class CeedlingDestroyModuleCommand(sublime_plugin.WindowCommand):
             self.window.status_message("Ceedling: %s" % e)
             return
 
-        name_parts = self.pathbuilder.split_name(
+        base_name = self.pathbuilder.split_name(
             variables.get("file_name", "")
-        )
+        ).get("base")
 
-        if name_parts is None or name_parts.get("base") is None:
+        if base_name is None:
             sublime.error_message("Cannot destroy current selection")
             return None
 
         if sublime.ok_cancel_dialog(
-            "Remove all test and source files for {}?".format(
-                name_parts.get("base")
-            ),
+            "Remove all test and source files for {}?".format(base_name),
             ok_title="Destroy",
             title="Destroying module",
         ):
-            self._destroy(name_parts.get("base"))
+            self._destroy(base_name)
         else:
             return None
 
