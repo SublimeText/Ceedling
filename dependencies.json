@@ -1,8 +1,7 @@
 {
    "*": {
       "*": [
-         "pyyaml",
-         "unity-test-c"
+         "pyyaml"
       ]
    }
 }
