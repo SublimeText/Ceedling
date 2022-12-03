@@ -3,15 +3,12 @@
 Ceedling is a set of tools and libraries for testing and building C applications.
 This package adds support to Sublime Text 3+ for developing C applications using Ceedling.
 
-The Ceedling for Sublime Text package has been substantially rewritten and currently supports:
-
-- Sublime Text 3+
-- Ceedling gem v0.28.1 or later
-
 
 ## Important Note
 
-This update has breaking changes with the previous version and no longer supports invoking commands using `rake`.
+Ceedling for Sublime Text 3+ is a complete rewrite of the orginal Ceedling package.
+
+Ceedling for Sublime Text 3+ contains breaking changes with the original Sublime Text 2 version and no longer supports invoking commands using `rake`.
 
 This reflects changed behaviour introduced in v0.28.1 of the Ceedling gem:
 
@@ -22,7 +19,7 @@ This reflects changed behaviour introduced in v0.28.1 of the Ceedling gem:
 Refer to [CeedlingUpgrade.md](https://github.com/ThrowTheSwitch/Ceedling/blob/master/docs/CeedlingUpgrade.md) for details.
 
 
-## Additional Requirements
+## Requirements
 To use the Ceedling plugin you'll need:
 - Ruby version supported by Ceedling (3.0.x recommended)
 - GCC compiler for default builds
