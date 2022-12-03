@@ -43,12 +43,13 @@ class CeedlingDestroyModuleCommand(sublime_plugin.WindowCommand):
         variables = self.window.extract_variables()
 
         if variables.get("file_name") is None:
-            sublime.error_message("Cannot destroy nothing.")
+            sublime.error_message("Nothing to destroy.")
             return None
 
         try:
             self.conf = CeedlingProjectSettings(self.window)
             self.pathbuilder = CeedlingPathBuilder(self.conf)
+
         except OSError as e:
             self.window.status_message("Ceedling: %s" % e)
             return
@@ -58,7 +59,7 @@ class CeedlingDestroyModuleCommand(sublime_plugin.WindowCommand):
         ).get("base")
 
         if base_name is None:
-            sublime.error_message("Cannot destroy current selection")
+            sublime.error_message("Cannot destroy selected file.")
             return None
 
         if sublime.ok_cancel_dialog(
