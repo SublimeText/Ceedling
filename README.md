@@ -131,22 +131,7 @@ Select variants using `Control-Shift-B` (Windows, Linux) /`Command-Shift-B` (mac
 Run last selected build variant using `Control-B` (Windows, Linux) / `Command-B`(macOS).
 
 
-### Key mappings
 
-Note: key mappings are disabled by default.
-
-| Key command | Function |
-|:--|:--|
-|`ctrl+super-h` | Open Header File |
-|`ctrl+super-s` | Open Source File |
-|`ctrl+super-t` | Open Test File |
-|`ctrl+super-.` | Open Module Files in 2 column layout |
-|`ctrl+super-right` | Cycle through module files |
-
-
-To use these key mappings go to `Preferences » Package Settings » Ceedling » Key Bindings`. Copy the commented bindings from the left panel to the User `Default.sublime-keymap` on the right and uncomment by selecting then `Edit » Comments » Toggle Block Comments`.
-
-See the [Key Bindings](https://www.sublimetext.com/docs/key_bindings.html) documetation for more information on setting key assignments.
 
 ### Commands
 
@@ -166,6 +151,25 @@ See the [Key Bindings](https://www.sublimetext.com/docs/key_bindings.html) docum
 | Ceedling: Test Summary | Print summary of previously run tests |
 | Ceedling: Version | Print version information for ceedling used in current project. |
 | Ceedling: Environment | Display ENV variables set by ceedling |
+
+
+### Key mappings
+
+Note: key mappings are disabled by default.
+
+| Key command | Function |
+|:--|:--|
+|`ctrl+super-h` | Open Header File |
+|`ctrl+super-s` | Open Source File |
+|`ctrl+super-t` | Open Test File |
+|`ctrl+super-.` | Open Module Files in 2 column layout |
+|`ctrl+super-right` | Cycle through module files |
+
+
+To use these key mappings go to `Preferences » Package Settings » Ceedling » Key Bindings`. Copy the commented bindings from the left panel to the User `Default.sublime-keymap` on the right and uncomment by selecting then `Edit » Comments » Toggle Block Comments`.
+
+See the [Key Bindings](https://www.sublimetext.com/docs/key_bindings.html) documetation for more information on setting key assignments.
+
 
 ## Snippets
 
