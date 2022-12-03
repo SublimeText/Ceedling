@@ -142,6 +142,7 @@ Run last selected build variant using `Control-B` (Windows, Linux) / `Command-B`
 | Ceedling: Clean Project | `ceedling clean` |
 | Ceedling: Clobber Project | `ceedling clobber`|
 | Ceedling: Create New Module | `ceedling create:module name`|
+| Ceedling: Destroy Current Module | Closes all views for test, source and header files associated with current file then calls `ceedling destroy:module name`|
 | Ceedling: Open Module Header | Opens header for current module |
 | Ceedling: Open Module Source | Opens source for current module |
 | Ceedling: Open Module Test | Open test for current module |
