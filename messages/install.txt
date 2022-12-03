@@ -1,0 +1,28 @@
+# Ceedling for Sublime Text 3+
+
+Ceedling is a set of tools and libraries for testing and building C applications.
+This package adds support to Sublime Text 3+ for developing C applications using Ceedling.
+
+
+## Important Note
+
+Ceedling for Sublime Text 3+ contains breaking changes with the original Sublime Text 2 version.
+
+Most significantly, Ceedling for Sublime Text 3+ no longer supports invoking commands using `rake`.
+
+This reflects changed behaviour introduced in v0.28.1 of the Ceedling gem:
+
+> Using a modern version of Ceedling means that you issue commands like ceedling test:all instead of rake test:all. If you have a continuous integration server or other calling service, it may need to be updated to comply.
+
+> Similarly, older versions of Ceedling actually placed a rakefile in the project directory, allowing the project to customize its own flow. For the most part this went unused and better ways were later introduced. At this point, the rakefile is more trouble than its worth and often should just be removed.
+
+Refer to [CeedlingUpgrade.md](https://github.com/ThrowTheSwitch/Ceedling/blob/master/docs/CeedlingUpgrade.md) for details.
+
+Additional breaking changes include:
+- No key mappings enabled by default
+- Build command is now used to run tests
+- Completions use the initials of the test name starting from `assert`
+
+See:
+https://github.com/SublimeText/Ceedling#readme
+https://github.com/pajacobson/unity-test-c/
