@@ -9,7 +9,6 @@ from .CeedlingSettings import CeedlingProjectSettings
 
 class CeedlingExecCommand(_ExecCommand):
     def run(self, **kwargs):
-
         # "working_dir" is set by "new project" command.
         #  project.xml does not exist unit project is created.
         if kwargs.get("working_dir") is None:
