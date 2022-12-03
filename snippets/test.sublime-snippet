@@ -1,0 +1,12 @@
+<snippet>
+    <content><![CDATA[
+void test_${1:function}_should_${2:behavior}(void)
+{
+	${3}
+}
+
+]]></content>
+    <tabTrigger>test</tabTrigger>
+    <scope>(source.c | source.c++ | source.c99) - meta.function</scope>
+    <description>Ceedling test template</description>
+</snippet>

@@ -1,10 +1,4 @@
 {
-	"folder_exclude_patterns": [".svn", ".git", ".hg", "CVS", "*.pyc", "*.pyo", "*.exe", "*.dll", "*.obj", "*.o", "*.a", "*.lib", "*.so", "*.dylib", "*.ncb", "*.sdf", "*.suo", "*.pdb", "*.idb", ".DS_Store", "*.pdf", "*.d", "*.pass", "*.fail", "*.cs", "*.wlua", "*.chm", "*.cmdset", "mock_*", "*_runner.c", "mocks", "*runners", "preprocess", "dependencies", "temp", "cache", "out", "results", "Documents", "Logs", "commandsets", "E10A_SH2_Emulator", "perl", "mingw", "ruby", "srec_utils", "VBF_Converter"],
-	"new_window_settings":
-	{
-		"side_bar_visible": true,
-		"status_bar_visible": true,
-		"show_tabs": true,
-		"show_minimap": false
-	}
+	"default_project_folder": "~",
+	"project_options": []
 }

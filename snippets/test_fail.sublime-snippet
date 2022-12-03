@@ -1,0 +1,12 @@
+<snippet>
+    <content><![CDATA[
+void test_${1:function}_should_${2:behavior}(void)
+{
+    TEST_FAIL_MESSAGE("${3:Implement me!}");
+}
+
+]]></content>
+    <tabTrigger>testf</tabTrigger>
+    <scope>(source.c | source.c++ | source.c99) - meta.function</scope>
+    <description>Ceedling test fail template </description>
+</snippet>

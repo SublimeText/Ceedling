@@ -1,39 +1,123 @@
 [
-    { "caption": "Ceedling: Clean Project",
-        "command": "rake", "args": { "tasks": ["clobber"] } },
-    { "caption": "Ceedling: Test Current Module",
-        "command": "rake", "args": { "tasks": ["test:$file_name"] } },
-    { "caption": "Ceedling: Test Changed Modules",
-        "command": "rake", "args": { "tasks": ["test:delta"] } },
-    { "caption": "Ceedling: Test All Modules",
-        "command": "rake", "args": { "tasks": ["test:all"] } },
-    { "caption": "Ceedling: Build Release",
-        "command": "rake", "args": { "tasks": ["release"] } },
-    { "caption": "Ceedling: Default Build",
-        "command": "rake", "args": { "tasks": ["default"] } },
-    
-    { "caption": "Ceedling: Open Test and Source",
-        "command": "open_ceedling_file",
-        "args": { "option": "test_and_source" } },
-    { "caption": "Ceedling: Open Next Module File",
-        "command": "open_ceedling_file",
-        "args": { "option": "next" } },
-    { "caption": "Ceedling: Open Module Header",
-        "command": "open_ceedling_file",
-        "args": { "option": "header" } },
-    { "caption": "Ceedling: Open Module Source",
-        "command": "open_ceedling_file",
-        "args": { "option": "source" } },
-    { "caption": "Ceedling: Open Module Test",
-        "command": "open_ceedling_file",
-        "args": { "option": "test" } },
-
-    { "caption": "Ceedling: Edit Project Configuration",
-        "command": "open_ceedling_file",
-        "args": { "option": "config" } },
-    { "caption": "Ceedling: Create New Module", 
-        "command": "create_ceedling_module" },
-    { "caption": "Ceedling: Complete Active Module",
-        "command": "rake",
-        "args": { "tasks": ["module:create[$file]"] } }
+    {
+        "caption": "Ceedling: New Project",
+        "command": "ceedling_create_project",
+        "args": {
+            "options": []
+        }
+    },
+    {
+        "caption": "Ceedling: New Project (Local)",
+        "command": "ceedling_create_project",
+        "args": {
+            "options": [
+                "--local"
+            ]
+        }
+    },
+    {
+        "caption": "Ceedling: Clean Project",
+        "command": "ceedling_exec",
+        "args": {
+            "tasks": [
+                "clean"
+            ]
+        }
+    },
+    {
+        "caption": "Ceedling: Clobber Project",
+        "command": "ceedling_exec",
+        "args": {
+            "tasks": [
+                "clobber"
+            ]
+        }
+    },
+    {
+        "caption": "Ceedling: Open Module Files",
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "test_and_source"
+        }
+    },
+    {
+        "caption": "Ceedling: Open Next Module File",
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "next"
+        }
+    },
+    {
+        "caption": "Ceedling: Open Module Header",
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "header"
+        }
+    },
+    {
+        "caption": "Ceedling: Open Module Source",
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "source"
+        }
+    },
+    {
+        "caption": "Ceedling: Open Module Test",
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "test"
+        }
+    },
+    {
+        "caption": "Ceedling: Edit Project Configuration",
+        "command": "ceedling_open_file",
+        "args": {
+            "option": "config"
+        }
+    },
+    {
+        "caption": "Ceedling: Create New Module",
+        "command": "ceedling_create_module",
+        "args": {
+            "action": "create"
+        }
+    },
+    {
+        "caption": "Ceedling: Create Stub",
+        "command": "ceedling_create_module",
+        "args": {
+            "action": "stub"
+        }
+    },
+    {
+        "caption": "Ceedling: Destroy Current Module",
+        "command": "ceedling_destroy_module",
+    },
+    {
+        "caption": "Ceedling: Test Summary",
+        "command": "ceedling_exec",
+        "args": {
+            "tasks": [
+                "summary"
+            ]
+        }
+    },
+    {
+        "caption": "Ceedling: Version",
+        "command": "ceedling_exec",
+        "args": {
+            "tasks": [
+                "version"
+            ]
+        }
+    },
+    {
+        "caption": "Ceedling: Environment",
+        "command": "ceedling_exec",
+        "args": {
+            "tasks": [
+                "environment"
+            ]
+        }
+    }
 ]
