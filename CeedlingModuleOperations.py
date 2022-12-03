@@ -39,7 +39,7 @@ class CeedlingCreateModuleCommand(sublime_plugin.WindowCommand):
 
         # Windows/Linux need folder listing refresh
         sublime.set_timeout_async(
-            lambda: window.run_command("refresh_folder_list"), 3500
+            lambda: window.run_command("refresh_folder_list"), 2000
         )
 
 
@@ -95,7 +95,7 @@ class CeedlingDestroyModuleCommand(sublime_plugin.WindowCommand):
 
         # Windows/Linux need folder listing refresh
         sublime.set_timeout_async(
-            lambda: window.run_command("refresh_folder_list"), 3500
+            lambda: window.run_command("refresh_folder_list"), 2000
         )
 
     def _find_clones(self, view):
