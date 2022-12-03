@@ -26,7 +26,6 @@ To use the Ceedling plugin you'll need:
 - Ceedling 0.28.1 or later (tested with 0.31.1)
 
 ## Installation
-
 ### Plugin
 The preferred method of installing the Ceedling for ST3+ plugin is using [Package Control](https://packagecontrol.io/installation).
 
@@ -197,7 +196,7 @@ Unity `test assert` snippets are provided by the `unity-test-c` package.
 
 `unity-test-c` is installed along with `Ceedling` when using `Package Control`.
 
-If installing Ceedling manually you'll need to also install `unity-for-c`:
+If installing Ceedling manually you'll want to install `unity-for-c` too:
 
 - [Unity-Test-C for Sublime Text 3](https://github.com/pajacobson/unity-test-c/tree/st3)
 - [Unity-Test-C for Sublime Text 4](https://github.com/pajacobson/unity-test-c)
