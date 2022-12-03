@@ -65,7 +65,6 @@ class CeedlingDestroyModuleCommand(sublime_plugin.WindowCommand):
         if sublime.ok_cancel_dialog(
             "Remove all test and source files for {}?".format(base_name),
             ok_title="Destroy",
-            title="Destroying module",
         ):
             self._destroy(base_name)
         else:
