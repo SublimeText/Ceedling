@@ -90,6 +90,10 @@
         }
     },
     {
+        "caption": "Ceedling: Destroy Current Module",
+        "command": "ceedling_destroy_module",
+    },
+    {
         "caption": "Ceedling: Test Summary",
         "command": "ceedling_exec",
         "args": {
