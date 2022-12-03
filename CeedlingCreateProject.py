@@ -4,11 +4,11 @@ import sublime
 import sublime_plugin
 
 
-# Taken from https://github.com/SublimeText/PackageDev/blob/master/plugins/create_package.py#L47
+# Taken from:
+# https://github.com/SublimeText/PackageDev/blob/master/plugins/create_package.py#L47
 def open_new_window():
     sublime.run_command("new_window")
-    new_window = sublime.active_window()
-    return new_window
+    return sublime.active_window()
 
 
 class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
