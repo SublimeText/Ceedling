@@ -1,0 +1,4 @@
+# Ceedling for Sublime Text 3+
+
+## Changes
+- Temporarily adding completions until `unity-test-c` package is available on PackageControl
