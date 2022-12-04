@@ -6,8 +6,6 @@ This package adds support to Sublime Text 3+ for developing C applications using
 
 ## Important Note
 
-Ceedling for Sublime Text 3+ is a complete rewrite of the orginal Ceedling package.
-
 Ceedling for Sublime Text 3+ contains breaking changes with the original Sublime Text 2 version and no longer supports invoking commands using `rake`.
 
 This reflects changed behaviour introduced in v0.28.1 of the Ceedling gem:
@@ -190,14 +188,10 @@ Unit test method function templates are active when the caret is outside a funct
 | `testi` | unit test function template with TEST_IGNORE(message) |
 | `testf` | unit test function template with TEST_FAIL(message) |
 
+
 ### Assert Completions
+Unity test snippets are now provided by the `unity_test_completions` package.
 
-Unity `test assert` snippets are provided by the `unity-test-c` package.
-
-`unity-test-c` is installed along with `Ceedling` when using `Package Control`.
-
-If installing Ceedling manually you'll want to install `unity-for-c` too:
-
-- [Unity-Test-C for Sublime Text 3](https://github.com/pajacobson/unity-test-c/tree/st3)
-- [Unity-Test-C for Sublime Text 4](https://github.com/pajacobson/unity-test-c)
+This package is currently queued for addition to PackageControl.
+- [Unity Test Completions](https://github.com/pajacobson/unity_test_completions)
 

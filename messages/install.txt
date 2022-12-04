@@ -26,3 +26,9 @@ Additional breaking changes include:
 See:
 https://github.com/SublimeText/Ceedling#readme
 https://github.com/pajacobson/unity-test-c/
+
+v1.0.1
+
+# Changes
+- Temporarily adding completions until `unity-test-c` package is available on PackageControl
+
