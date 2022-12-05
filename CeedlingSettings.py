@@ -74,6 +74,11 @@ class CeedlingProjectSettings:
         """Return configured header file extension."""
         return self._cache_get("header_ext")
 
+    @property
+    def build_release(self):
+        """Return configured header file extension."""
+        return self._cache_get("build_release")
+
     def _cache_set(self, data):
         for k, v in data.items():
             self.settings.set(k, v)
@@ -134,7 +139,11 @@ class CeedlingProjectSettings:
                 "test": "test/**",
                 "includes": None,
             },
-            "project": {"build_root": "build", "test_file_prefix": "test_"},
+            "project": {
+                "build_root": "build",
+                "test_file_prefix": "test_",
+                "release_build": False,
+            },
             "extension": {"source": "c", "header": "h"},
         }
 
@@ -193,5 +202,6 @@ class CeedlingProjectSettings:
 
         # strip Ruby leading colons
         pf = re.sub(r":([a-z])", r"\1", pf)
+        pf = re.sub(r"([+-]):", r"\1", pf)
 
         return yaml.load(pf, Loader=yaml.SafeLoader)

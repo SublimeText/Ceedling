@@ -190,9 +190,9 @@ Unit test method function templates are active when the caret is outside a funct
 
 
 ### Unity Assert Completions
-Unity test snippets are now provided by the `unity_test_completions` package.
+Unity test snippets are now provided by the `Unity Test Completions` package.
 The package provides 467 snippets covering 99.79% of Unity tests.
 
-Unity Test Completions package is currently queued for addition to PackageControl.
+Unity Test Completions package can be installed using PackageControl.
 - [Unity Test Completions](https://github.com/pajacobson/unity_test_completions)
 
