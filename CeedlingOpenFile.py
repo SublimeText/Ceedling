@@ -53,12 +53,9 @@ class CeedlingPathBuilder:
         )
 
         if len(file_list) == 0:
-            self.window.status_message("No matching file")
-            return None
+            raise IOError("No matching file")
 
         elif len(file_list) > 1:
-            self.window.status_message("Ceedling: Multiple matching files.")
-
             print("Duplicate matches found:")
 
             for dup in file_list:

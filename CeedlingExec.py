@@ -22,17 +22,22 @@ class CeedlingExecCommand(_ExecCommand):
             kwargs["working_dir"] = self.conf.working_dir
 
         variables = self.window.extract_variables()
-
         # Check if the user is attempting to build an unsupported file.
-        if any(i.find("$file") != -1 for i in kwargs.get("tasks")):
-            if variables.get("file_name") is None or (
-                variables.get("file_extension")
-                not in (self.conf.source_ext, self.conf.header_ext)
+        for i in kwargs.get("tasks"):
+            if i.find("$file") != -1:
+                if variables.get("file_name") is None or (
+                    variables.get("file_extension")
+                    not in (self.conf.source_ext, self.conf.header_ext)
             ):
                 self.window.status_message(
                     "Ceedling: Cannot test {}".format(
                         variables.get("file_name", "nothing")
+                        )
                     )
+                    return
+            elif (i.find("release") != -1) and not self.conf.build_release:
+                sublime.error_message(
+                    "Release build is not configured.\nCheck project.yml"
                 )
                 return
 
