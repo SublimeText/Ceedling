@@ -1,0 +1,7 @@
+v1.0.2
+
+## Changes
+- `Unity Test Completions` are now on PackageControl and should be installed for best user experience.
+- Unity completions have removed from Ceedling package.
+- Trying to run a release build requires release_build: true in project.yml
+- bug fix: remove colon when prefixed by + or -
