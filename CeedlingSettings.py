@@ -202,5 +202,6 @@ class CeedlingProjectSettings:
 
         # strip Ruby leading colons
         pf = re.sub(r":([a-z])", r"\1", pf)
+        pf = re.sub(r"([+-]):", r"\1", pf)
 
         return yaml.load(pf, Loader=yaml.SafeLoader)
