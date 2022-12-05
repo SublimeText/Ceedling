@@ -28,10 +28,10 @@ class CeedlingExecCommand(_ExecCommand):
                 if variables.get("file_name") is None or (
                     variables.get("file_extension")
                     not in (self.conf.source_ext, self.conf.header_ext)
-            ):
-                self.window.status_message(
-                    "Ceedling: Cannot test {}".format(
-                        variables.get("file_name", "nothing")
+                ):
+                    self.window.status_message(
+                        "Ceedling: Cannot test {}".format(
+                            variables.get("file_name", "nothing")
                         )
                     )
                     return
