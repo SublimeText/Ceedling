@@ -32,8 +32,9 @@ With Package Control installed:
 - Select `Package Control: Install Packages`
 - Type `Ceedling`
 - Click the package listing to install.
+- Repeat the process to install `Unity Test Completions`
 
-When you launch Sublime Text, it will pick up the contents of this package so that you can consume the goodness that it provides.
+When you launch Sublime Text, it will pick up the contents of these package so that you can consume the goodness they provide.
 
 ## Functionality in Ceedling for Sublime Text 3+
 
@@ -48,8 +49,9 @@ When you launch Sublime Text, it will pick up the contents of this package so th
 1. Open the command palette (Tools > Command Palette) and type `cnp` to narrow down the options.
 1. Select `Ceedling: New Project` or `Ceedling: New Project (Local)`
 1. A new window will open
-1. Enter project folder location in the panel.\
-For example `~/projects/drsurly` will create a project folder `drsurly` within the `projects` folder.\
+1. Enter project folder location in the panel.
+
+	For example `~/projects/drsurly` will create a project folder `drsurly` within the `projects` folder.\
 `~` expands to the current user home directory.
 1. Hit return/enter.
 
@@ -171,25 +173,6 @@ See the [Key Bindings](https://www.sublimetext.com/docs/key_bindings.html) docum
 
 ## Snippets
 
-Snippets are scope sensitive and require use of a C/C++ syntax that correctly identifies function blocks.
-
-The snippets are known to work with:
-- Built-in Sublime Text `C` and `C++` syntaxes
-- [C99](https://packagecontrol.io/packages/C99)
-- [C Improved](https://packagecontrol.io/packages/C%20Improved)
-
-### Unit Test Function Templates
-
-Unit test method function templates are active when the caret is outside a function body.
-
-| Shortcut | Assertion |
-|:--|:--|
-| `test` | unit test function template |
-| `testi` | unit test function template with TEST_IGNORE(message) |
-| `testf` | unit test function template with TEST_FAIL(message) |
-
-
-### Unity Assert Completions
 Unity test snippets are now provided by the `Unity Test Completions` package.
 The package provides 467 snippets covering 99.79% of Unity tests.
 
