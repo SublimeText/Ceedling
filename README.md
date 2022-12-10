@@ -28,15 +28,23 @@ To use the Ceedling plugin you'll need:
 The preferred method of installing the Ceedling for ST3+ plugin is using [Package Control](https://packagecontrol.io/installation).
 
 With Package Control installed:
+
 - Open the command palette
 - Select `Package Control: Install Packages`
 - Type `Ceedling`
 - Click the package listing to install.
-- Repeat the process to install `Unity Test Completions`
+
+Unity test assert completions are now provided by the [`Unity Test Completions`](https://packagecontrol.io/packages/Unity%20Test%20Completions) package. This package is a recommended install.
+
+To install both packages in one step:
+- Open the command palatte
+- Select `Package Control: Advanced Install Packages`
+- Enter `Ceedling, Unity Test Completions` 
+- Hit return/enter
 
 When you launch Sublime Text, it will pick up the contents of these package so that you can consume the goodness they provide.
 
-## Functionality in Ceedling for Sublime Text 3+
+## Features
 
 ### New Project
 `New Project` comes in two flavours.
@@ -146,7 +154,7 @@ Run last selected build variant using `Control-B` (Windows, Linux) / `Command-B`
 | Ceedling: Open Module Source | Opens source for current module |
 | Ceedling: Open Module Test | Open test for current module |
 | Ceedling: Open Next Module File | Cycle through header, source and test for current module |
-| Ceedling: Open Module Files | Open all module files in 2 column layout |
+| Ceedling: Open Module Files | Open test, source, header files for the currently active file in 2 column layout |
 | Ceedling: Edit Project Configuration | Opens `project.yml` |
 | Ceedling: Test Summary | Print summary of previously run tests |
 | Ceedling: Version | Print version information for ceedling used in current project. |
