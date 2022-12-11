@@ -1,0 +1,10 @@
+## 1.0.5
+
+### Features
+- Add command to enable logging
+- Add command to enable verbose output
+- Add "index_exclude_patterns" to prevent supporting folders being indexed for completion hints
+
+### Fixes
+- Bugfix: Make build_release work
+

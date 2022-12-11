@@ -1,0 +1,3 @@
+{
+        "index_exclude_patterns": ["*.md", "runners", "vendor", "docs", "mock_*.c", "preprocess", "cache", "results", "artifacts", "release", "support", "simulation"]
+}
