@@ -35,7 +35,7 @@ class CeedlingExecCommand(_ExecCommand):
                         )
                     )
                     return
-            elif (i.find("release") != -1) and not self.conf.build_release:
+            elif i.startswith("release") and not self.conf.release_build:
                 sublime.error_message(
                     "Release build is not configured.\nCheck project.yml"
                 )

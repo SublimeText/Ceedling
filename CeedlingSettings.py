@@ -75,9 +75,9 @@ class CeedlingProjectSettings:
         return self._cache_get("header_ext")
 
     @property
-    def build_release(self):
+    def release_build(self):
         """Return configured header file extension."""
-        return self._cache_get("build_release")
+        return self._cache_get("release_build")
 
     def _cache_set(self, data):
         for k, v in data.items():
