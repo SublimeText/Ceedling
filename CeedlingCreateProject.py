@@ -2,7 +2,7 @@ import functools
 import os
 import sublime
 import sublime_plugin
-
+from .CeedlingSettings import CeedlingUserSettings
 
 # Taken from:
 # https://github.com/SublimeText/PackageDev/blob/master/plugins/create_package.py#L47
@@ -19,15 +19,13 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         window = open_new_window()
         view = window.active_view()
 
-        plugin_settings = sublime.load_settings("Ceedling.sublime-settings")
+        user_settings = CeedlingUserSettings()
 
-        self.default_parent = os.path.normpath(
-            plugin_settings.get("default_project_folder")
-        )
+        self.default_parent = user_settings.default_folder
 
-        options.extend(plugin_settings.get("project_options", ""))
+        options.extend(user_settings.project_options)
 
-        # Remove duplicates
+        # Remove any duplicate options
         options = list(set(options))
 
         window.show_input_panel(

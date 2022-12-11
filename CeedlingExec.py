@@ -2,15 +2,18 @@ import sys
 
 import sublime
 import sublime_plugin
+
 from Default.exec import ExecCommand as _ExecCommand
 
 from .CeedlingSettings import CeedlingProjectSettings
+from .CeedlingSettings import CeedlingUserSettings
 
 
 class CeedlingExecCommand(_ExecCommand):
     def run(self, **kwargs):
         # "working_dir" is set by "new project" command.
         #  project.xml does not exist unit project is created.
+
         if kwargs.get("working_dir") is None:
             try:
                 self.conf = CeedlingProjectSettings(self.window)
@@ -22,6 +25,8 @@ class CeedlingExecCommand(_ExecCommand):
             kwargs["working_dir"] = self.conf.working_dir
 
         variables = self.window.extract_variables()
+        settings = CeedlingUserSettings()
+
         # Check if the user is attempting to build an unsupported file.
         for i in kwargs.get("tasks"):
             if i.find("$file") != -1:
@@ -40,6 +45,18 @@ class CeedlingExecCommand(_ExecCommand):
                     "Release build is not configured.\nCheck project.yml"
                 )
                 return
+
+            if settings.logging & (
+                i.startswith("test") | i.startswith("release")
+            ):
+                kwargs["prefix"] = kwargs.get("prefix", list()) + ["logging"]
+
+            if settings.verbose & (
+                i.startswith("test") | i.startswith("release")
+            ):
+                kwargs["prefix"] = kwargs.get("prefix", list()) + [
+                    "verbosity[%d]" % settings.verbose_level
+                ]
 
         task_sub = [
             sublime.expand_variables(task, variables)
