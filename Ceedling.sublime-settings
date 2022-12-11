@@ -1,4 +1,7 @@
 {
 	"default_project_folder": "~",
-	"project_options": []
+	"project_options": [],
+	"logging": false,
+	"verbose": false,
+	"verbose_level": 4,
 }
