@@ -94,6 +94,20 @@
         "command": "ceedling_destroy_module",
     },
     {
+        "caption": "Ceedling: Toggle Logging",
+        "command": "ceedling_settings",
+        "args": {
+            "cmd": "toggle_logging"
+        }
+    },
+    {
+        "caption": "Ceedling: Toggle Verbose",
+        "command": "ceedling_settings",
+        "args": {
+            "cmd": "toggle_verbose"
+        }
+    },
+    {
         "caption": "Ceedling: Test Summary",
         "command": "ceedling_exec",
         "args": {
