@@ -147,7 +147,7 @@ Run last selected build variant using `Control-B` (Windows, Linux) / `Command-B`
 | Ceedling: New Project | `ceedling new name`|
 | Ceedling: New Project (Local) | `ceedling --local new name` |
 | Ceedling: Clean Project | `ceedling clean` |
-| Ceedling: Clobber Project | `ceedling clobber`|
+| Ceedling: Clobber Project | `ceedling clobber` Removes all generated files including logs |
 | Ceedling: Create New Module | `ceedling create:module name`|
 | Ceedling: Destroy Current Module | Closes all views for test, source and header files associated with current file then calls `ceedling destroy:module name`|
 | Ceedling: Open Module Header | Opens header for current module |
@@ -155,6 +155,8 @@ Run last selected build variant using `Control-B` (Windows, Linux) / `Command-B`
 | Ceedling: Open Module Test | Open test for current module |
 | Ceedling: Open Next Module File | Cycle through header, source and test for current module |
 | Ceedling: Open Module Files | Open test, source, header files for the currently active file in 2 column layout |
+| Ceedling: Toggle Logging | Toggle current logging setting |
+| Ceedling: Toggle Verbose | Toggle verbose output |
 | Ceedling: Edit Project Configuration | Opens `project.yml` |
 | Ceedling: Test Summary | Print summary of previously run tests |
 | Ceedling: Version | Print version information for ceedling used in current project. |
