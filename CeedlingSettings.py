@@ -2,6 +2,64 @@ import os
 import re
 
 import yaml
+import sublime
+import sublime_plugin
+
+
+class CeedlingUserSettings:
+    _settings = {}
+
+    def __init__(self):
+        self._settings = sublime.load_settings("Ceedling.sublime-settings")
+
+    def _write_settings(self):
+        sublime.save_settings("Ceedling.sublime-settings")
+
+    @property
+    def default_folder(self):
+        return os.path.normpath(
+            self._settings.get("default_project_folder", "~")
+        )
+
+    @property
+    def project_options(self):
+        return self._settings.get("project_options", "")
+
+    @property
+    def logging(self):
+        return self._settings.get("logging", False)
+
+    def toggle_logging(self):
+        self._settings.set("logging", not self.logging)
+        self._write_settings()
+
+    @property
+    def verbose(self):
+        return self._settings.get("verbose", False)
+
+    @property
+    def verbose_level(self):
+        return self._settings.get("verbose_level", 0)
+
+    def toggle_verbose(self):
+        self._settings.set("verbose", not self.verbose)
+        self._write_settings()
+
+
+class CeedlingSettingsCommand(sublime_plugin.WindowCommand):
+    def run(self, **kwargs):
+        cmd = kwargs.get("cmd")
+
+        if cmd is None:
+            return
+
+        settings = CeedlingUserSettings()
+
+        if cmd == "toggle_logging":
+            settings.toggle_logging()
+
+        elif cmd == "toggle_verbose":
+            settings.toggle_verbose()
 
 
 class CeedlingProjectSettings:
