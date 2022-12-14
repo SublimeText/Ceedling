@@ -76,7 +76,28 @@ class CeedlingCreateProjectCommand(sublime_plugin.WindowCommand):
         window.status_message("Created project: {}".format(project_name))
 
         sublime.active_window().set_project_data(
-            {"folders": [{"name": project_name, "path": path}]}
+            {
+                "folders": [
+                    {
+                        "name": project_name,
+                        "path": path,
+                        "binary_file_patterns": [
+                            "*.o",
+                            "*.elf",
+                            "*.hex",
+                            "*.out",
+                        ],
+                        "index_exclude_patterns": [
+                            "test/simulation/*",
+                            "build/*",
+                            "vendor/*",
+                            "docs/*",
+                            "project.yml",
+                            "ceedling",
+                        ],
+                    }
+                ]
+            }
         )
 
         # Windows/Linux need folder listing refresh

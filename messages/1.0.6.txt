@@ -1,3 +1,21 @@
 ## 1.0.6
 
 - Remove preference file as index_exclude_pattern were considered problematic.
+
+- Added binary_file_patterns and index_exclude_patterns to initial project.
+
+binary_file_patterns:
+    - "*.o",
+    - "*.elf"
+    - "*.hex"
+    - "*.out"
+
+index_exclude_patterns:
+    - "test/simulation/*"
+    - "build/*"
+    - "vendor/*"
+    - "docs/*"
+    - "project.yml"
+    - "ceedling"
+
+To add or remove exclusions edit the Project file.
