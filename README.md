@@ -23,6 +23,8 @@ To use the Ceedling plugin you'll need:
 - GCC compiler for default builds
 - Ceedling 0.28.1 or later (tested with 0.31.1)
 
+The project Wiki has additional information on [installing requirements](https://github.com/SublimeText/Ceedling/wiki/Installing-Ceedling-Requirements).
+
 ## Installation
 ### Plugin
 The preferred method of installing the Ceedling for ST3+ plugin is using [Package Control](https://packagecontrol.io/installation).
