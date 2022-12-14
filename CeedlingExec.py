@@ -3,17 +3,14 @@ import sys
 import sublime
 import sublime_plugin
 
-from Default.exec import ExecCommand as _ExecCommand
-
 from .CeedlingSettings import CeedlingProjectSettings
 from .CeedlingSettings import CeedlingUserSettings
 
 
-class CeedlingExecCommand(_ExecCommand):
+class CeedlingExecCommand(sublime_plugin.WindowCommand):
     def run(self, **kwargs):
         # "working_dir" is set by "new project" command.
         #  project.xml does not exist unit project is created.
-
         if kwargs.get("working_dir") is None:
             try:
                 self.conf = CeedlingProjectSettings(self.window)
@@ -78,4 +75,4 @@ class CeedlingExecCommand(_ExecCommand):
 
         kwargs["cmd"] = cmd
 
-        super().run(**kwargs)
+        self.window.run_command("exec", kwargs)
