@@ -3,12 +3,13 @@
 	"tasks": [
 		"test:$file_name"
 	],
-	"file_regex": "^\"(.*?)\", line\\s+([0-9]+)",
-	"line_regex": "^...*?:([0-9]*)",
+	"file_regex": "^\\[(.*?)\\]$",
+	"line_regex": "At line\\s\\(([0-9]*)\\)(\\:?\\s?(.*))?",
 	"selector": "source.c",
 	"cancel": {
 		"kill": true
 	},
+	"quiet": true,
 	"variants": [
 		{
 			"name": "Test All",
