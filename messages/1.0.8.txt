@@ -1,0 +1,7 @@
+## 1.0.8
+
+- Indexing exclusions made more specific.
+- Make output less noisy when tests fail
+- Fix output regex and default paths to make filenames and line numbers in build output clickable.
+
+Indexing exclusions are now project based. `Save project as` and then `Edit project`.
