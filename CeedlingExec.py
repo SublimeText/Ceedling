@@ -21,6 +21,13 @@ class CeedlingExecCommand(sublime_plugin.WindowCommand):
 
             kwargs["working_dir"] = self.conf.working_dir
 
+        if hasattr(self, "conf"):
+            test_dir = os.path.join(
+                self.conf.working_dir, self.conf.test[0].rstrip("*")
+            )
+        else:
+            test_dir = ""
+
         variables = self.window.extract_variables()
         settings = CeedlingUserSettings()
 
@@ -76,3 +83,6 @@ class CeedlingExecCommand(sublime_plugin.WindowCommand):
         kwargs["cmd"] = cmd
 
         self.window.run_command("exec", kwargs)
+        self.window.find_output_panel("exec").settings().set(
+            "result_base_dir", test_dir
+        )
