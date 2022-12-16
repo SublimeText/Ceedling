@@ -6,6 +6,21 @@ import sublime
 import sublime_plugin
 
 
+def read_ruby_yaml(file):
+    """Read project.yml configuration file.
+
+    parameters: project_file - path to project.yml
+    """
+    with open(file, "r") as f:
+        data = f.read()
+
+    # strip Ruby leading colons
+    data = re.sub(r":([a-z])", r"\1", data)
+    data = re.sub(r"([+-]):", r"\1", data)
+
+    return yaml.load(data, Loader=yaml.SafeLoader)
+
+
 class CeedlingUserSettings:
     _settings = {}
 
@@ -205,7 +220,7 @@ class CeedlingProjectSettings:
             "extension": {"source": "c", "header": "h"},
         }
 
-        config = self._read_yaml(project_file)
+        config = read_ruby_yaml(project_file)
         project_settings = {}
 
         try:
@@ -249,17 +264,3 @@ class CeedlingProjectSettings:
             raise KeyError(e)
 
         return project_settings
-
-    def _read_yaml(self, project_file):
-        """Read project.yml configuration file.
-
-        parameters: project_file - path to project.yml
-        """
-        with open(project_file, "r") as f:
-            pf = f.read()
-
-        # strip Ruby leading colons
-        pf = re.sub(r":([a-z])", r"\1", pf)
-        pf = re.sub(r"([+-]):", r"\1", pf)
-
-        return yaml.load(pf, Loader=yaml.SafeLoader)
